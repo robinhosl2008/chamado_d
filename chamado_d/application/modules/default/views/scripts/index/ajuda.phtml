@@ -1,0 +1,22 @@
+<div style="height: 500px;">
+<center>
+<?php $this->mensagem(); ?>
+    
+    <h2>ajuda</h2>
+    <div style="font-size:22px;text-align: justify;padding: 54px">
+    
+    <?php foreach($this->aResultado as $valor){ ?>    
+      <b style="color:red"><?php echo $valor ?></b> <br>    
+    <?php } ?>
+    
+    <br>
+    <b><?php echo $this->nome; ?></b>
+       <p>
+            O e-SUS Report  tem por finalidade a disponibilização de informações que darão apoio à decisão nas diversas instâncias de gestão dos hospitais federais que utilizam o sistema e-SUS Hospitalar.
+       </p>
+       <p>
+            Para isso, o aplicativo acessará as diversas bases de dados dos hospitais e disponibilizará consultas padronizadas pelo Ministério da Saúde.  Essas consultas estão distribuídas em módulos segundo área de interesse.
+        </p>
+    </div>
+</center>
+    </div>

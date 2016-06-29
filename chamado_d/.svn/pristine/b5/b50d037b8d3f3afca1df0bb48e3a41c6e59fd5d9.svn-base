@@ -1,0 +1,134 @@
+<style>
+tr.d0 td {
+	background-color: #EEE8CD; color: black;
+}
+tr.d1 td {
+	background-color: #CDC8B1; color: black;
+}
+</style>
+<script>
+    jQuery(function($){
+        $("#dt_ini").mask("99/99/99");
+        $("#dt_fim").mask("99/99/99");
+    });
+    
+    function getCombo(){
+        
+        if($("#co_unidade").val() == ""){ alert("Erro unidade não selecionada!"); return false;}
+        
+        $.post("/consulta/cadastro/tipo-profissional", { "co_unidade": $("#co_unidade").val() },
+        function(data){
+            $("#tipo_profissional").html(data);
+        });    
+        
+       
+       /* $.post("/consulta/internacao/especialidade", { "co_unidade": $("#co_unidade").val() },
+        function(data){
+            $("#espec").html(data);
+        });   */ 
+    }
+</script>
+<form action="" method="POST">
+    <input type="hidden" value="<?php echo $this->no_action; ?>" name="no_action">
+    <input type="hidden" value="<?php echo $this->co_unidade; ?>" name="co_unidade">
+    
+    Relatório: <b><?php echo $this->nome_relatorio; ?></b> 
+         <?php Base_Util_Relatorio::downloadCsv("cadastro.profissional.$this->codigo_relatorio"); ?><br><br>
+         
+Estabelecimento de Saúde: <select name="co_unidade" id="co_unidade" onchange="getCombo()"><?php 
+                    foreach($this->aObjConexao as $oConexao){ 
+                ?>
+                <option value="<?php echo $oConexao->co_unidade; ?>" 
+                                        <?php if($this->co_unidade == $oConexao->co_unidade) { 
+                                                echo "selected='selected'";                                             
+                                            } else { 
+                                                echo ""; 
+                                            } ?> ><?php echo $oConexao->nome; ?></option>
+                <?php } ?>            
+            </select> <br>
+             Ativo/Inativo: <select id="co_ativo_inativo" name="co_ativo_inativo" >
+                 <option value="" <?php if($this->co_ativo_inativo == ""){ ?> selected="selected" <?php } ?> >Todos</option>
+                        <option value="ATIVO"  <?php if($this->co_ativo_inativo == "ATIVO"){ ?> selected="selected" <?php } ?> >Ativo</option>
+                        <option value="INATIVO"  <?php if($this->co_ativo_inativo == "INATIVO"){ ?> selected="selected" <?php } ?> >Inativo</option>
+                    </select>
+             <br>
+     Tipo Profissional: <span id="tipo_profissional"></span> <br>
+     
+   
+    <input type="submit" value="Gerar">
+</form>
+<br>
+<br>
+<div id="scroll-text">
+    
+Total de Usuários:  <?php echo count($this->aResult); ?><br>
+Total de Registros: <?php echo $this->TOTAL; ?> <br>
+<table>
+    <tr class="d0">
+        <td>Nome</td>
+        <td>Sexo</td>
+        <td>Telefone</td>
+        <td>Telefone</td>
+        <td>Endereço</td>
+        <td>Número</td>
+        <td>Complemento</td>
+        <td>CEP</td>
+        <td>Nacionalidade</td>
+        <td>Num. Conselho</td>
+        <td>Conselho</td>
+        <td>CPF</td>
+        <td>Tipo Profissional</td>
+        <td>CNS</td>
+        <td>Especialidade</td>
+        <td>Ocupação</td>
+        <td>Usuário</td>
+        <td>Grupo de Acesso</td>
+        <td>Residente</td>
+        <td>Status</td>
+    </tr>
+<?php  if(is_array($this->aResult)){
+    if(count($this->aResult) > 0){
+            $i=1;
+            foreach($this->aResult as $aResult){
+                if($i % 2){$color = "d0";}else{$color="d1";}
+?>
+<tr class="<?php echo $color; ?>">
+        <td><?php echo $aResult['SYS009_NAME'];?></td>
+        <td><?php echo $aResult['SYS009_SEX'];?></td>
+        <td><?php echo $aResult['SYS009_MOBILE_PHONE'];?></td>
+        <td><?php echo $aResult['SYS009_COMERCIAL_PHONE'];?></td>
+        <td><?php echo $aResult['SYS009_ADDRESS'];?></td>
+        <td><?php echo $aResult['SYS009_ADDRESS_NUMBER'];?></td>
+        <td><?php echo $aResult['SYS009_ADDRESS_COMPLEMENT'];?></td>
+        <td><?php echo $aResult['SYS009_ZIP_CODE'];?></td>
+        <td><?php echo $aResult['SYS009_NATIONALITY'];?></td>
+        <td><?php echo $aResult['SYS009_AGENCY_REGISTRATION'];?></td>
+        <td><?php echo $aResult['SYS008_AGENCY_NAME'];?></td>
+        <td><?php echo $aResult['SYS009_DOCUMENT_NUMBER'];?></td>
+        <td><?php echo $aResult['SYS008_DESCRIPTION'];?></td>
+        <td><?php echo $aResult['SYS009_CNS'];?></td>
+        <td><?php echo $aResult['ESPECIALIDADES'];?></td>
+        <td><?php echo $aResult['SUS003_DESCRIPTION'];?></td>
+        <td><?php echo $aResult['SYS010_USER_NAME'];?></td>
+        <td><?php echo $aResult['SYS018_NAME'];?></td>
+        <td><?php echo $aResult['SYS009_IS_RESIDENT'];?></td>
+        <td><?php echo $aResult['STATUS'];?></td>
+    </tr>
+    
+<?php $i++;} } else { ?>
+
+    <tr>
+        <td colspan="18">Nenhum registro encontrado!</td>
+    </tr>
+    
+    
+<?php } }?>
+</table>
+    <br>
+    <br>
+</div>
+<?php if($this->co_unidade != ""){ ?>
+<script>
+     getCombo();
+</script>
+<?php } ?>

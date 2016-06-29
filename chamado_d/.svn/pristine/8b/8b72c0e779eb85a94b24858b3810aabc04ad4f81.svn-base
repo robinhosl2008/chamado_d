@@ -1,0 +1,251 @@
+﻿<?php
+/*
+---------------------------------------------
+Sistema ESUS-Report
+Autor: Fabio Rocha
+Email: fabio@fabiofarias.com.br
+---------------------------------------------
+ */
+
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
+
+    
+    protected function _initAutoLoader() {
+
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->registerNamespace('Base_');
+
+        $modulo['Acesso'] = new Zend_Application_Module_Autoloader(
+                        array(
+                            'namespace' => 'Acesso',
+                            'basePath' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'modules/acesso'
+                        )
+        );
+        
+        include "Snoopy.class.php";
+    }
+    
+    protected function _initActionHelper() {
+
+        Zend_Controller_Action_HelperBroker::addPath(LIBRARY_PATH . "/Base/Controller/Action/Helper/", 'Base_Controller_Action_Helper_');
+        Zend_Controller_Action_HelperBroker::addPath(LIBRARY_PATH . "/Base/Controller/Action/Helper/", 'Base_Controller_Action_Helper_');
+    }
+
+    protected function _initConstant() {
+
+        $config = new Zend_Config_Ini(LOCAL_PATH . '/configs/constante.ini', 'production');
+
+        $aPai = $config->toArray();
+        foreach ($aPai as $keyPai => $valuePai) {
+            foreach ($config->$keyPai as $key => $value) {
+                define($key, $value);
+            }
+        }
+
+        define('VERSAO_SISTEMA', "Versão de Produção 2.11.7");
+        
+        define('REMOTE_ADDR', $_SERVER['REMOTE_ADDR']);
+        define('SERVER_ADDR', $_SERVER['SERVER_ADDR']);
+        
+        define('NO_SISTEMA', "Suporte e-Sus");
+
+        //Definicoees de PATHs
+        define("PATH_BASE_MODULO", APPLICATION_PATH . '/modules');
+        define("PATH_SCRIPT", APPLICATION_PATH . '/scripts');        
+        define("LOG_PATH", PUBLIC_PATH . '/logs');
+        define("CACHE_PATH", TMP_PATH . '/cache');
+        define("PATH_RELATORIO", LOCAL_PATH . '/relatorio');
+        define("PATH_RELATORIO_SAVE", PUBLIC_PATH . '/csv/');
+
+        define('SESSION_PATH', TMP_PATH . '/session');
+
+        if (!is_dir(SESSION_PATH)) {
+            mkdir(SESSION_PATH);
+        }
+
+        ini_set('upload_max_filesize','20');
+        ini_set('post_max_size', '20');
+        ini_set('session.save_path', SESSION_PATH);
+        ini_set('session.gc_maxlifetime', 864000);
+
+        //TODO: TRANSFERIR CONSTANTES PARA CONFIGURACOES
+        define("NUM_ITEM_PAGINACAO", 10);
+        
+        define("DATAHORA_ATUAL",date('Y-m-d H:i:s'));        
+        define("CO_TIPO_TELEFONE_FIXO",1);
+        define("CO_TIPO_TELEFONE_CELULAR",2);        
+        define("CO_ENTIDADE_PACIENTE",1);        
+        define("CO_USUARIO_EXTRANET",2);
+        define("SYSTEM_DEBUG",true);
+        
+        define("CO_STATUS_ABERTA",1);
+        define("CO_STATUS_EM_ANDAMENTO",2);
+        define("CO_STATUS_PENDENTE",3);
+        define("CO_STATUS_TESTE",4);
+        define("CO_STATUS_FECHADO",5);
+        define("CO_STATUS_RESOLVIDO",8);
+        define("CO_STATUS_REABERTO",6);
+        define("CO_STATUS_ATRIBUI",7);
+        
+        define("CAMINHO_DAS_IMAGENS", 'http://10.0.72.36:8000');
+        
+        define("CO_PRIORIDADE_NORMAL",1);
+        define("CO_PRIORIDADE_MEDIO",2);
+        define("CO_PRIORIDADE_URGENTE",3);
+        
+        /*E-Mail */
+        #Desenvolvimento Local
+        define("EMAIL_CHAMADO",'chamado@datasus.gov.br');
+        define("NOME_EMAIL", 'CHAMADO - ');
+        //define("SMTP",'smtp.datasus.net');
+       
+        #Desenvolvimento
+        define("URL_HISTORICO", 'http://suporte-esus.datasus.gov.br/acesso/login/index/co_tarefa/');
+        define("SMTP",'azulao.datasus.gov.br');
+        /*FIM E-Mail*/
+        
+        /*Perfil*/	
+        define("CO_PERFIL_ADMINISTRADOR",1);
+        define("CO_PERFIL_ADM_UNIDADE",5);
+        define("CO_PERFIL_MULTI_UNIDADES",2);
+        define("CO_PERFIL_NTI",2);
+        define("CO_PERFIL_SOLICITANTE",4);
+        /*Fim Perfil*/
+        
+        /* Categoria */
+        define("CATEGORIA_ATENDIMENTO", 37);        
+
+        /* Paginação */
+        define("TOTAL_LINHA",15);
+        define("TOTAL_PAGINACAO",10);
+        
+        define("MSG_FILTRO_OBRIGATORIO_2_CAMPOS","Para esta consulta é obrigatório informar 2 filtros.");
+        define("MSG_ERRO_UNIDADE_NAO_INFORMADA","Informe a unidade para qual deseja a consulta.");
+        define("MSG_ERRO_INESPERADO","Sua consulta não pode ser concluída, entre em contato com o suporte.");
+        define("MSG_FILTRO_OBRIGATORIO_DT_INI_DT_FIM","Para esta consulta é obrigatório informar data de início e data de fim.");
+        define("MSG_RELATORIO_NAO_INFORMADO","Nenhum relatorio informado.");
+        define("MSG_USUARIO_SENHA_NAO_INFORMADO","Usuário e senha não informado.");
+        define("MSG_USUARIO_INEXISTENTE","Usuário não existe.");
+        define("MSG_FILTRO_OBRIGATORIO_DT_INI_DT_FIM_UNIDADE","Para esta consulta é obrigatório informar data de início e data de fim e uma especialidade.");
+        
+    }
+    
+      protected function _initPropel() {
+        try{
+            require_once 'Propel/lib/Propel.php';
+            Propel::init(LOCAL_PATH . '/configs/base-conf.php');
+
+            //guarda objeto de PDO para Transacoes
+            $pdo = Propel::getConnection();
+            
+            if (APPLICATION_ENV == "development")
+                $pdo->useDebug(true);
+            
+            Zend_Registry::set('pdo', $pdo);
+
+            return $pdo;
+        }  catch (Exception $e){
+        	print "ERRO--->".$e;
+            $oLogTxt = new Base_Util_FileLog();
+            $oLogTxt->write($e->getMessage());
+            exit("ERRO INIT PROPEL");
+        }
+        
+    }   
+    function _initSetTranslation() {
+
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+
+        $localeValue = 'en';
+
+        $locale = new Zend_Locale($localeValue);
+        Zend_Registry::set('Zend_Locale', $locale);
+
+        $translationFile = LOCAL_PATH .
+                DIRECTORY_SEPARATOR . 'lang' .
+                DIRECTORY_SEPARATOR . $localeValue . '.inc.php';
+
+        $translate = new Zend_Translate('array', $translationFile, $localeValue);
+        Zend_Registry::set('Zend_Translate', $translate);
+    }
+
+    
+    protected function _initViews() {
+
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        $view->doctype('HTML5');
+        Zend_Registry::set('view', $view);
+
+        $currency = new Zend_Currency('pt_BR');
+        $currency->setFormat(array('symbol' => "R$ "));
+
+        Zend_Registry::set('currency', $currency);
+
+        $view->headTitle(NO_SISTEMA);
+        $view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8');
+
+        $view->addHelperPath(APPLICATION_PATH . '/../library/Base/View/Helper/', 'Base_View_Helper');
+        $view->addScriptPath(APPLICATION_PATH . '/layouts/scripts/');
+        
+    }
+     public function _initConstanteAcesso() {
+         
+         if (is_object(Zend_Auth::getInstance()->getIdentity())) {
+             
+            define("USUARIO", Zend_Auth::getInstance()->getIdentity()->getNoUsuario());
+            define("NO_USUARIO", Zend_Auth::getInstance()->getIdentity()->getNoUsuario());
+            define("CO_USUARIO", Zend_Auth::getInstance()->getIdentity()->getCoUsuario());
+            define("CO_PERFIL", Zend_Auth::getInstance()->getIdentity()->getCoPerfil());
+            define("CO_USUARIO_ORGAO", Zend_Auth::getInstance()->getIdentity()->getCoOrgao());
+            define("ULTIMA_AUTENTICACAO", Zend_Auth::getInstance()->getIdentity()->getDtUltimoLogin('d/m/Y H:i:s'));
+            define("IS_LOGADO",true);
+
+            // Nome do órgão onde o usuário que abriu o chamado está alocado.
+            $usuario_no_orgao = OrgaoQuery::create()
+                ->filterByCoOrgao(CO_USUARIO_ORGAO)
+                ->findOne();
+            $no_orgao = $usuario_no_orgao->getNoOrgao();
+            define("USUARIO_NO_ORGAO", $no_orgao);
+            
+        } else {
+            
+            define("NO_USUARIO", "Visitante");
+            define("CO_PERFIL", 0);
+            define("CO_USUARIO", -1);
+            define("CO_PROFISSIONAL", -1);
+            define("ULTIMA_AUTENTICACAO","");
+            define("IS_LOGADO",false);
+            
+        }
+    }
+    protected function _initAcl() {
+
+        $acl = new Base_Auth_Acl();
+
+        $acl->setRoles();
+        $acl->setResources();
+        $acl->setPrivilages();
+        $acl->setAcl();
+        
+    }
+    protected function _initPlugins() {
+
+        $bootstrap = $this->getApplication();
+
+        if ($bootstrap instanceof Zend_Application) {
+            $bootstrap = $this;
+        }
+
+        $bootstrap->bootstrap('FrontController');
+        $front = $bootstrap->getResource('FrontController');
+
+        $front->registerPlugin(new Base_Plugins_Autenticador());
+        $front->registerPlugin(new Base_Plugins_Controller());
+        $front->registerPlugin(new Base_Plugins_Log());
+    }
+    
+    
+    
+}

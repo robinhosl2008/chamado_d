@@ -1,0 +1,10 @@
+<select name="co_unit">
+    <?php if(!$this->no_all){ ?>
+        <option value="">Todas</option>
+    <?php } ?>
+<?php 
+    foreach($this->aResult as $oEspec){ 
+?>
+<option value="<?php echo $oEspec['SYS002_UNIT_ID']; ?>"><?php echo $oEspec['SYS002_NAME'];  ?></option>
+<?php } ?>            
+</select>

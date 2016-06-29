@@ -1,0 +1,216 @@
+<script>
+$(document).ready(function() {
+        $(".formValidate").validate(); 
+
+       if($('#totalrecords').val() != 0){
+               $('#paginacao').smartpaginator({ totalrecords: $('#totalrecords').val(), recordsperpage: 10, datacontainer: 'mt', dataelement: 'tr', initval: 0, theme: 'blue',controlsalways:false });
+       }	
+
+});
+</script>
+<script>
+    $(document).ready(function(){
+        $('#submit').attr('disabled', 'disabled');
+        
+        $('#salvar').mouseenter(function() {
+            var co_orgao = $('#co_orgao').val();
+            var no_orgao = $('#no_orgao').val();
+            var tl_orgao = $('#tl_orgao').val();
+            var sg_orgao = $('#sg_orgao').val();
+
+            if(co_orgao < 1){
+                if(no_orgao === ""){
+                    $('#no_org_vazio').show();
+                    $('#sg_org_vazio').hide();
+                    $('#tl_org_vazio').hide();
+                }else{
+                    $('#no_org_vazio').hide();
+
+                    $.post('/manutencao/orgao/validar-no-orgao/', {no_orgao: no_orgao}, function(data){
+                        if(data !== 'false'){
+                            $('#no_org_usado').hide();
+                            if(tl_orgao === ""){
+                                $('#tl_org_vazio').show();
+                                $('#sg_org_vazio').hide();
+                            }else{
+                                $('#tl_org_vazio').hide();
+                                if(sg_orgao === ""){
+                                    $('#sg_org_vazio').show();
+                                }else{
+                                    $('#sg_org_vazio').hide();
+                                    $('#submit').removeAttr('disabled');
+                                }
+                            }
+                        }else{
+                            $('#submit').attr('disabled', 'disabled');
+                            $('#no_org_usado').show();
+                            $('#sg_org_vazio').hide();
+                            $('#tl_org_vazio').hide();
+                        }
+                    });
+                }
+            }else{
+                if(no_orgao === ""){
+                    $('#no_org_vazio').show();
+                    $('#sg_org_vazio').hide();
+                    $('#tl_org_vazio').hide();
+                }else{
+                    $.post('/manutencao/orgao/validar-no-orgao/', {no_orgao: no_orgao}, function(data) {
+                        if(data !== 'false'){
+                            $('#no_org_usado').hide();
+                        }else{
+                            $('#no_org_usado').show();
+                        }
+                    });
+
+                    $('#no_org_vazio').hide();
+                    if(tl_orgao === ""){
+                        $('#tl_org_vazio').show();
+                        $('#sg_org_vazio').hide();
+                    }else{
+                        $('#tl_org_vazio').hide();
+                        if(sg_orgao === ""){
+                            $('#sg_org_vazio').show();
+                            $('#submit').attr('disabled', 'disabled');
+                        }else{
+                            $('#sg_org_vazio').hide();
+                            $('#submit').removeAttr('disabled');
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+<style>
+form label.error{ 
+    text-align: right;
+    width: 100%;
+}
+form label.error {
+    color: red;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: -10px;
+}
+
+
+
+input {
+    border: 1px solid black;
+}
+input.checkbox {
+    border: medium none;
+}
+input:focus {
+    border: 1px dotted black;
+}
+input.error {
+    border: 1px dotted red;
+}
+</style>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i>Principal</a>
+        -> 
+        <a href="/manutencao/ambiente/listar" class="tip-bottom" data-original-title="" title="">Ambiente</a>
+         -> Cadastro de Orgãos
+    </div>
+    <h1>Cadastro de Orgãos</h1>
+</div>
+
+<div class="content-box cadProf" id="boxGrid"><!-- Start Content Box GRID -->				
+    <div class="content-box-content">					
+        <div id="cadProf" class="tab-content default-tab"> <!-- INICIO TAB 1-->																												
+            <?php echo  $this->mensagem(); ?>
+                <form action="/manutencao/orgao/adicionar" method="post" class="formValidate" id="usuario">
+                    <input type="hidden" value="<?php print $this->aObjOrgao->getCoOrgao()?>" name="co_orgao" id="co_orgao" />
+                    <div class="dados">
+                        <div class="linha">
+                            <div class="campos">
+                                
+                                <div class="label">
+                                        Nome do Orgão 
+                                </div> 
+                                <div>
+                                    <input id="no_orgao" name="no_orgao" type="text" class="span5" value="<?php print $this->aObjOrgao->getNoOrgao()?>"/>
+                                </div>
+                                <!-- Mensagem dizendo que o nome do órgão já está em uso. -->
+                                <div id="no_org_usado" style="width: 300px; display: none; color: red">
+                                    <em>Este nome já está em uso.</em>
+                                </div>
+                                <!-- Mensagem dizendo que o campo está vazio. -->
+                                <div id="no_org_vazio" style="width: 300px; display: none; color: red">
+                                    <em>Esse campo deve ser preenchido.</em>
+                                </div>
+                                
+                                <div class="label">
+                                        Telefone
+                                </div> 
+                                <div>
+                                    <input id="tl_orgao" name="tl_orgao" type="text" class="span5" value="<?php print $this->aObjOrgao->getNuTelefoneOrgao()?>"/>
+                                </div>
+                                <!-- Mensagem dizendo que o campo está vazio. -->
+                                <div id="tl_org_vazio" style="width: 300px; display: none; color: red">
+                                    <em>Esse campo deve ser preenchido.</em>
+                                </div>
+                                
+                                <div class="label">
+                                        Sigla
+                                </div> 
+                                <div>
+                                    <input id="sg_orgao" name="sg_orgao" type="text" class="span5" value="<?php print $this->aObjOrgao->getSgOrgao()?>"/>
+                                </div>
+                                <!-- Mensagem dizendo que o campo está vazio. -->
+                                <div id="sg_org_vazio" style="width: 300px; display: none; color: red">
+                                    <em>Esse campo deve ser preenchido.</em>
+                                </div>
+                                
+                                <!-- Mensagem dizendo que o nome do projeto já está em uso. -->
+                                <div id="no_org_usado" style="width: 300px; display: none; color: red; position: absolute; top: 50px; left: 300px">
+                                    <em>Esse nome já está em uso.</em>
+                                </div>
+                                <!-- Mensagem dizendo que o número de telefone está associado para outro orgão. -->
+                                <div id="nu_tl_org_usado" style="width: 300px; display: none; color: red; position: absolute; top: 110px; left: 206px">
+                                    <em>Esse número já foi associado a outro orgão.</em>
+                                </div>
+                                <!-- Mensagem dizendo que o número de telefone está associado para outro orgão. -->
+                                <div id="sg_org_usado" style="width: 300px; display: none; color: red; position: absolute; top: 170px; left: 227px">
+                                    <em>Essa sigla está associada a outro orgão.</em>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                           <!-- <a href="/manutencao/ambiente/listar" class="tip-bottom" data-original-title="" title=""> <input class="button_blue" value="Voltar" type="button" /></a>
+                               <input class="button_blue" value="Salvar" type="submit" /> -->
+                    </div>
+
+                    <!-- Mensagem informando um erro no formulário. -->
+                    <div id="erro" style="width: 500px; display: none; color: red">
+                        <em>Um erro ocorreu no preenchimento de algum campo do formulário.</em>
+                    </div>
+
+                    <div class="row-fluid" style="padding-top: 100px">
+                        <div class="span12" id="salvar">
+                            <div class="form-actions" style="padding-top: 30px;">
+                                <button id="submit" class="btn btn-primary" type="submit">Salvar</button>
+                                <a href="/manutencao/orgao/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porOrgao/<?php echo $this->porOrgao; ?>/porSigla/<?php echo $this->porSigla; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/pagination//coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>" class="btn" data-original-title="" title="">Voltar</a>
+                            </div>	
+                        </div>
+                    </div>
+                        
+                </form>
+               <div class="clear"></div><!-- End .clear -->																														
+        </div> 
+        <!-- End #tab1 --> 	
+        <div id="listaProf" class="tab-content">
+            <!-- Inicio tab 2 -->
+            <!-- TAB LISTA DE PROFISSIONAL -->																													
+        </div> 
+        <!-- End #tab2 -->			
+    </div> <!-- End .content-box-content -->				
+</div> <!-- End BOX GERAL GRID--> 
+<!-- END BOX CRUD --> 

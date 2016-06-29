@@ -1,0 +1,75 @@
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 
+[2013-07-24 15:53:17] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:53:17] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:53:17] USUARIO - 12 - 2 - /default/*/* - Export false 
+[2013-07-24 15:53:17] USUARIO - 12 - 2 - /default/font/* - Export false 
+[2013-07-24 15:53:17] USUARIO - 12 - 2 - /default/font/fontawesome-webfont.woff - Export false 
+[2013-07-24 15:53:17] URL: default/font/fontawesome-webfont.woff - Msg:Invalid controller specified (font) 
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:53:17] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:53:18] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /default/*/* - Export false 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /default/font/* - Export false 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /default/font/fontawesome-webfont.ttf - Export false 
+[2013-07-24 15:53:18] URL: default/font/fontawesome-webfont.ttf - Msg:Invalid controller specified (font) 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:53:18] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /default/*/* - Export false 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /default/font/* - Export false 
+[2013-07-24 15:53:18] USUARIO - 12 - 2 - /default/font/fontawesome-webfont.svg - Export false 
+[2013-07-24 15:53:18] URL: default/font/fontawesome-webfont.svg - Msg:Invalid controller specified (font) 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:53:18] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 
+[2013-07-24 15:53:21] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:53:21] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:53:21] USUARIO - 12 - 2 - /tarefa/*/* - Export false 
+[2013-07-24 15:53:21] USUARIO - 12 - 2 - /tarefa/index/* - Export false 
+[2013-07-24 15:53:21] USUARIO - 12 - 2 - /tarefa/index/index - Export false 
+[2013-07-24 15:53:21] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:53:21] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:53:21] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:53:21] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 
+[2013-07-24 15:53:31] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:53:31] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:53:31] USUARIO - 12 - 2 - /tarefa/*/* - Export false 
+[2013-07-24 15:53:31] USUARIO - 12 - 2 - /tarefa/index/* - Export false 
+[2013-07-24 15:53:31] USUARIO - 12 - 2 - /tarefa/index/index - Export false 
+[2013-07-24 15:53:31] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:53:31] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:53:31] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:53:31] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 
+[2013-07-24 15:53:41] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:53:41] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:53:41] USUARIO - 12 - 2 - /tarefa/*/* - Export false 
+[2013-07-24 15:53:41] USUARIO - 12 - 2 - /tarefa/index/* - Export false 
+[2013-07-24 15:53:41] USUARIO - 12 - 2 - /tarefa/index/editar - Export false 
+[2013-07-24 15:53:42] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:53:42] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:53:42] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:53:42] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:54:00] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /tarefa/*/* - Export false 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /tarefa/index/* - Export false 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /tarefa/index/editar - Export false 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /*/*/* - Export true 
+[2013-07-24 15:54:00] TRUE - >>> USUARIO - 12 - /*/*/* 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /tarefa/*/* - Export false 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /tarefa/index/* - Export false 
+[2013-07-24 15:54:00] USUARIO - 12 - 2 - /tarefa/index/index - Export false 
+[2013-07-24 15:54:00] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-24 15:54:00] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-24 15:54:00] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-24 15:54:00] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/grafico-usuario-fechamento 

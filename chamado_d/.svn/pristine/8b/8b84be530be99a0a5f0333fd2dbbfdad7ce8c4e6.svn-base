@@ -1,0 +1,58 @@
+[production]
+; Layout 
+propel.PROJETO = "tarefa"
+propel.DB_ADAPTER = "pgsql"
+propel.DB_HOST = "192.168.22.5"
+propel.DB_NAME = "tarefa"
+propel.DB_USERNAME = "user_tarefa"
+propel.DB_PASSWORD = "senha123"
+propel.DB_DSN_PDO = "pgsql:host=192.168.22.5 dbname=tarefa user=user_tarefa password=senha123"
+propel.DB_PORT = "5432"
+
+desenvolvimento.DEBUG = 1
+
+
+; Sistema
+sistema.BASE_PATH = "/var/www/localreport"
+sistema.TITULO_SISTEMA = "Suporte e-SUS"
+;Paginacao do Sistema
+paginacao.TIPO_PAGINACAO = 2
+
+
+;
+config.NO_MODULO_DEFAULT  = default
+config.NO_CONTROLLER_DEFAULT = index
+config.NO_ACTION_DEFAULT = index
+
+; Entidades 
+entidade.CO_ENTIDADE_USUARIO = 0
+entidade.CO_ENTIDADE_PACIENTE = 1
+entidade.CO_ENTIDADE_PROFISSIONAL = 2
+
+; Tipos
+telefone.CO_TIPO_TELEFONE_RESIDENCIAL = 1
+telefone.CO_TIPO_TELEFONE_COMERCIAL = 2
+telefone.CO_TIPO_TELEFONE_CELULAR = 3
+telefone.CO_TIPO_TELEFONE_FAX = 4
+telefone.CO_TIPO_TELEFONE_RECADO = 5
+
+endereco.CO_TIPO_ENDERECO_RESIDENCIAL = 1
+endereco.CO_TIPO_ENDERECO_COMERCIAL = 2
+
+email.CO_TIPO_EMAIL_PARTICULAR = 1
+email.CO_TIPO_EMAIL_COMERCIAL = 2
+
+documentos.CO_TIPO_DOCUMENTO_IDENTIDADE = 1
+
+;images
+telefone.IMG_TIPO_TELEFONE_CELULAR = icons/icon_phone_14.png
+telefone.IMG_TIPO_TELEFONE_RESIDENCIAL = icons/icon_cellphone_14.png
+
+endereco.IMG_TIPO_ENDERECO_RESIDENCIAL = icons/icon_home_14.png
+endereco.IMG_TIPO_ENDERECO_COMERCIAL = icons/icon_office_14.png
+
+
+
+config.FORMATO_DATA_PADRAO = d/m/Y
+config.FORMATO_HORA_PADRAO = H:i:s
+config.FORMATO_DATAHORA_PADRAO = d/m/Y H:i:s

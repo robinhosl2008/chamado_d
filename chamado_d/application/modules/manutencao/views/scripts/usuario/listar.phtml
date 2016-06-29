@@ -1,0 +1,385 @@
+<script type="text/javascript">
+$(document).ready(function () {
+    //$('table').tablesorter();
+
+    $('#mensagem').show();
+    $('#submit_pesquisa').prop('disabled', true);
+    $('#tipoBusca').change(function(){
+        var valor = $("#tipoBusca").val();
+
+        if(valor == 0) {
+            $('#mensagem').show();
+            $('#porNome').hide();
+            $('#porPerfil').hide();
+            $('#porStatus').hide();
+        } else if(valor == 1) {
+            $('#mensagem').hide();
+            $('#porNome').show();
+            $('#porPerfil').hide();
+            $('#porStatus').hide();
+            $('#porNome').keyup(function(){
+                if($('#porNome').val()=='') {
+                    $('#submit_pesquisa').prop('disabled', true);
+                }else{
+                    $('#submit_pesquisa').prop('disabled', false);
+                }
+            });
+        } else if(valor == 2) {
+            $('#mensagem').hide();
+            $('#porNome').hide();
+            $('#porPerfil').show();
+            $('#porStatus').hide();
+            $('#porPerfil').change(function(){
+                if($('#porPerfil').val()=='') {
+                    $('#submit_pesquisa').prop('disabled', true);
+                }else{
+                    $('#submit_pesquisa').prop('disabled', false);
+                }
+            });
+        } else if(valor == 3) {
+            $('#mensagem').hide();
+            $('#porNome').hide();
+            $('#porPerfil').hide();
+            $('#porStatus').show();
+            $('#porStatus').change(function(){
+                if($('#porStatus').val()=='') {
+                    $('#submit_pesquisa').prop('disabled', true);
+                }else{
+                    $('#submit_pesquisa').prop('disabled', false);
+                }
+            });
+        }
+    });
+
+//    $('#num_pagina_select').change(function(){
+//        $('#form_num_pagina_select').submit();
+//    });
+
+    //$('#green').smartpaginator({ totalrecords: $('#totalrecords').val(), recordsperpage: <?php echo $this->numLinhasSelect; ?>, datacontainer: 'mt', dataelement: 'tr', initval: 0, theme: 'blue',controlsalways:false });
+});
+</script>
+
+<script src="/js/rel.chamado.js"></script>
+<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i> Principal</a>
+        -> 
+        <a href="/manutencao/usuario/listar" class="tip-bottom" data-original-title="" title="">Usuário</a>
+         -> Lista de usuário
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <!-- Tudo que você queira escondido em 940px ou menos, coloque aqui -->
+            <div class="nav-collapse collapse">
+
+
+
+                <ul class="nav pull-right">
+                    <!-- <li><a href="#">Nr Chamado</a></li> -->
+
+                    <li>
+                        <form class="navbar-form " id="form_load" action="" method="post">
+                            <div class="input-append" style="margin-bottom: 0px;">
+                                <input type="hidden" name="pag_ordem" id="pag_ordem" value="<?php echo $this->pag_ordem; ?>" />
+                                <input type="hidden" name="ordem" id="o_ordem" value="<?php echo $this->ordem; ?>" />
+                                <input type="hidden" name="coluna" id="o_coluna" value="<?php echo $this->coluna; ?>" />
+
+                                <input type="hidden" name="num_linhas_select" id="o_num_linhas_select" value="<?php echo $this->numLinhasSelect; ?>" />
+
+                                <select name="oTipoBusca" id="tipoBusca" style="width: 165px; top: -5px">
+                                    <option value="" selected="selected">Buscar por...</option>
+                                    <option value="1">Nome</option>
+                                    <option value="2">Perfil</option>
+                                    <option value="3">Status</option>
+                                </select>
+
+                                <input type="text" class="span8" name="mensagem" id="mensagem"
+                                       style="width: 150px; display: none" readonly
+                                       title="Selecione um tipo de busca"
+                                       alt="Selecione um tipo de busca"
+                                       placeholder="Selecione um tipo de busca"/>
+
+                                <input type="text" class="span8" name="oPorNome" id="porNome"
+                                       style="width: 150px; display: none"/>
+
+                                <select name="oPorPerfil" id="porPerfil" class="span8" style="width: 164px; display: none; top: -5px">
+                                    <option value="" selected="selected">Selecione...</option>
+                                    <?php foreach($this->perfis as $perfil){ ?>
+                                        <option value="<?php echo $perfil->getCoPerfil(); ?>"><?php echo $perfil->getNoPerfil(); ?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <select name="oPorStatus" id="porStatus" class="span8" style="width: 164px; display: none; top: -5px">
+                                    <option value="" selected="selected">Selecione...</option>
+                                    <option value="true">Ativo</option>
+                                    <option value="false">Inativo</option>
+                                </select>
+
+                                <button id="submit_pesquisa" type="submit" class="btn"><i class="icon-search"></i></button>
+                                <a class="btn" href="/manutencao/usuario/listar"> <i class="icon-undo"></i></a>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loading" style="display: none">
+    <img src="/images/waiting.gif" width="100" height="100">
+    <br />
+</div>
+<?php //echo $this->paginacao; ?>
+<div>
+    <form action="" method="post" id="form_num_pagina_select">
+        <h5 style="float: left; padding-right: 15px"><b>Quantidade de resultados por página:</b></h5>
+
+        <!--<input type="hidden" name="oPagination" id="oPagination" value="0" />-->
+        <input type="hidden" name="pag_ordem" id="pag_ordem" value="<?php echo $this->pag_ordem; ?>" />
+        <input type="hidden" name="ordem" id="o_ordem" value="<?php echo $this->ordem; ?>" />
+        <input type="hidden" name="coluna" id="o_coluna" value="<?php echo $this->coluna; ?>" />
+        <input type="hidden" name="tipoBusca" id="tipoBusca" value="<?php echo $this->tipoBusca; ?>" />
+        <input type="hidden" name="porNome" id="porNome" value="<?php echo $this->porNome; ?>" />
+        <input type="hidden" name="porPerfil" id="porPerfil" value="<?php echo $this->porPerfil; ?>" />
+        <input type="hidden" name="porStatus" id="porStatus" value="<?php echo $this->porStatus; ?>" />
+        <input type="hidden" name="num_linhas_select" id="o_num_linhas_select" value="<?php echo $this->numLinhasSelect; ?>" />
+
+        <!--<input type="hidden" name="num_linhas_url" id="num_linhas_url" value="<?php //echo $this->numLinhasSelect; ?>" />-->
+        <select style="width: 70px" id="num_pagina_select" name="num_linhas_select" onchange="this.form.submit()">
+            <option value="15" <?php if($this->numLinhasSelect == 15){ echo " selected"; } ?>>15</option>
+            <option value="50" <?php if($this->numLinhasSelect == 50){ echo " selected"; } ?>>50</option>
+            <option value="100" <?php if($this->numLinhasSelect == 100){ echo " selected"; } ?>>100</option>
+        </select>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#1").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/usuario/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/1/ordem/'+asc_desc);
+        })
+
+        $("#2").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/usuario/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/2/ordem/'+asc_desc);
+        })
+
+        $("#3").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/usuario/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/3/ordem/'+asc_desc);
+        })
+
+        $("#4").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/usuario/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/4/ordem/'+asc_desc);
+        })
+
+        $("#5").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/usuario/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/5/ordem/'+asc_desc);
+        })
+
+        $("#6").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/usuario/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/6/ordem/'+asc_desc);
+        })
+    });
+</script>
+
+<input type="hidden" id="nr_chamado_asc_desc" name="nr_chamado_asc_desc" value="<?php echo $this->nr_chamado_asc_desc; ?>">
+
+<div class="">
+    <div class="">
+        <?php $this->mensagem(); ?>
+        <div class="">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <h5> <i class="icon-list-alt"></i> Lista de Usuários</h5>
+                </div>
+                <div class="widget-content nopadding">
+                <input type="hidden" name="totalrecords" id="totalrecords" value="<?php print count($this->aObjUsuario )?>" />
+                <table class="table table-bordered table-striped table-condensed" id="mt">
+                    <thead>
+                        <tr>
+                           <!-- <th>input type="checkbox" class="check-all"></th> -->
+                            <th id="1" style="cursor: pointer">Nome
+                                <?php
+                                if ($this->coluna == 1) {
+                                    if ($this->ordem == "asc") {
+                                        echo "<img src='/images/sort_desc.png'>";
+                                    } else {
+                                        echo "<img src='/images/sort_asc.png'>";
+                                    }
+                                } else {
+                                    echo "<img src='/images/sort_both.png'>";
+                                }
+                                ?>
+                            </th>
+                            <th id="2" style="cursor: pointer">Username
+                                <?php
+                                if ($this->coluna == 2) {
+                                    if ($this->ordem == "asc") {
+                                        echo "<img src='/images/sort_desc.png'>";
+                                    } else {
+                                        echo "<img src='/images/sort_asc.png'>";
+                                    }
+                                } else {
+                                    echo "<img src='/images/sort_both.png'>";
+                                }
+                                ?>
+                            </th>
+                            <th id="3" style="cursor: pointer">E-mail
+                                <?php
+                                if ($this->coluna == 3) {
+                                    if ($this->ordem == "asc") {
+                                        echo "<img src='/images/sort_desc.png'>";
+                                    } else {
+                                        echo "<img src='/images/sort_asc.png'>";
+                                    }
+                                } else {
+                                    echo "<img src='/images/sort_both.png'>";
+                                }
+                                ?>
+                            </th>
+                            <th id="4" style="cursor: pointer">Perfil
+                                <?php
+                                if ($this->coluna == 4) {
+                                    if ($this->ordem == "asc") {
+                                        echo "<img src='/images/sort_desc.png'>";
+                                    } else {
+                                        echo "<img src='/images/sort_asc.png'>";
+                                    }
+                                } else {
+                                    echo "<img src='/images/sort_both.png'>";
+                                }
+                                ?>
+                            </th>
+                            <th id="5" style="cursor: pointer">Último Login
+                                <?php
+                                if ($this->coluna == 5) {
+                                    if ($this->ordem == "asc") {
+                                        echo "<img src='/images/sort_desc.png'>";
+                                    } else {
+                                        echo "<img src='/images/sort_asc.png'>";
+                                    }
+                                } else {
+                                    echo "<img src='/images/sort_both.png'>";
+                                }
+                                ?>
+                            </th>
+                            <th id="6" style="cursor: pointer">Status
+                                <?php
+                                if ($this->coluna == 6) {
+                                    if ($this->ordem == "asc") {
+                                        echo "<img src='/images/sort_desc.png'>";
+                                    } else {
+                                        echo "<img src='/images/sort_asc.png'>";
+                                    }
+                                } else {
+                                    echo "<img src='/images/sort_both.png'>";
+                                }
+                                ?>
+                            </th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                <?php $i = 0;
+                    foreach ($this->aObjUsuario as $objUsuario) { ?>
+                        <tr <?php if (($i % 2) == 0) { ?> 
+                        		class="alt-row"
+                        	<?php } ?>
+                        >
+                            <!-- <td><input type="checkbox"></td> -->
+                            <td><?php print $objUsuario->getNoUsuario(); ?></td>
+                            <td><?php print $objUsuario->getDsLogin(); ?></td>
+                            <td><?php print $objUsuario->getDsEmail(); ?></td>
+                            <td>
+                                <?php foreach($this->perfis as $perfil): ?>
+                                    <?php if($perfil->getCoPerfil() == $objUsuario->getCoPerfil()): ?>
+                                        <?php echo $perfil->getNoPerfil(); ?>
+                                    <?php endif ?>
+                                <?php endforeach; ?>
+                            </td>
+                            <td><?php print $objUsuario->getDtUltimoLogin()/*('d/m/Y H:i:s')*/; ?></td>
+                            <td>
+                                <?php
+                                    if ($objUsuario->getStUsuario() == true) {
+                                        echo 'Ativado';
+                                    } else {
+                                        echo 'Desativado';
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <!-- Icons -->
+                                <div class="btn-group">
+                                	<a title="Editar" href="/manutencao/usuario/adicionar/co_usuario/<?php print $objUsuario->getCoUsuario(); ?>/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/pagination//coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>" class="btn btn-small"><i class="icon-edit"></i></a>
+
+                                    <?php if ($objUsuario->getStUsuario() == true) { ?>
+                                        <a title="Desativar" href="javascript:if (confirm('Deseja realmente desativar este usuário?')) window.location = '/manutencao/usuario/excluir/co_usuario/<?php print $objUsuario->getCoUsuario(); ?>'; " class="btn btn-small">
+                                            <i class="icon-remove"></i>
+                                        </a>
+                                    <?php } else { ?>
+                                        <a title="Ativar" href="javascript:if (confirm('Deseja realmente ativar este usuário?')) window.location = '/manutencao/usuario/excluir/co_usuario/<?php print $objUsuario->getCoUsuario(); ?>'; " class="btn btn-small">
+                                            <i class="icon-ok"></i>
+                                        </a>
+                                    <?php } ?>
+
+                               	</div> 	
+                                
+                            </td>
+                        </tr>	                        
+    			<?php $i++;
+				} ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="18" style="font-weight: bold">
+                            <div class="pull-right">Total de Chamados: <?php echo $this->oTotal == '' ? count($this->oTarefa) : $this->oTotal;?></div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="pagination pagination-centered">
+                <ul>
+                    <?php echo $this->pagination; ?>
+                </ul>
+            </div>
+
+            <div id="green" style="margin: auto;">
+            </div>
+
+        </div> <!-- End #tab2 -->
+   		 <br />
+   		 <div class="row-fluid">
+				<div class="span12">
+					<div class="form-actions"> 
+    					<a class="btn btn-primary" href="/manutencao/usuario/adicionar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/pagination//coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>">Cadastrar</a>
+    				</div>
+    			</div>
+    	</div>	
+    </div>
+  
+</div> <!-- End BOX GERAL GRID--> 
+<!-- END BOX CRUD --> 
+</div>
+</div>
+

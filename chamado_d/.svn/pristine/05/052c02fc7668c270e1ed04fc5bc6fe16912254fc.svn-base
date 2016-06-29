@@ -1,0 +1,311 @@
+<script src="/js/rel.chamado.js"></script>
+<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$('table').tablesorter();
+
+        $('#mensagem').show();
+        $('#submit_pesquisa').prop('disabled', true);
+        $('#tipoBusca').change(function(){
+            var valor = $("#tipoBusca").val();
+
+            if(valor == 0) {
+                $('#mensagem').show();
+                $('#porNome').hide();
+                $('#porTipo').hide();
+                $('#porProjeto').hide();
+            } else if(valor == 1) {
+                $('#mensagem').hide();
+                $('#porNome').show();
+                $('#porTipo').hide();
+                $('#porProjeto').hide();
+                $('#porNome').keyup(function(){
+                    if($('#porNome').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 2) {
+                $('#mensagem').hide();
+                $('#porNome').hide();
+                $('#porTipo').show();
+                $('#porProjeto').hide();
+                $('#porTipo').change(function(){
+                    if($('#porTipo').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 3) {
+                $('#mensagem').hide();
+                $('#porNome').hide();
+                $('#porTipo').hide();
+                $('#porProjeto').show();
+                $('#porProjeto').change(function(){
+                    if($('#porProjeto').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            }
+        });
+
+        $('#num_pagina_select').change(function(){
+            $('#form_num_pagina_select').submit();
+        });
+    });
+</script>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i> Principal</a>
+        -> 
+        <a href="/manutencao/versao/listar" class="tip-bottom" data-original-title="" title="">Versão</a>
+         -> Lista de Versões
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <!-- Tudo que você queira escondido em 940px ou menos, coloque aqui -->
+            <div class="nav-collapse collapse">
+
+                <ul class="nav pull-right">
+                    <!-- <li><a href="#">Nr Chamado</a></li> -->
+                    <li class="divider-vertical"></li>
+                    <li>
+                        <form class="navbar-form " id="form_load" action="" method="post">
+                            <div class="input-append" style="margin-bottom: 0px;">
+                                <input type="hidden" name="num_linhas_select" id="o_num_linhas_select" value="<?php echo $this->numLinhasSelect; ?>" />
+
+                                <select name="oTipoBusca" id="tipoBusca" style="width: 165px; top: -5px">
+                                    <option value="" selected="selected">Buscar por...</option>
+                                    <option value="1">Nome</option>
+                                    <option value="2">Tipo</option>
+                                    <option value="3">Projeto</option>
+                                </select>
+
+                                <input type="text" class="span8" name="mensagem" id="mensagem"
+                                       style="width: 150px; display: none" readonly
+                                       title="Selecione um tipo de busca"
+                                       alt="Selecione um tipo de busca"
+                                       placeholder="Selecione um tipo de busca"/>
+
+                                <input type="text" class="span8" name="oPorNome" id="porNome"
+                                       style="width: 150px; display: none"/>
+
+                                <select class="span8" name="oPorTipo" id="porTipo" style="width: 164px; top: -5px; display: none">
+                                    <option value="">Selecione...</option>
+                                    <?php foreach($this->osTipos as $tipo): ?>
+                                        <option value="<?php echo $tipo->getCoSeqTipoVersao(); ?>"><?php echo $tipo->getNoTipoVersao(); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                                <select class="span8" name="oPorProjeto" id="porProjeto" style="width: 164px; top: -5px; display: none">
+                                    <option value="">Selecione...</option>
+                                    <?php foreach($this->osProjetos as $projeto): ?>
+                                        <option value="<?php echo $projeto['co_projeto']; ?>"><?php echo $projeto['no_projeto']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+
+                                <button id="submit_pesquisa" type="submit" class="btn"><i class="icon-search"></i></button>
+                                <a class="btn btn-default" href="/manutencao/versao/listar"> <i class="icon-undo"></i></a>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loading" style="display: none">
+    <img src="/images/waiting.gif" width="100" height="100">
+    <br />
+</div>
+
+<div>
+    <form action="" method="post" id="form_num_pagina_select">
+        <h5 style="float: left; padding-right: 15px"><b>Quantidade de resultados por página:</b></h5>
+        <input type="hidden" name="filtro" id="filtro" value="<?php echo $this->filtro; ?>" />
+
+        <input type="hidden" name="pg" id="o_pg" value="<?php echo $this->pg; ?>" />
+        <input type="hidden" name="ordem" id="o_ordem" value="<?php echo $this->ordem; ?>" />
+        <input type="hidden" name="coluna" id="o_coluna" value="<?php echo $this->coluna; ?>" />
+        <input type="hidden" name="oTipoBusca" id="tipoBusca" value="<?php echo $this->tipoBusca; ?>" />
+        <input type="hidden" name="oPorNome" id="porNome" value="<?php echo $this->porNome; ?>" />
+        <input type="hidden" name="oPorTipo" id="porTipo" value="<?php echo $this->porTipo; ?>" />
+        <input type="hidden" name="oPorProjeto" id="porProjeto" value="<?php echo $this->porProjeto; ?>" />
+        <input type="hidden" name="num_linhas_select" id="o_num_linhas_select" value="<?php echo $this->numLinhasSelect; ?>" />
+
+        <!--<input type="hidden" name="num_linhas_url" id="num_linhas_url" value="<?php //echo $this->numLinhasSelect; ?>" />-->
+        <select style="width: 70px" id="num_pagina_select" name="num_linhas_select">
+            <option value="15" <?php if($this->numLinhasSelect == 15){ echo " selected"; } ?>>15</option>
+            <option value="50" <?php if($this->numLinhasSelect == 50){ echo " selected"; } ?>>50</option>
+            <option value="100" <?php if($this->numLinhasSelect == 100){ echo " selected"; } ?>>100</option>
+        </select>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#1").click(function () {
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+
+            if(asc_desc === "asc"){
+                asc_desc = "desc";
+            }else if(asc_desc === "desc"){
+                asc_desc = "asc";
+            }
+
+            $(location).attr('href', '/manutencao/versao/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porTipo/<?php echo $this->PorTipo; ?>/porProjeto/<?php echo $this->porProjeto; ?>/pg/<?php echo $this->pg; ?>/coluna/1/ordem/' + asc_desc);
+        })
+
+        $("#3").click(function () {
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+
+            if(asc_desc === "asc"){
+                asc_desc = "desc";
+            }else if(asc_desc === "desc"){
+                asc_desc = "asc";
+            }
+
+            $(location).attr('href', '/manutencao/versao/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porTipo/<?php echo $this->PorTipo; ?>/porProjeto/<?php echo $this->porProjeto; ?>/pg/<?php echo $this->pg; ?>/coluna/3/ordem/' + asc_desc);
+        })
+
+        $("#4").click(function () {
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+
+            if(asc_desc === "asc"){
+                asc_desc = "desc";
+            }else if(asc_desc === "desc"){
+                asc_desc = "asc";
+            }
+
+            $(location).attr('href', '/manutencao/versao/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porTipo/<?php echo $this->PorTipo; ?>/porProjeto/<?php echo $this->porProjeto; ?>/pg/<?php echo $this->pg; ?>/coluna/4/ordem/' + asc_desc);
+        })
+    });
+</script>
+
+<input type="hidden" id="nr_chamado_asc_desc" name="nr_chamado_asc_desc" value="<?php echo $this->ordem; ?>">
+
+<div class="">
+    <div class="">
+        <?php $this->mensagem(); ?>
+        <div class="">
+            <div class="widget-box">
+                <div class="widget-title">
+                    <h5> <i class="icon-list-alt"></i> Lista de Versões</h5>
+                </div>
+                <div class="widget-content nopadding">
+                    <input type="hidden" name="totalrecords" id="totalrecords" value="<?php print count($this->oTotal);?>" />
+                    <table class="table table-bordered table-striped table-condensed" id="mt">
+                        <thead>
+                            <tr>
+                               <!-- <th>input type="checkbox" class="check-all"></th> -->
+                                <th id="1" style="cursor: pointer" class="span2">Nome
+                                    <?php
+                                    if ($this->coluna == 1) {
+                                        if ($this->ordem == "asc") {
+                                            echo "<img src='/images/sort_desc.png'>";
+                                        } else {
+                                            echo "<img src='/images/sort_asc.png'>";
+                                        }
+                                    } else {
+                                        echo "<img src='/images/sort_both.png'>";
+                                    }
+                                    ?>
+                                </th>
+                                <th id="2" class="span6">Descrição</th>
+                                <th id="3" style="cursor: pointer" class="span2">Tipo
+                                    <?php
+                                    if ($this->coluna == 3) {
+                                        if ($this->ordem == "asc") {
+                                            echo "<img src='/images/sort_desc.png'>";
+                                        } else {
+                                            echo "<img src='/images/sort_asc.png'>";
+                                        }
+                                    } else {
+                                        echo "<img src='/images/sort_both.png'>";
+                                    }
+                                    ?>
+                                </th>
+                                <th id="4" style="cursor: pointer" class="span2">Projeto
+                                    <?php
+                                    if ($this->coluna == 4) {
+                                        if ($this->ordem == "asc") {
+                                            echo "<img src='/images/sort_desc.png'>";
+                                        } else {
+                                            echo "<img src='/images/sort_asc.png'>";
+                                        }
+                                    } else {
+                                        echo "<img src='/images/sort_both.png'>";
+                                    }
+                                    ?>
+                                </th>
+                                <?php if (CO_PERFIL == 1) { ?>
+                                    <th class="span2">Ação</th>
+                                <?php } ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 0; ?>
+                            <?php foreach ($this->versoes as $versao) { ?>
+                                <tr <?php if (($i % 2) == 0) { ?> class="alt-row" <?php } ?> >
+                                    <td><?php print $versao->getNoVersao(); ?></td>
+                                    <td><?php print $versao->getDsVersao(); ?></td>
+                                    <td><?php print $versao->getTbTipoVersao()->getNoTipoVersao(); ?></td>
+                                    <td><?php print $versao->getProjeto()->getNoProjeto(); ?></td>
+                                    <?php if (CO_PERFIL == 1) { ?>
+                                    <td>
+                                        <!-- Icons -->
+                                        <div class="btn-group">
+                                            <a title="Editar" href="/manutencao/versao/adicionar/co_versao/<?php print $versao->getCoVersao(); ?>/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porTipo/<?php echo $this->porTipo; ?>/porProjeto/<?php echo $this->porProjeto; ?>/coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>/pg/<?php echo $this->pg; ?>" class="btn btn-small"><i class="icon-edit"></i></a>
+                                            <a title="Excluir" href="javascript:if (confirm('Deseja realmente excluir esta Versão?')) window.location = '/manutencao/versao/excluir/co_versao/<?php print $versao->getCoVersao(); ?>'; "class="btn btn-small"><i class="icon-remove"></i></a>
+                                        </div>
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                            <?php $i++; } ?>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="18" style="font-weight: bold">
+                                <div class="pull-right">Total de Chamados: <?php echo $this->oTotal == '' ? count($this->oTarefa) : $this->oTotal;?></div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="pagination pagination-centered">
+                        <ul>
+                            <?php echo $this->pagination; ?>
+                        </ul>
+                    </div>
+                </div> <!-- End #tab2 -->
+                <?php if(CO_PERFIL == 1) { ?>
+                     <div class="row-fluid">
+                        <div class="span12">
+                            <div class="form-actions">
+                                <a class="btn btn-primary" href="/manutencao/versao/adicionar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porTipo/<?php echo $this->porTipo; ?>/porProjeto/<?php echo $this->porProjeto; ?>/coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>/pg/<?php echo $this->pg; ?>">Cadastrar</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div> <!-- End BOX GERAL GRID-->
+    <!-- END BOX CRUD -->
+    </div>
+</div>
+

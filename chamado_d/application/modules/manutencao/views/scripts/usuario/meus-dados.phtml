@@ -1,0 +1,129 @@
+<script>
+	$(document).ready(function() {
+        $(".formValidate").validate();
+	});
+</script>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i> Principal</a>
+        -> Meus Dados 
+    </div>
+</div>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+    </div>
+    <h1>Meus Dados</h1>
+</div>
+<div class="row">
+    <div class="span12">
+    <?php echo  $this->mensagem(); ?>
+        <form action="/manutencao/usuario/meus-dados" method="post" class="formValidate" id="form-modulo">
+            <div class="row-fluid">
+                <div class="span11">
+                    <div class="row-fluid">
+                        <div class="span4" >
+                            <div class="label"> CPF
+                            </div> 
+                            <div class="controls">
+                                 <input id="cpf" name="nu_cpf" value="<?php  echo $this->aObjUsuario->getNuCpf(); ?>" type="text" size="15" disabled/>
+                            </div>	
+                        </div>
+                        <div class="span4" >
+                            <div class="label"> Nome
+                            </div> 
+                            <div class="controls">
+                                    <input id="no_usuario" name="no_usuario" value="<?php echo $this->aObjUsuario->getNoUsuario(); ?>" type="text" disabled/>
+                            </div>	
+                        </div>
+                        <div class="span4" >
+                            <div class="label"> E-mail
+                            </div> 
+                            <div class="controls">
+                                    <input id="ds_email" name="ds_email" value="<?php echo $this->aObjUsuario->getDsEmail(); ?>" type="text" 
+                                    	data-rule-required="true" data-rule-email="true" data-msg-required="Informe um e-mail" 
+                                    	data-msg-email=" Informe um e-mail válido"/>
+                            </div>	
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                    	<div class="span4" >
+                            <div class="label"> Telefone
+                            </div> 
+                            <div class="controls">
+                                   <input id="nu_tel" name="nu_tel" type="text" value="<?php echo $this->aObjUsuario->getNuTelefone(); ?>" 
+                                   		data-rule-required="true" data-msg-required="Informe um número de Tefefone" />
+                            </div>	
+                        </div>
+                        <div class="span4" >
+                            <div class="label"> Telefone
+                            </div> 
+                            <div class="controls">
+                                   <input id="nu_celular" name="nu_celular" type="text" value="<?php echo $this->aObjUsuario->getNuCelular(); ?>"/>
+                            </div>	
+                        </div>
+                    </div>
+                     <div class="row-fluid">
+                    	<div class="span4" >
+                    		<div class="label"> Perfil </div> 
+                            <div class="controls">
+                    			<input id="perfil" name="perfil" type="text" value="<?php echo $this->aObjUsuario->getPerfil()->getNoPerfil(); ?>" disabled/>
+                    		</div>	
+                    	</div>
+                    	<div class="span4" >
+                    		<div class="label"> Login </div> 
+                            <div class="controls">
+                    			<input id="ds_login" name="ds_login" value="<?php echo $this->aObjUsuario->getDsLogin();?>" type="text" disabled/>
+                    		</div>	
+                    	</div>
+                    </div>
+                     <div class="row-fluid">
+                    	<div class="span4" >
+                    		<div class="widget-content nopadding" style="width: 700px; padding-top: 10px;"> 
+                                    <div class="label">
+                                    Orgões 
+                                    </div>	
+                                    <input type="hidden" name="totalrecords" id="totalrecords" value="<?php print count($this->aObjOrgao )?>" />
+                                    <table class="table table-bordered table-striped" id="mt">																													
+                                            <thead>
+                                                    <tr>
+                                                            <th class="span7">Orgão</th>																				   
+                                                    </tr>
+                                            </thead>																													 
+                                            <tbody>
+                                                    <?php $i = 0;
+                                                    foreach ($this->aObjOrgao as $objOrgao) { ?>
+                                                            <tr <?php if (($i % 2) == 0) { ?> 
+                                                                            class="alt-row"
+                                                                    <?php } ?>
+                                                            >
+                                                                <td><?php print $objOrgao->getNoOrgao() ; ?></td>
+                                                            </tr>	                        
+                                                    <?php $i++; 
+                                                            } ?>
+                                            </tbody>
+                                    </table>
+                            <div id="paginacao" style="margin: auto;">
+                            </div>
+                    </div>
+                    	
+                    	</div>
+                    </div>		
+                </div>
+            </div>
+            <br />
+            <br />
+           <div class="row-fluid">
+                <div class="span12">
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                        <a href="/index" class="btn" data-original-title="" title="">Voltar</a>
+                    </div>	
+                </div>
+            </div>		
+        </form>
+        <div class="clear"></div><!-- End .clear -->																														
+    </div>
+</div>		 
+ 

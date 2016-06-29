@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Language" content="pt-br" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="author" content="Ministerio da Saude" />
+        <meta name="keywords" content="report esus" />
+        <meta name="description" content="Ministerio da Saude Brasil" />
+        <meta name="robots" content="all" />
+        <!-- inicio: adicionado o header que expira o cache -->
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="expires" content="-1" />
+        <!-- fim: adicionado o header que expira o cache -->
+        <?php echo $this->headTitle(); ?>
+        <link href="/css/bootstrap.css" rel="stylesheet">
+        <link href="/upload/*">
+        
+        <style type="text/css">
+            body {
+                padding:42px 0 40px 0;
+            }
+            .window{
+                display:none;
+                width:300px;
+                height:300px;
+                position:absolute;
+                left:0;
+                top:0;
+                background:#FFF;
+                z-index:9900;
+                padding:10px;
+                border-radius:10px;
+            }
+
+            #mascara{
+                display:none;
+                position:absolute;
+                left:0;
+                top:0;
+                z-index:9000;
+                background-color:#8EACCF;
+                opacity: 0.4;
+                background-image: url('/public/images/loading.gif');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center; 
+                background-size: 200px 200px;
+            }
+            .fechar{display:block; text-align:right;}
+        </style>
+        <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+        <link href="/css/font-awesome.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+		<link href="/css/smartpaginator.css" rel="stylesheet">
+        <!--[if IE 7]>
+          <link rel="stylesheet" href="css/font-awesome-ie7.min.css">
+        <![endif]-->
+        
+        <link rel="stylesheet" type="text/css" href="/css/relatorio.css" />
+        <link rel="stylesheet" type="text/css" href="/css/principal.css" />
+        <link rel="stylesheet" type="text/css" href="/css/forms.css" />
+        <link href="/library/tablesorter-master/themes/blue/asc.gif" />		
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/extend.js"></script>
+        <script src="/js/jquery.mask.js"></script> 
+        <script src="/js/jquery.meio.mask.js"></script>
+        <script src="/js/jquery.validate.min.js"></script>
+        <script src="/js/smartpaginator.js"></script>
+        <script src="/js/jquery.chained.js"></script>
+        <script src="/js/jquery.chained.remote.js"></script>
+
+        <!-- Tablesorter -->
+        <script src="/js/tablesorter/jquery.tablesorter.min.js"></script>
+        <script src="/js/tablesorter/jquery.tablesorter.widgets.min.js"></script>
+
+        
+        
+
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+        <script>
+            $( document ).ready(function() {
+                
+                if ( $("#form_load").length ){                    
+                    $( "#form_load" ).submit(function( event ) {
+                        
+                        var alturaTela = $(document).height();
+                        var larguraTela = $(window).width();
+                        
+                        var posicaoMetade = ($(window).width() /2)-150;
+
+                        $("#imgLoading").css({'width':'200px'});
+                        $("#imgLoading").css({'margin-top':'100px'});
+                        $("#imgLoading").css({'margin-left':posicaoMetade});
+
+                        //colocando o fundo preto
+                        $('#mascara').css({'width':larguraTela,'height':alturaTela});
+                        $('#mascara').fadeIn(1000);
+                        $('#mascara').fadeTo("slow",0.8);
+                        $('#mascara').show();
+
+                    });
+                }
+            });
+         
+            $(function() {
+            	$.mask.masks = $.extend($.mask.masks,{
+            	    phone_9:{ mask: '(99) 99999-9999'}
+            	});
+            	
+                $(".datepicker").datepicker({
+                    firstDay: 1,
+                    dateFormat: 'dd/mm/yy',						
+                    dayNames: [
+                        'DOMINGO','SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA','SÁBADO','DOMINGO'
+                    ],
+                    dayNamesMin: [
+                        'D','S','T','Q','Q','S','S','D'
+                    ],
+                    dayNamesShort: [
+                        'Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'
+                    ],
+                    monthNames: [
+                        'JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO',
+                        'OUTUBRO','NOVEMBRO','DEZEMBRO'
+                    ],
+                    monthNamesShort: [
+                        'JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET',
+                        'OUT','NOV','DEZ'
+                    ],				
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+                    beforeShowDay: $.datepicker.noWeekends         
+                });
+
+
+                $(".dataAtualMaior").datepicker({
+                    minDate: new Date,
+                    firstDay: 1,
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: [
+                        'DOMINGO','SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA','SÁBADO','DOMINGO'
+                    ],
+                    dayNamesMin: [
+                        'D','S','T','Q','Q','S','S','D'
+                    ],
+                    dayNamesShort: [
+                        'Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'
+                    ],
+                    monthNames: [
+                        'JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO',
+                        'OUTUBRO','NOVEMBRO','DEZEMBRO'
+                    ],
+                    monthNamesShort: [
+                        'JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET',
+                        'OUT','NOV','DEZ'
+                    ],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+                    beforeShowDay: $.datepicker.noWeekends
+                });
+
+                $(".dataAtualMenor").datepicker({
+                    maxDate: new Date,
+                    minDate: new Date("+1d"),
+                    firstDay: 1,
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: [
+                        'DOMINGO','SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA','SÁBADO','DOMINGO'
+                    ],
+                    dayNamesMin: [
+                        'D','S','T','Q','Q','S','S','D'
+                    ],
+                    dayNamesShort: [
+                        'Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'
+                    ],
+                    monthNames: [
+                        'JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO',
+                        'OUTUBRO','NOVEMBRO','DEZEMBRO'
+                    ],
+                    monthNamesShort: [
+                        'JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET',
+                        'OUT','NOV','DEZ'
+                    ],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+                    beforeShowDay: $.datepicker.noWeekends
+                });
+
+
+                $("#cpf").setMask("999.999.999-99");
+                $("#nu_tel").setMask("(99) 9999-9999");
+                $("#nu_celular").change(function() {
+            		valor = $("#nu_celular").val().replace(/\D/g,""); 
+            		if(valor.length == 10){
+            			$(this).attr('alt','phone');
+            			   $(this).setMask();
+            		}
+            	});
+            	(function($){
+            	    $(function(){
+            	        //$('input:text').setMask();
+            	         /* Personalização para celulares de 9 dígitos*/
+            	        $('#nu_celular').keydown(function(event) {
+            	              $(this).attr('alt','phone_9');
+            	              $(this).setMask();
+            	        });
+            	    });
+            	})(jQuery);
+             
+                
+            });
+            /*
+             * Translated default messages for the jQuery validation plugin.
+             * Locale: PT (Portuguese; português)
+             * Region: BR (Brazil)
+             */
+            (function ($) {
+            	$.extend($.validator.messages, {
+            		required: "Este campo &eacute; requerido.",
+            		remote: "Por favor, corrija este campo.",
+            		email: "Por favor, forne&ccedil;a um endere&ccedil;o eletr&ocirc;nico v&aacute;lido.",
+            		url: "Por favor, forne&ccedil;a uma URL v&aacute;lida.",
+            		date: "Por favor, forne&ccedil;a uma data v&aacute;lida.",
+            		dateISO: "Por favor, forne&ccedil;a uma data v&aacute;lida (ISO).",
+            		number: "Por favor, forne&ccedil;a um n&uacute;mero v&aacute;lido.",
+            		digits: "Por favor, forne&ccedil;a somente d&iacute;gitos.",
+            		creditcard: "Por favor, forne&ccedil;a um cart&atilde;o de cr&eacute;dito v&aacute;lido.",
+            		equalTo: "Por favor, forne&ccedil;a o mesmo valor novamente.",
+            		accept: "Por favor, forne&ccedil;a um valor com uma extens&atilde;o v&aacute;lida.",
+            		maxlength: $.validator.format("Por favor, forne&ccedil;a n&atilde;o mais que {0} caracteres."),
+            		minlength: $.validator.format("Por favor, forne&ccedil;a ao menos {0} caracteres."),
+            		rangelength: $.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1} caracteres de comprimento."),
+            		range: $.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1}."),
+            		max: $.validator.format("Por favor, forne&ccedil;a um valor menor ou igual a {0}."),
+            		min: $.validator.format("Por favor, forne&ccedil;a um valor maior ou igual a {0}.")
+            	});
+            }(jQuery));
+            
+
+        </script>
+                <!-- Nova Identidade Visual do Governo -->
+        <!-- 16/09/2011 Cíntia-->
+
+        <style type="text/css">
+            
+            body {
+                margin:0;
+                background-image: none;
+            }
+            #tudo{
+                width: 95% !important;
+                margin-left: 26px !important;
+            }
+            #texo-esquerdo{
+                text-align: left !important;
+            }
+            #barra-brasil-v3 {
+                position:relative;
+                clear:both;
+                overflow:hidden;
+                min-width:1000px;
+                height:28px;
+                background:#004b82;
+            }
+            #barra-brasil-v3 span {
+                display:block;
+                width:50%;
+                height:28px;
+                background:url(http://portalsaude.saude.gov.br/portalsaude/includes/templates/eportal//img/barra-brasil-v3-bgx.gif) 0 bottom repeat-x;
+            }
+            #barra-brasil-v3 span .imagemGov {
+                position:absolute;
+                top:4px;
+                left:50%;
+                height: 24px;
+                width: 1000px;
+                background: url(http://portalsaude.saude.gov.br/portalsaude/includes/templates/eportal//img/barra-brasil-v3-azul.gif) right top no-repeat;
+                margin-left:-518px;
+            }
+            #barra-brasil-v3 span .imagemAi {
+                position:absolute;
+                top:4px;
+                left:48%;
+                height: 24px;
+                width: 810px;
+                margin-left:-450px;
+            }
+            #barra-brasil-v3 span .acessoainformacaogov {
+                width: 120px;
+                height: 24px;
+                float:right;
+                display:block;
+                border: 0 !important;
+            }
+            #barra-brasil-v3 span .brasilgov {
+                width: 100px;
+                height: 24px;
+                float:right;
+                display:block;
+                border: 0 !important;
+            }
+
+            #scroll-text{
+                width:100%;
+                height:100%;
+                overflow: auto;
+            }
+            
+            #login{
+                text-align: right;
+                margin-right: 10px;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("table").hide("fast");
+                $("#loading").fadeIn("fast");
+
+            });
+            //function loading(){
+                //$("#loading").fadeIn("fast");
+            //}
+
+            /*
+            // Desloga o usuário depois de 20 minutos.
+            setTimeout(function(){
+                window.location.href = "http://suporte-esus.datasus.gov.br/acesso/login/sair";
+            }, 1200000);
+            */
+        </script>
+    </head>
+    <body> <!--onload="loading();" >-->
+        <div id="barra-brasil-v3"></div>
+        <div id="tudo">
+            <div id="topo">
+
+                <div class="navbar navbar-fixed-top">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="brand" href="/"><?php echo TITULO_SISTEMA; ?></a>
+                            <div class="nav-collapse collapse">
+                                
+                                <?php   echo MenuPeer::getHtmlMenu(); ?>
+                               
+                                <ul class="nav pull-right">
+                                <!-- " Último Login: " . Zend_Auth::getInstance()->getIdentity()->getDtUltimoLogin('d/m/Y H:i'); -->
+                                    <?php if (Zend_Auth::getInstance()->getIdentity()) { ?>  
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>
+                                            <?php echo Zend_Auth::getInstance()->getIdentity()->getNoUsuario() ?> | Sair <b class="caret"></b></a>
+					                        <ul class="dropdown-menu">
+                    						      	<li><a href="/manutencao/usuario/alterar-senha"> <i class="icon-edit"></i> Alterar Senha</a></li>
+                    						      	<li><a href="/manutencao/usuario/meus-dados"> <i class="icon-book"></i> Meus Dados</a></li>
+                                                                        <li class="divider"></li>
+                                                                        <li><a href="/acesso/login/sair"><i class="icon-share"></i> | Sair</a></li>
+                        					</ul>
+                                        </li>
+                                        
+                                    <?php } else { ?>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> Entrar <b class="caret"></b></a>
+                                            <form class="dropdown-menu well" action="/acesso/login/autenticar" method="post">
+                                                <fieldset>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Usuário</label>
+                                                        <div class="controls">
+                                                            <input type="text" name="no_login" id="no_login" placeholder="Digite seu usuário…">
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Senha</label>
+                                                        <div class="controls">
+                                                            <input type="password" name="ds_senha" id="ds_senha" placeholder="Digite sua senha…">
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <div class="controls">
+                                                            <a href="/acesso/login/recuperar" style="color: red; text-decoration: none">Recuperar senha</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="control-group">
+                                                        <div class="controls">
+                                                            <button type="submit" onclick="submitLogin()" class="btn">Entrar</button>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- menuF -->
+            </div>
+            <?php
+
+            ?>
+            <!-- Fim Topo -->
+            <div class="clear"></div>
+            <br />
+            
+            <!--<div id="loading" style="display: none">
+                <img src="/images/loadingAzul.gif" width="100" height="100">
+                <br />
+            </div>-->
+
+            <div id="conteudo">
+                
+                <?php echo $this->layout()->content; ?>
+            </div><!--Fim conteudo-->
+            <div id="rodape">
+                <center> Ministério da Saúde - DATASUS-RJ <?php echo VERSAO_SISTEMA; ?></center>
+            </div>
+        </div>
+        <div id="mascara" style="display:none;"></div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#loading").fadeOut();
+            });
+        </script>
+        <script type="text/javascript" DEFER="DEFER">
+            $(document).ready(function(){
+                $("table").fadeIn("slow");
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,217 @@
+Link de referencia inicial - http://ubuntuforums.org/showthread.php?t=92528
+
+Unzip these files in a new directory, e.g. /opt/oracle/instantclient.
+
+Fiz download em http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html
+
+Ai achei este client http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html
+
+mkdir -p /opt/oracle/instantclient
+cd /opt/oracle/instantclient
+unzip instantclient-basic-linux.x64-11.2.0.3.0.zip *Ultima versao que baixei
+unzip instantclient-sdk-linux.x64-11.2.0.3.0.zip
+
+** Este passo acho que foi meio desnecessário ate mesmo pq descompactei e criou outro diretorio "instantclient_11_2" 
+mas estou deixando aki conforme o original apenas
+
+echo /opt/oracle/instantclient >> /etc/ld.so.conf
+ldconfig
+
+Criar links dentro de /opt/oracle/instantclient/instantclient_11_2
+
+ln -s libclntsh.so.10.1 libclntsh.so
+ln -s libocci.so.10.1 libocci.so
+
+apt-get install php-pear
+
+mkdir -p /usr/local/src
+cd /usr/local/src
+pear download oci8
+
+Ai me deu este erro 
+No releases available for package "pear.php.net/oci8" - package pecl/oci8 can be installed with "oci8-1.4.9"
+download failed
+
+Me enrolei aqui mas ai descobri que dava para baixar e pronto http://pecl.php.net/package/oci8 moleza rs.... 
+
+tar xzf oci8-1.4.9.tar * Versao nova
+cd oci8-1.4.9
+phpize
+./configure --with-oci8=shared,instantclient,/opt/oracle/instantclient/instantclient_11_2
+make
+make install
+
+Ai descobri que o bonitao estava em /usr/lib/php5/20090626/ no meu computador é claro "Ubuntu 12.04.2 LTS" 
+
+The oci8-1.1.1.tgz filename will of course change for newer releases.
+To enable the oci8 module in the php.ini (/etc/php5/apache2/php.ini and /etc/php5/cli/php.ini), add a line
+
+Now stop and start Apache. You should see the oci8 module in the output of phpinfo().
+
+Prontoooooooo 
+<?php phpinfo(); ?>
+
+OCI8 Support	enabled
+Version	1.4.9
+
+---------------------------------
+
+Vamos la
+
+Codigo iniciante para execucao, lembrando que nunca usei oracle com php nao sei qual seria melhor performance.
+
+<?php 
+#phpinfo(); 
+ini_set('max_execution_time', 0);
+function execucao(){
+    $sec = explode(" ",microtime());
+    $tempo = $sec[1] + $sec[0];
+    return $tempo;
+}
+// No inicio da página executamos a função para iniciar o calculo, gerando a variavel $inicio
+$inicio = execucao();
+$db = "(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =IP)(PORT = 1808))
+        (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=IP))
+       )"; 
+// Connects to the XE service (i.e. database) on the "localhost" machine
+$conn = oci_connect('pmweb_hfl_bi_cons', 'senha', $db);
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+$stid = oci_parse($conn, 'SELECT * FROM EIR001_PATIENT WHERE EIR001_MPI > 200173');
+oci_execute($stid);
+$i=0;
+while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) { $i++; }
+// Após a execução da página, geramos a variavel $fim, que nos dará o tempo final da execução da página
+$fim = execucao();
+echo "Total registros $i <br>";
+// Agora é só fazermos a subtração de um pelo outro, e usar o number_format() do PHP para formatar com 6 casas depois da virgula e pronto, mas caso você queira alterar esse número de casas depois da vírgula para mais ou menos, fique a vontade
+$tempo = number_format(($fim-$inicio),6);
+// Agora á só imprimir o resultado
+print "Tempo de Execucao: <b>".$tempo."</b> segundos";
+?>
+
+Ao executar o codigo com uma quantidade grande em uma tabela este é o resultado, onde no sqlDeveloper o resultado é em menos de 1 segundo rs....
+
+Total registros 329246 
+Tempo de Execucao: 213.812347 segundos
+
+------------------------------------
+
+Diminui o resultado 
+
+Total registros 25197 
+Tempo de Execucao: 21.021017 segundos
+
+-----------------------------------
+
+Segunda fase com query mais complexa
+
+<?php 
+#phpinfo(); 
+ini_set('max_execution_time', 0);
+function execucao(){
+    $sec = explode(" ",microtime());
+    $tempo = $sec[1] + $sec[0];
+    return $tempo;
+}
+// No inicio da página executamos a função para iniciar o calculo, gerando a variavel $inicio
+$inicio = execucao();
+$db = "(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+        (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+       )"; 
+// Connects to the XE service (i.e. database) on the "localhost" machine
+$conn = oci_connect('pmweb_hfl_bi_cons', 'senha', $db);
+if (!$conn) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+}
+
+$sql = 'SELECT 
+  Internacao.ADT001_ADMISSION_DATE "Data Internacao",
+  especialidade.sys012_description "Especialidade",
+  uni.SYS002_NAME "Unidade", 
+  enfermaria.adt004_description "Enfermaria",
+  leito.adt005_bed_code "Leito",
+  p.eir001_name Nome,
+  case when same.SAM001_SAME_NUMBER IS NULL then "Nao Informado"
+       else 
+       same.SAM001_SAME_NUMBER 
+  end as  "Registro (AIH/BE)",
+  0 "Procedencia",
+  case when trunc(months_between(sysdate,p.EIR001_BIRTHDATE)/12) > 1 then
+    concat( cast( trunc(months_between(sysdate,p.EIR001_BIRTHDATE)/12) as varchar(10) ), " ANOS" )
+  else
+  case when months_between(sysdate,p.EIR001_BIRTHDATE) > 1 then
+      concat( cast( trunc(months_between(sysdate,p.EIR001_BIRTHDATE)) as varchar(10) ), " MESES")
+    else
+      concat( cast( (sysdate - p.EIR001_BIRTHDATE) as varchar(10) ), " DIAS")
+    end
+  end "Idade", 
+  case when p.eir001_sex="F" then "Feminino"
+       when p.eir001_sex="M" then "Masculino"
+    else
+       "Outros"
+  end As "Sexo", 
+  cid1.sys100_description "Cid Internacao",
+  0 "Procedimento",  
+  alta.ADT021_DISCHARGE_DATE  "Data Alta",
+  razao_alta.ADT022_DISCHARGE_REASON_ID  "Tipo de Alta",
+  cid2.sys100_description "Cid Alta",
+  trunc(sysdate-Internacao.ADT001_ADMISSION_DATE) "Tempo Internacao",
+  case when tipo_saida.emr055_code="6" then to_char (alta.ADT021_DISCHARGE_DATE)
+  end As "Data Obito",
+  profisional.sys009_name "Medico Assistente"  
+from ADT001_ADMISSION Internacao
+  INNER JOIN eir001_patient P ON p.eir001_mpi = internacao.eir001_mpi
+  INNER JOIN SYS012_PHYSICIAN_SPECIALITY especialidade ON especialidade.sys012_physician_spec_id = Internacao.SYS013_PROFESSIONAL_SPEC_ID 
+  INNER JOIN sys002_unit uni ON uni.sys002_unit_id = internacao.sys002_unit_id
+  INNER JOIN ADT005_BED leito ON leito.adt005_bed_id = internacao.adt005_bed_id
+  INNER JOIN ADT004_BEDROOM enfermaria ON enfermaria.adt004_bedroom_id = leito.adt004_bedroom_id
+  INNER JOIN ADT023_DISCHARGE_CID cid_inter ON cid_inter.adt001_admission_id = internacao.adt001_admission_id  
+  INNER JOIN SYS009_PROFESSIONAL profisional ON profisional.sys009_professional_id = internacao.sys009_professional_id
+  INNER JOIN ADT021_DISCHARGE alta on alta.ADT001_ADMISSION_ID = Internacao.ADT001_ADMISSION_ID
+  LEFT JOIN ADT022_DISCHARGE_REASON razao_alta on razao_alta.ADT022_DISCHARGE_REASON_ID = alta.ADT022_DISCHARGE_REASON_ID
+  LEFT JOIN ADT009_ADMISSION_CID inter_cid on inter_cid.ADT001_ADMISSION_ID = internacao.ADT001_ADMISSION_ID  
+  LEFT JOIN ADT023_DISCHARGE_CID alta_cid on alta_cid.ADT001_ADMISSION_ID = internacao.ADT001_ADMISSION_ID  
+  LEFT JOIN SYS100_CID cid1 on cid1.SYS100_CID_ID = inter_cid.SYS100_CID_ID
+  LEFT JOIN SYS100_CID cid2 on cid2.SYS100_CID_ID = alta_cid.SYS100_CID_ID
+  LEFT JOIN SAM001_SAME same on same.SAM001_SAME_ID = internacao.SAM001_SAME_ID
+  LEFT JOIN emr055_exit_type tipo_saida ON tipo_saida.emr055_exit_type_id = alta.emr055_exit_type_id
+  
+  WHERE alta.adt021_discharge_date IS NOT NULL';
+
+$stid = oci_parse($conn, $sql);
+oci_execute($stid);
+$i=0;
+
+while (oci_fetch($stid)) {
+       $i++; 
+}
+
+// Após a execução da página, geramos a variavel $fim, que nos dará o tempo final da execução da página
+$fim = execucao();
+echo "Total registros $i <br>";
+// Agora é só fazermos a subtração de um pelo outro, e usar o number_format() do PHP para formatar com 6 casas depois da virgula e pronto, mas caso você queira alterar esse número de casas depois da vírgula para mais ou menos, fique a vontade
+$tempo = number_format(($fim-$inicio),6);
+// Agora á só imprimir o resultado
+print "Tempo de Execucao: <b>".$tempo."</b> segundos";
+
+
+?>
+
+Ai quando executei algo com bastante JOINS deu isso e funciona no SQLDEVELOPER por exemplo a mesma query
+
+PHP Warning:  oci_fetch(): ORA-24374: a definic?o n?o foi feita antes da extrac?o ou execuc?o e extrac?o in /projetos/oracle/index.php on line 79
+
+
+
+
+
+
+
+
+
+
+

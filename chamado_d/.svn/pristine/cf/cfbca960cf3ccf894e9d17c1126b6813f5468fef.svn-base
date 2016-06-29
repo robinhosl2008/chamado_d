@@ -1,0 +1,45 @@
+<div class="content-box cadProf" id="boxGrid"><!-- Start Content Box GRID -->				
+    <div class="content-box-header">
+        <h4 class="titleList">Listagem de Permissões</h4>																												
+																											
+        <div class="clear"></div>																												
+    </div> <!-- End .content-box-header -->				
+    <div class="content-box-content">					
+        <div id="cadProf" class="tab-content default-tab"> <!-- Inicio tab 1-->	
+            
+            <div id="listHosp" class="tab-content default-tab" style="display: block;"><!-- Inicio tab 1 -->
+                <table style="margin-bottom: 50px;">																														
+                        <thead>
+                                <tr>
+                                   <th>#</th>
+                                   <th>Permissões</th>
+                                   <th>Nome Recurso</th>
+                                </tr>
+
+                        </thead>																													 
+                        <tbody>
+                            <?php
+                            
+                            $tmpTitulo = "";                            
+                                                        
+                            foreach($this->aLista as $oPermissao) {
+                          
+                            ?>
+                                <tr>
+                                     <td ><?php print $oPermissao->getRecurso()->getCoRecurso(); ?></td>
+                                    <td ><?php print $oPermissao->getRecurso()->getNoRecurso(); ?></td>
+                                    <td > 
+                                       <?php print $oPermissao->getRecurso()->getDsRecurso(); ?>
+                                    </td>
+                                </tr>
+                            
+                            <?php
+                                }
+                             
+                            ?>                                
+                       </tbody>                        
+                </table>																													
+            </div>  
+        </div> <!-- End #tab1 --> 		
+    </div> <!-- End .content-box-content -->				
+</div> <!-- End BOX GERAL GRID--> 

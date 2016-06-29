@@ -1,0 +1,1215 @@
+<style>
+    .table td{
+        line-height: 11px  !important;
+        font-size:12px  !important;
+        padding: 5px  !important;
+    }
+    .esconder{
+        display: none;
+    }
+    .exibir{
+        display: '';
+    }
+    .prioridade_urgente{
+        color:rgb(202, 20, 20);
+        background-color: rgb(252, 228, 228);
+    }
+    
+    body {
+        padding:42px 0 40px 0;
+    }
+
+
+    th.headerSortUp {
+        background-color: #3399FF;
+    }
+
+    th.headerSortDown {
+        background-color: #3399FF;
+    }
+    
+</style>
+<script src="/js/rel.chamado.js"></script>
+<!--<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>-->
+<script type="text/javascript" src="/js/translate.dataTables.min.js"></script>
+<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+<link href="/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<script>
+
+
+
+    function resetFileAtribuir(){
+        $('#file_atribuir').val('');
+    }
+
+    $(document).ready(function(){
+
+
+        //$('#MyTable').DataTable({});
+        //$('#tabela').tablesorter();
+
+        $('#mensagem').show();
+
+        $('#submit_pesquisa').prop('disabled', true);
+        $('#tipo_tarefa').change(function(){
+
+            var valor = $("#tipo_tarefa").val();
+            
+            
+            if(valor == 0) {
+                $('#mensagem').show();
+                $('#num_tarefa').hide();
+                $('#titulo').hide();
+                $('#data').hide();
+                $('#pr_chamado').hide();
+                $('#por_usuario').hide();
+                $('#num_sirius').hide();
+                $('#buscaStatus').hide();
+                $('#por_modulo').hide();
+            } else if(valor == 1) {
+                $('#mensagem').hide();
+                $('#num_tarefa').show();
+                $('#titulo').hide();
+                $('#data').hide();
+                $('#pr_chamado').hide();
+                $('#por_usuario').hide();
+                $('#num_sirius').hide();
+                $('#buscaStatus').hide();
+                $('#por_modulo').hide();
+                $('#num_tarefa').keyup(function(){
+                    if($('#num_tarefa').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 2) {
+                $('#mensagem').hide();
+                $('#num_tarefa').hide();
+                $('#titulo').show();
+                $('#data').hide();
+                $('#pr_chamado').hide();
+                $('#por_usuario').hide();
+                $('#num_sirius').hide();
+                $('#buscaStatus').hide();
+                $('#por_modulo').hide();
+                $('#titulo').keyup(function(){
+                    if($('#titulo').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 3) {
+                $('#mensagem').hide();
+                $('#num_tarefa').hide();
+                $('#titulo').hide();
+                $('#data').show();
+                $('#pr_chamado').hide();
+                $('#por_usuario').hide();
+                $('#num_sirius').hide();
+                $('#buscaStatus').hide();
+                $('#por_modulo').hide();
+                $('#data').change(function(){
+                    if($('#data').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 4) {
+                $('#mensagem').hide();
+                $('#num_tarefa').hide();
+                $('#titulo').hide();
+                $('#data').hide();
+                $('#pr_chamado').show();
+                $('#por_usuario').hide();
+                $('#num_sirius').hide();
+                $('#buscaStatus').hide();
+                $('#por_modulo').hide();
+                $('#pr_chamado').change(function(){
+                    if($('#pr_chamado').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 5) {
+                $('#mensagem').hide();
+                $('#num_tarefa').hide();
+                $('#titulo').hide();
+                $('#data').hide();
+                $('#pr_chamado').hide();
+                $('#por_usuario').show();
+                $('#num_sirius').hide();
+                $('#buscaStatus').hide();
+                $('#por_modulo').hide();
+                $('#por_usuario').keyup(function(){
+                    if($('#por_usuario').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 6) {
+                $('#mensagem').hide();
+                $('#num_tarefa').hide();
+                $('#titulo').hide();
+                $('#data').hide();
+                $('#pr_chamado').hide();
+                $('#por_usuario').hide();
+                $('#num_sirius').show();
+                $('#buscaStatus').hide();
+                $('#por_modulo').hide();
+                $('#num_sirius').keyup(function(){
+                    if($('#num_sirius').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 7) {
+                $('#mensagem').hide();
+                $('#num_tarefa').hide();
+                $('#titulo').hide();
+                $('#data').hide();
+                $('#pr_chamado').hide();
+                $('#por_usuario').hide();
+                $('#num_sirius').hide();
+                $('#buscaStatus').show();
+                $('#por_modulo').hide();
+                $('#buscaStatus').change(function(){
+                    if($('#buscaStatus').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 8) {
+                $('#mensagem').hide();
+                $('#num_tarefa').hide();
+                $('#titulo').hide();
+                $('#data').hide();
+                $('#pr_chamado').hide();
+                $('#por_usuario').hide();
+                $('#num_sirius').hide();
+                $('#buscaStatus').hide();
+                $('#por_modulo').show();
+                $('#por_modulo').change(function(){
+                    if($('#por_modulo').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            }
+        });
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    
+        $('#add1').click(function (){
+            $('#arquivo2').show();
+        });
+
+        $('#add2').click(function (){
+            $('#arquivo3').show();
+        });
+
+        $('#reset1').click(function(){
+            $('#file1').val('');
+        });
+
+        $('#reset2').click(function(){
+            $('#file2').val('');
+        });
+
+        $('#reset3').click(function(){
+            $('#file3').val('');
+        });
+
+        $('#reset_atender').click(function(){
+            $('#file_atender').val('');
+        });
+
+        $('#reset_resolver').click(function(){
+            $('#file_resolver').val('');
+        });
+
+        $('#num_pagina_select').change(function(){
+            $('#form_num_pagina_select').submit();
+        });
+    });
+</script>
+
+<div class="row-fluid">
+<div class="">
+    <?php $this->mensagem(); ?>
+	<h5>
+	 	<i class="icon-list"></i> Lista de Chamados por Status
+	</h5>
+	
+	<div class="navbar">
+		<div class="navbar-inner">
+	    	<div class="container">
+	      		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+	      		</a>
+	 
+		      <!-- Tudo que você queira escondido em 940px ou menos, coloque aqui -->
+		      	<div class="nav-collapse collapse">
+		      		<ul class="nav">
+		      		<?php 
+		      			foreach($this->oStatus as $Status){	
+	      					$class= "";
+	      					if($this->filtro == $Status->getCoStatus()){
+	      						$class= "active";
+	      					}
+		      		?>
+				     		<!--<li  class="<?php //echo $class;?>"><a href='/chamado/index/index/filtro/<?php //echo $Status->getCoStatus(); ?>/num_linhas/<?php //echo $this->numLinhasSelect; ?>'><?php //echo $Status->getNoStatus(); ?></a></li>-->
+				     		<li  class="<?php echo $class;?>"><a href='/chamado/index/index/filtro/<?php echo $Status->getCoStatus(); ?>/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/oPagination/false/coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>'><?php echo $Status->getNoStatus(); ?></a></li>
+					<?php }
+							$class= "";
+							if($this->filtro == "T"){
+								$class= "active";
+							}
+					
+					?>
+							<li  class="<?php echo $class;?>"> <a href='/chamado/index/index/filtro/T/num_linhas/<?php echo $this->numLinhasSelect; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/oPagination/false/coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>'>Todos</a></li>
+		            </ul>
+                            <ul class="nav pull-right">
+	                    <!-- <li><a href="#">Nr Chamado</a></li> -->
+                                <li class="divider-vertical"></li>
+                                    <li>
+                                        <form class="navbar-form " id="form_load" action="" method="post">
+                                        <div class="input-append" style="margin-bottom: 0px;">
+                                            <input type="hidden" value="<?php echo $this->numLinhasSelect; ?>" id="num_linhas_select" name="num_linhas_select" />
+
+                                            <select name="tipo_tarefa" id="tipo_tarefa" style="width: 165px; top: -5px">
+                                                <option value="" selected="selected">Buscar por...</option>
+                                                <option value="3">Data</option>
+                                                <option value="8">Módulo</option>
+                                                <option value="1">Nr Chamado</option>
+                                                <option value="6">Nr Sirius</option>
+                                                <option value="4">Prioridade</option>
+                                                <option value="7">Status</option>
+                                                <option value="2">Titulo</option>
+                                                <option value="5">Usuário</option>
+                                            </select>
+
+                                            <input type="text" class="span8" name="por_usuario" id="por_usuario"
+                                                 style="width: 150px; display: none"/>
+                                            
+                                            <input type="text" class="span8" name="mensagem" id="mensagem" 
+                                                   style="width: 150px; display: none" readonly
+                                                title="Selecione um tipo de busca" 
+                                                alt="Selecione um tipo de busca" 
+                                                placeholder="Selecione um tipo de busca"/>
+                                            
+                                            <input type="text" class="span8" name="num_tarefa"
+                                                id="num_tarefa"  
+                                                title="Entre com o número do chamado" 
+                                                alt="Entre com o número do chamado" 
+                                                value="" placeholder="Nr Chamado" style="width: 150px; display: none"/>
+
+                                            <input type="text" class="span8" name="num_sirius"
+                                                id="num_sirius"
+                                                title="Entre com o número da demanda do Sirius."
+                                                alt="Entre com o número da demanda do Sirius."
+                                                value="<?php if($this->num_sirius){ echo $this->num_sirius; } ?>"
+                                                placeholder="Nr Sirius" style="width: 150px; display: none"/>
+
+                                            <input type="text" class="span8" name="titulo" id="titulo"
+                                                 style="width: 150px; display: none"/>
+                                            
+                                            <input type="text" class="datepicker" name="data" id="data" 
+                                                   style="width: 136px; display: none"  />
+
+                                            <select name="oPor_modulo" id="por_modulo" style="width: 150px; top: -5px; display: none">
+                                                <option value="" selected="selected">Selecione...</option>
+                                                <?php foreach($this->modulos as $modulo): ?>
+                                                    <option value="<?php echo $modulo->getCoSeqModuloProj(); ?>"><?php echo $modulo->getNoModulo(); ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+
+                                            <select name="pri_chamado" id="pr_chamado" style="width: 150px; top: -5px; display: none">
+                                                <option value="" selected="selected">Selecione...</option>
+                                                <?php foreach($this->oPrioridade as $prioridade): ?>
+                                                    <option value="<?php echo $prioridade->getCoPrioridade(); ?>"><?php echo $prioridade->getNoPrioridade(); ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+
+                                            <select name="buscaStatus" id="buscaStatus" style="width: 150px; top: -5px; display: none">
+                                                <option value="" selected="selected">Selecione...</option>
+                                                <?php foreach($this->oStatus as $status){ ?>
+                                                    <option value="<?php echo $status->getCoStatus() ?>"><?php echo $status->getNoStatus() ?></option>
+                                                <?php } ?>
+                                            </select>
+
+                                            <!--
+                                            <select name="status" id="status" style="width: 150px; top: -5px; display: none" >
+                                                <option value="" selected="selected" required >Selecionar Status...</option>
+                                                <option value="1">Aberto</option>
+                                                <option value="2">Em Andamento</option>
+                                                <!--<option value="3">Pendente</option>
+                                                <option value="4">Teste Interne</option>
+                                                <option value="5">Fechado</option>
+                                                <option value="6">Reaberto</option>
+                                                <option value="7">Atribuido</option>
+                                                <option value="8">Resolvido</option>
+                                            </select>
+                                            -->
+                                            
+                                            <button id="submit_pesquisa" type="submit" class="btn"><i class="icon-search"></i></button>
+                                            
+                                        </div>
+                                    </form>	
+                                </li>
+                            </ul>
+		      	</div>
+		    </div>
+		</div>
+	</div>
+    
+    <div id="loading" style="display: none">
+        <img src="/images/waiting.gif" style="width: 200px; height: 200px; position: absolute; top: 40%; left: 40%">
+    </div>
+
+    <div>
+        <form action="" method="post" id="form_num_pagina_select">
+            <h5 style="float: left; padding-right: 15px"><b>Quantidade de resultados por página:</b></h5>
+            <input type="hidden" name="filtro" id="filtro" value="<?php echo $this->filtro; ?>" />
+
+            <input type="hidden" name="oPagination" id="oPagination" value="false" />
+            <input type="hidden" name="por_modulo" id="por_modulo" value="<?php echo $this->por_modulo; ?>" />
+            <input type="hidden" name="pag_ordem" id="pag_ordem" value="<?php echo $this->pag_ordem; ?>" />
+            <input type="hidden" name="ordem" id="o_ordem" value="<?php echo $this->ordem; ?>" />
+            <input type="hidden" name="coluna" id="o_coluna" value="<?php echo $this->coluna; ?>" />
+            <input type="hidden" name="tipo_tarefa" id="o_tipo_tarefa" value="<?php echo $this->tipo_tarefa; ?>" />
+            <input type="hidden" name="buscaStatus" id="o_buscaStatus" value="<?php echo $this->busca_status; ?>" />
+            <input type="hidden" name="pri_chamado" id="o_pr_chamado" value="<?php echo $this->pr_chamado; ?>" />
+            <input type="hidden" name="data" id="o_data" value="<?php echo $this->data; ?>" />
+            <input type="hidden" name="num_tarefa" id="o_num_tarefa" value="<?php echo $this->num_tarefa; ?>" />
+            <input type="hidden" name="num_sirius" id="o_num_sirius" value="<?php echo $this->num_sirius; ?>" />
+            <input type="hidden" name="titulo" id="o_titulo" value="<?php echo $this->titulo; ?>" />
+            <input type="hidden" name="por_usuario" id="o_por_usuario" value="<?php echo $this->por_usuario; ?>" />
+            <input type="hidden" name="num_linhas_select" id="o_num_linhas_select" value="<?php echo $this->numLinhasSelect; ?>" />
+
+            <!--<input type="hidden" name="num_linhas_url" id="num_linhas_url" value="<?php //echo $this->numLinhasSelect; ?>" />-->
+            <select style="width: 70px" id="num_pagina_select" name="num_linhas_select">
+                <option value="15" <?php if($this->numLinhasSelect == 15){ echo " selected"; } ?>>15</option>
+                <option value="50" <?php if($this->numLinhasSelect == 50){ echo " selected"; } ?>>50</option>
+                <option value="100" <?php if($this->numLinhasSelect == 100){ echo " selected"; } ?>>100</option>
+            </select>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            $("#1").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/1/ordem/'+asc_desc);
+            })
+
+            $("#2").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/2/ordem/'+asc_desc);
+            })
+
+            $("#3").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/3/ordem/'+asc_desc);
+            })
+
+            $("#4").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/4/ordem/'+asc_desc);
+            })
+
+            $("#5").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/5/ordem/'+asc_desc);
+            })
+
+            $("#6").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/6/ordem/'+asc_desc);
+            })
+
+            $("#7").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/7/ordem/'+asc_desc);
+            })
+
+            $("#8").click(function(){
+                var asc_desc = $("#nr_chamado_asc_desc").val();
+                $(location).attr('href', '/chamado/index/index/num_linhas/<?php echo $this->numLinhasSelect; ?>/filtro/<?php echo $this->filtro; ?>/tipo_tarefa/<?php echo $this->tipoTarefa; ?>/data/<?php echo $this->aData; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/num_sirius/<?php echo $this->num_sirius; ?>/titulo/<?php echo $this->titulo; ?>/no_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->prChamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/8/ordem/'+asc_desc);
+            })
+        });
+    </script>
+
+    <input type="hidden" id="nr_chamado_asc_desc" name="nr_chamado_asc_desc" value="<?php echo $this->nr_chamado_asc_desc; ?>">
+
+	<div id="scroll-text">
+        <table id="" class='display table table-bordered table-striped table-hover table-condensed' >
+		    <thead>
+			     <tr style="font-weight: bold">
+			    	<th id="1" style="cursor: pointer">Nr Chamado
+                        <?php
+                        if ($this->coluna == 1) {
+                            if ($this->ordem == "asc") {
+                                echo "<img src='/images/sort_desc.png'>";
+                            } else {
+                                echo "<img src='/images/sort_asc.png'>";
+                            }
+                        } else {
+                            echo "<img src='/images/sort_both.png'>";
+                        }
+                        ?>
+                    </th>
+			    	<th id="2" style="cursor: pointer">Projeto
+                        <?php
+                        if ($this->coluna == 2) {
+                            if ($this->ordem == "asc") {
+                                echo "<img src='/images/sort_desc.png'>";
+                            } else {
+                                echo "<img src='/images/sort_asc.png'>";
+                            }
+                        } else {
+                            echo "<img src='/images/sort_both.png'>";
+                        }
+                        ?>
+                    </th>
+			        <th id="3" style="cursor: pointer">Título
+                        <?php
+                        if ($this->coluna == 3) {
+                            if ($this->ordem == "asc") {
+                                echo "<img src='/images/sort_desc.png'>";
+                            } else {
+                                echo "<img src='/images/sort_asc.png'>";
+                            }
+                        } else {
+                            echo "<img src='/images/sort_both.png'>";
+                        }
+                        ?>
+                    </th>
+			        <th id="4" style="cursor: pointer">Data Início
+                        <?php
+                        if ($this->coluna == 4) {
+                            if ($this->ordem == "asc") {
+                                echo "<img src='/images/sort_desc.png'>";
+                            } else {
+                                echo "<img src='/images/sort_asc.png'>";
+                            }
+                        } else {
+                            echo "<img src='/images/sort_both.png'>";
+                        }
+                        ?>
+                    </th>
+			        <th id="5" style="cursor: pointer">Prioridade
+                        <?php
+                        if ($this->coluna == 5) {
+                            if ($this->ordem == "asc") {
+                                echo "<img src='/images/sort_desc.png'>";
+                            } else {
+                                echo "<img src='/images/sort_asc.png'>";
+                            }
+                        } else {
+                            echo "<img src='/images/sort_both.png'>";
+                        }
+                        ?>
+                    </th>
+			        <th id="6" style="cursor: pointer">Status
+                        <?php
+                        if ($this->coluna == 6) {
+                            if ($this->ordem == "asc") {
+                                echo "<img src='/images/sort_desc.png'>";
+                            } else {
+                                echo "<img src='/images/sort_asc.png'>";
+                            }
+                        } else {
+                            echo "<img src='/images/sort_both.png'>";
+                        }
+                        ?>
+                    </th>
+			        <th id="7" style="cursor: pointer">Órgão / Usuário
+                        <?php
+                        if ($this->coluna == 7) {
+                            if ($this->ordem == "asc") {
+                                echo "<img src='/images/sort_desc.png'>";
+                            } else {
+                                echo "<img src='/images/sort_asc.png'>";
+                            }
+                        } else {
+                            echo "<img src='/images/sort_both.png'>";
+                        }
+                        ?>
+                    </th>
+			        
+			        <?php if($this->filtro == CO_STATUS_FECHADO){ ?>
+			        	<th id="8" style="cursor: pointer">Data Fechamento
+                            <?php
+                            if ($this->coluna == 8) {
+                                if ($this->ordem == "asc") {
+                                    echo "<img src='/images/sort_desc.png'>";
+                                } else {
+                                    echo "<img src='/images/sort_asc.png'>";
+                                }
+                            } else {
+                                echo "<img src='/images/sort_both.png'>";
+                            }
+                            ?>
+                        </th>
+			        <?php } ?>      
+			        
+			        <th>Ação</th>
+			    </tr>
+		    </thead>
+		    <tbody>
+                <?php
+                if(count($this->oTarefa) > 0){
+                    foreach($this->oTarefa as $Tarefa){
+                        if($Tarefa->getStatus()->getCoStatus()  == CO_STATUS_RESOLVIDO){
+                            $class =" success ";
+                        } else if($Tarefa->getStatus()->getCoStatus() == CO_STATUS_EM_ANDAMENTO){
+                            $class = "info";
+                        } else if($Tarefa->getStatus()->getCoStatus() == CO_STATUS_REABERTO){
+                            $class = "error";
+                        } else if ($Tarefa->getStatus()->getCoStatus() == CO_STATUS_ATRIBUI){
+                            $class="warning";
+                        } else if($Tarefa->getStatus()->getCoStatus()  == CO_STATUS_FECHADO){
+                            $class =" gray ";
+                        }else{
+                            $class="";
+                        }
+                ?>
+		   			<tr style="cursor:pointer"  class="<?php echo $class; ?>" >
+		   				<td  onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')"  id="texo-esquerdo">
+                            <?php echo trim($Tarefa->getNrTarefa());?>
+                            <?php if($Tarefa->getCoStatus() == CO_STATUS_ATRIBUI && CO_PERFIL != CO_PERFIL_ADMINISTRADOR){ ?>
+                                <?php if($Tarefa->getCoUsuarioAberto() == CO_USUARIO) { ?>
+                                    <!--<img src="/images/glyphicons-11-envelope.png" style="width: 15px; height: 8px">-->
+                                    <i class="icon-star"></i>
+                                <?php }?>
+                            <?php }?>
+                            <?php if($Tarefa->getCoStatus() == CO_STATUS_ATRIBUI && CO_PERFIL == CO_PERFIL_ADMINISTRADOR){ ?>
+                                <?php if($Tarefa->getCoUsuarioAtualizacao() == CO_USUARIO) { ?>
+                                    <!--<img src="/images/glyphicons-11-envelope.png" style="width: 15px; height: 8px">-->
+                                    <i class="icon-star"></i>
+                                <?php }?>
+                            <?php }?>
+                        </td>
+                        <td  onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')" ><?php echo trim($Tarefa->getProjeto()->getNoprojeto());?></td>
+                        <td  width="250px" onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')"  id="texo-esquerdo"><?php echo trim($Tarefa->getNoResumo());?></td>
+		   				<td  onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')" ><?php echo $Tarefa->getDtInicio('d/m/Y H:i');?></td>
+		   				<td  onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')"  <?php if($Tarefa->getCoPrioridade() > 2) {echo "style='color:red !important'";}?>><?php echo $Tarefa->getPrioridade()->getNoPrioridade();?></td>
+		   				<td  onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')" ><?php echo $Tarefa->getStatus()->getNoStatus();?></td>
+		   				<td  width="200px" onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')" ><?php echo $Tarefa->getOrgao()->getNoOrgao(). " / ". $Tarefa->getNoUsuario()?> </td>
+		   				<?php  if($this->filtro  == CO_STATUS_FECHADO){ ?>
+		                           <td  onclick="exibir(<?php echo $Tarefa->getCoTarefa(); ?>)" ><?php echo $Tarefa->getDtFim('d/m/Y');?></td>
+		                <?php  }?>  
+		   				<td width="200px">
+		   					<button class="btn btn-primary" onclick="exibir(<?php echo $Tarefa->getCoTarefa();?>, '<?php echo $class;?>')"><i class="icon-plus"></i> Detalhar</button>
+                            <a href="/chamado/index/historico/tp_busca/<?php echo $this->tipo_busca; ?>/num_linhas/<?php echo $this->numLinhasSelect; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/coluna/<?php echo $this->coluna; ?>/co_tarefa/<?php echo $Tarefa->getCoTarefa()?>/filtro/<?php echo $this->filtro;?>/tipo_tarefa/<?php echo $this->tipo_tarefa; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/titulo/<?php echo $this->titulo; ?>/data/<?php $data = $this->data; $aData = str_replace("/", "-", $data); echo $aData; ?>/por_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->pr_chamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/pg/<?php echo $this->pg; ?>/index"><button class="btn" value="<?php echo $Tarefa->getCoTarefa()?>"><i class="icon-list-alt icon-white"></i> Histórico</button></a>
+		       		 	</td>
+		    		</tr>
+                    <tr id="linhaMais<?php echo $Tarefa->getCoTarefa();?>" class="esconder">
+                        <td colspan="8" style="text-align: left !important">
+                            <table class='table table-bordered table-striped'>
+                                <tr>
+                                    <td width="18%"><b>Projeto</b></td>
+                                    <td style="text-align: left !important"><h4><?php echo $Tarefa->getProjeto()->getNoProjeto();?> </h4></td>
+                                </tr>
+                                <tr>
+                                    <td width="18%"><b>Nível</b></td>
+                                    <td style="text-align: left !important"><?php echo $Tarefa->getNivel()->getNoNivel();?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Categoria</b></td>
+                                    <td  style="text-align: left !important"><?php echo $Tarefa->getCategoria()->getNoCategoria();?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Usuário</b></td>
+                                    <td style="text-align: left !important"><?php if(is_array($Tarefa->getUsuarioTarefa())){ echo implode(" - " , $Tarefa->getUsuarioTarefa()); }  ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Nr Sirius</b></td>
+                                    <td style="text-align: left !important"><?php echo $Tarefa->getNrSirius() ?></td>
+                                </tr>
+                                <?php if($Tarefa->getTbModuloProjeto()){?>
+                                <tr>
+                                    <td><b>Módulo</b></td>
+                                    <td><?php print $Tarefa->getTbModuloProjeto()->getNoModulo()?></td>
+                                </tr>
+                                <?php }?>
+                                <tr>
+                                    <td><b>Descrição</b></td>
+                                    <td  style="text-align: left !important"><?php echo nl2br($Tarefa->getDescricao());?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Data Previsão</b></td>
+                                    <td  style="text-align: left !important"><?php echo $Tarefa->getDtPrevisao('d/m/Y');?></td>
+                                </tr>
+                                <?php if($Tarefa->getCoStatus() != CO_STATUS_FECHADO) : ?>
+                                <tr>
+                                    <td><b>Ações</b></td>
+                                    <td  style="text-align: left !important">
+
+                                        <?php
+                                            $Tarefa->setNoResumo(htmlspecialchars($Tarefa->getNoResumo(), ENT_QUOTES));
+                                        ?>
+
+                                        <?php if($Tarefa->getCoStatus() == CO_STATUS_ABERTA || $Tarefa->getCoStatus() == CO_STATUS_ATRIBUI) { ?>
+                                            <?php if(CO_PERFIL == CO_PERFIL_ADMINISTRADOR) { ?>
+                                                <button class="btn btn-atender atender btn-primary" id="opener1" value='<?php print json_encode($Tarefa->toArray());?>'><i class="icon-check"></i> Atender</button>
+                                                <button class="btn btn-resolver btn-primary" value='<?php  print json_encode($Tarefa->toArray());?>'><i class="icon-ok"></i> Resolver</button>
+                                            <?php }?>
+                                        <?php }?>
+
+                                        <?php if($Tarefa->getCoStatus() == CO_STATUS_EM_ANDAMENTO && CO_PERFIL == CO_PERFIL_ADMINISTRADOR /* || $Tarefa->getCoStatus() == CO_STATUS_REABERTO*/){ ?>
+                                            <button class="btn btn-resolver btn-primary" value='<?php  print json_encode($Tarefa->toArray());?>'><i class="icon-ok"></i> Resolver</button>
+                                        <?php } ?>
+
+                                        <?php //if($Tarefa->getCoStatus() == CO_STATUS_FECHADO){ ?>
+                                            <!--<button class="btn btn-reAbrir btn-primary" value='<?php  //print json_encode($Tarefa->toArray());?>'><i class=" icon-folder-open"></i> Reabrir</button>-->
+                                        <?php //} ?>
+
+                                        <?php if($Tarefa->getCoStatus() == CO_STATUS_RESOLVIDO) { ?>
+                                            <?php if(CO_PERFIL != CO_PERFIL_ADMINISTRADOR){ ?>
+                                                <button class="btn btn-fechar btn-primary" value='<?php  print json_encode($Tarefa->toArray());?>'><i class=" icon-lock"></i> Fechar</button>
+                                                <button class="btn btn-devolver btn-default" value='<?php print json_encode($Tarefa->toArray());?>'><i class="icon-check"></i> Responder</button>
+                                            <?php }elseif(CO_PERFIL == CO_PERFIL_ADMINISTRADOR && CO_USUARIO == $Tarefa->getCoUsuarioAberto()){ ?>
+                                                <button class="btn btn-fechar btn-primary" value='<?php  print json_encode($Tarefa->toArray());?>'><i class=" icon-lock"></i> Fechar</button>
+                                            <?php } ?>
+                                        <?php } ?>
+
+                                        <?php if($Tarefa->getCoStatus() != CO_STATUS_FECHADO && $Tarefa->getCoStatus() != CO_STATUS_RESOLVIDO && $Tarefa->getCoStatus() != CO_STATUS_ATRIBUI){ ?>
+                                            <?php if(CO_PERFIL == CO_PERFIL_ADMINISTRADOR) { ?>
+                                                <button class="btn btn-atribuir" value='<?php  print json_encode($Tarefa->toArray());?>'><i class="icon-retweet"></i> Atribuir</button>
+                                            <?php }?>
+                                        <?php } ?>
+
+                                        <?php if($Tarefa->getCoStatus() == CO_STATUS_ATRIBUI && CO_PERFIL != CO_PERFIL_ADMINISTRADOR) { ?>
+                                            <?php if($Tarefa->getCoUsuarioAberto() == CO_USUARIO || CO_PERFIL == CO_PERFIL_ADM_UNIDADES || CO_PERFIL == CO_PERFIL_MULTI_UNIDADES) { ?>
+                                                <button class="btn btn-devolver btn-default" value='<?php print json_encode($Tarefa->toArray());?>'><i class="icon-check"></i> Responder</button>
+                                            <?php } ?>
+                                        <?php } ?>
+
+                                    </td>
+                                </tr>
+                                <?php endif; ?>
+                            </table>
+                        </td>
+                </tr>
+		    <?php } 
+				} else { ?>
+		        <tr><td colspan="18">Nenhum registro encontrado!</td></tr>
+		    <?php } ?>
+		    </tbody>
+		    <tfoot>
+		    	<tr>
+		    		<td colspan="18" style="font-weight: bold">
+		   				<div class="pull-right">Total de Chamados: <?php echo $this->totalRec == '' ? count($this->oTarefa) : $this->totalRec;?></div>
+		    		</td>
+		    	</tr>
+		    </tfoot>
+		</table>
+
+		<div style="margin-top: -15px;">
+            <ul class="inline">
+                <li><strong>Legenda:</strong></li>
+                <li class="muted">Aberto</li>
+                <li class="text-warning">Atríbuido</li>
+                <li class="text-info"> Em Andamento </li>
+                <li class="text-success">Resolvido</li>
+                <!--<li class="text-error">Reaberto</li>-->
+                <li style="color: #484848">Fechado</li>
+            </ul>
+        </div>
+		<?php //echo  "Total de Registro: ".$this->totalRec;?>
+                <div class="pagination pagination-centered">
+			<?php print $this->paginacao;?>
+		</div>
+    <br>
+
+    <br>
+
+            <div id="divDevolver" title="Responder Chamado">
+                <form method="post" action="/chamado/index/responder" class="formValidate" id="formDevolver"  enctype="multipart/form-data">
+                    <input type="hidden" name="co_tarefa" id="co_tarefa" value="" >
+                    <input type="hidden" name="co_usuario_atualizacao" id="co_usuario_atualizacao" value="" >
+                    <input type="hidden" name="co_usuario" id="coUsuario" value="<?php print Zend_Auth::getInstance()->getIdentity()->getCoUsuario();?>">
+                    <div class="control-group">
+                        <label class="control-label">*Chamado:</label>
+                        <div class="controls">
+                            <input class="span5" name="no_tarefa" id="no_tarefa" type="text" value="" disabled>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">*Status:</label>
+                        <div class="controls">
+                            <select name="co_status" disabled >
+                                <option id="coStatus" value="2">Em Andamento</option>
+                                <?php /*
+                                foreach($this->oStatus as $Status){
+                                    ?>
+                                    <option value="<?php echo $Status->getCoStatus();  ?>" <?php if($Status->getCoStatus() == CO_STATUS_EM_ANDAMENTO){print' selected="selected"';}?>><?php echo $Status->getNoStatus();  ?></option>
+                                <?php } */?>
+                            </select>
+                        </div>
+                    </div>
+<!--
+                    <div class="control-group">
+                        <label class="control-label">Prioridade:</label>
+                        <div class="controls">
+                            <select name="co_prioridade" data-rule-required="false" data-msg-required="Informe a Prioridade">
+                                <option value="">selecione...</option>
+                                <?php
+                                /*foreach($this->oPrioridade as $Prioridade){
+                                    ?>
+                                    <option value="<?php echo $Prioridade->getCoPrioridade(); ?>"><?php echo $Prioridade->getNoPrioridade();  ?></option>
+                                <?php } */?>
+                            </select>
+                        </div>
+                    </div>-->
+
+                    <div class="control-group">
+                        <label class="control-label">*Descrição:</label>
+                        <div class="controls">
+                            <textarea class="span6" name="ds_chamado" rows="" cols="" style="height: 121px !important; resize:none;"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Campo de envio de arquivos. -->
+                    <div>
+                        <input type="file" name="file" id="file" style="border: none" />
+
+                        <button style="float: right" type="button" id="reset" class="btn">
+                            <i class="icon-trash"></i>
+                        </button><br />
+                        <p style="font-size: 10px">Selecione um arquivo com extensão "jpg", "png", "docx", "doc", "xls", "xlsx" ou "pdf".</p>
+                    </div>
+
+
+                    <br />
+                    <button type="submit" class="button_blue">Salvar</button>
+                    <button type="button" class="button_blue" id="btn-cancelar" onclick="history.go()">Cancelar</button>
+                </form>
+            </div>
+
+            <!-- Modal de Resolver chamado. -->
+            <div id="divResolver" title="Resolver Chamado">
+                <form method="post" action="/chamado/index/resolver" id="formResolver" enctype="multipart/form-data">
+                    <input type="hidden" name="co_terefa_resolvido" id="coTarefaResolvido" value="" >
+                    <input type="hidden" name="co_usuario_resolvido" id="coUsuarioResolvido" value="<?php print Zend_Auth::getInstance()->getIdentity()->getCoUsuario();?>">
+                    <div class="control-group">
+                        <label class="control-label">Chamado:</label>
+                        <div class="controls">
+                            <input class="span5" id="noChamadoResolvido" type="text" value="" disabled>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Status:</label>
+                        <div class="controls">
+                            <select name="co_status_resolvido" disabled >
+                                <?php
+                                foreach($this->oStatus as $Status){
+                                    ?>
+                                    <option value="<?php echo $Status->getCoStatus();  ?>" <?php if($Status->getCoStatus() == CO_STATUS_RESOLVIDO){print' selected="selected"';}?>><?php echo $Status->getNoStatus();  ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Data:</label>
+                        <div class="controls">
+                            <input type="text" class="dataAtualMenor" name="dt_resolvido" placeholder="Data" data-rule-required="true" data-msg-required="Informe que a data chamado foi resolvido">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Nr Sirius:</label>
+                        <div class="controls">
+                            <input class="span2" id="nrSirius" name="nrSirius" type="text" /> <!--data-rule-required="true" data-msg-required="Informe o número da demanda no sistema Sirius."-->
+                            <p id="info_nr_sirius" style="color: red; font-size: 10px; display: none; padding-top: -20px">
+                                <em>Informe somente números.</em>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Descrição:</label>
+                        <div class="controls">
+                            <textarea class="span6" name="ds_resolvido" rows="" cols="" style="height: 121px !important; resize:none;" data-rule-required="true" data-msg-required="Informe uma descrição"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Campo de envio de arquivos. -->
+                    <div>
+                        <input type="file" name="file" id="file_resolver" style="border: none" />
+                        <button style="float: right" type="button" id="reset_resolver" class="btn">
+                            <i class="icon-trash"></i>
+                        </button><br />
+                        <p style="font-size: 10px">Selecione um arquivo com extensão "jpg", "png", "docx", "doc", "xls", "xlsx" ou "pdf".</p>
+                    </div>
+
+                    <button type="submit" class="button_blue">Salvar</button>
+                    <button type="button" class="button_blue" id="btn-cancelar-r" onclick="history.go()">Cancelar</button>
+                </form>
+            </div>
+
+
+
+            <div id="divAtendimento" title="Atender Chamado">
+    	<form method="post" action="/chamado/index/atender" class="formValidate" id="formAtendimento" enctype="multipart/form-data">
+    			<input type="hidden" name="co_terefa" id="coTarefa" value="" >
+    			<input type="hidden" name="co_usuario" id="coUsuario" value="<?php print Zend_Auth::getInstance()->getIdentity()->getCoUsuario();?>">
+    			<div class="control-group">
+	                <label class="control-label">Chamado:</label>
+	                <div class="controls">
+	                    <input class="span5" id="no_chamado" type="text" value="" disabled>
+	                </div>
+	            </div>
+    	 		<div class="control-group">
+	                <label class="control-label">Status:</label>
+    				<div class="controls">
+                   		<select name="co_status" disabled > 
+                    	<?php 
+                        	foreach($this->oStatus as $Status){ 
+                    	?>
+                    		<option value="<?php echo $Status->getCoStatus();  ?>" <?php if($Status->getCoStatus() == CO_STATUS_EM_ANDAMENTO){print' selected="selected"';}?>><?php echo $Status->getNoStatus();  ?></option>
+                    	<?php } ?>            
+                    	</select>
+                	</div>
+                </div>
+
+<!--
+                <div class="control-group">
+	                <label class="control-label">Prioridade:</label>
+	                <div class="controls">
+	                    <select name="co_prioridade" data-rule-required="true" data-msg-required="Informe a Prioridade">
+	                     <option value="">selecione...</option>
+                            <?php //foreach($this->oPrioridade as $Prioridade){ ?>
+	                            <option value="<?php //echo $Prioridade->getCoPrioridade();  ?>"><?php //echo $Prioridade->getNoPrioridade();  ?></option>
+	                        <?php //} ?>
+
+	                    </select>
+	                </div>
+                </div>
+-->
+
+                <div class="control-group">
+                    <label class="control-label">Nr Sirius:</label>
+                    <div class="controls">
+                        <input class="span2" id="nr_sirius" name="nr_sirius" type="text" /> <!--data-rule-required="true" data-msg-required="Informe o número da demanda no sistema Sirius."--> 
+                        <p id="info_nr_sirius" style="color: red; font-size: 10px; display: none; padding-top: -20px">
+                            <em>Informe somente números.</em>
+                        </p>
+                    </div>
+                </div>
+				<div class="control-group">
+	                <label class="control-label">Data de Previsão:</label>
+	                <div class="controls">
+	                    <input type="text" class="dataAtualMaior" name="dt_previsao" placeholder="Data de Previsão" data-rule-required="true" data-msg-required="Informe uma Previsão">
+	                </div>
+	            </div>
+				<div class="control-group">
+	                <label class="control-label">Descrição:</label>
+	                <div class="controls">
+	                	<textarea class="span6" name="ds_chamado" rows="" cols="" style="height: 121px !important; resize:none;"></textarea>
+	                </div>
+	           </div>
+
+            <!-- Campo de envio de arquivos. -->
+            <div>
+                <input type="file" name="file" id="file_atender" style="border: none" />
+                <button style="float: right" type="button" id="reset_atender" class="btn">
+                    <i class="icon-trash"></i>
+                </button><br />
+                <p style="font-size: 10px">Selecione um arquivo com extensão "jpg", "png", "docx", "doc", "xls", "xlsx" ou "pdf".</p>
+            </div>
+
+            <button id="salvar_atender" type="submit" class="button_blue">Salvar</button>
+                <button type="button" class="button_blue" id="btn-cancelar" onclick="history.go()">Cancelar</button>
+    	</form>
+    </div>
+            <!--
+    	<div id="divResolver" title="Resolver Chamado 1">
+	    	<form method="post" action="/chamado/index/resolver" id="formResolver">
+	    			<input type="hidden" name="co_terefa_resolvido" id="coTarefaResolvido" value="" >
+	    			<input type="hidden" name="co_usuario_resolvido" id="coUsuarioResolvido" value="<?php //print Zend_Auth::getInstance()->getIdentity()->getCoUsuario();?>">
+	    			<div class="control-group">
+		                <label class="control-label">Chamado:</label>
+		                <div class="controls">
+		                    <input class="span5" id="noChamadoResolvido" type="text" value="" disabled>
+		                </div>
+		            </div>
+	    	 		<div class="control-group">
+		                <label class="control-label">Status:</label>
+	    				<div class="controls">
+	                   		<select name="co_status_resolvido" disabled > 
+	                    	<?php 
+	                        	//foreach($this->oStatus as $Status){
+	                    	?>
+	                    		<option value="<?php //echo $Status->getCoStatus();  ?>" <?php //if($Status->getCoStatus() == CO_STATUS_RESOLVIDO){print' selected="selected"';}?>><?php //echo $Status->getNoStatus();  ?></option>
+	                    	<?php// } ?>
+	                    	</select>
+	                	</div>
+	                </div>
+					<div class="control-group">
+		                <label class="control-label">Data1:</label>
+		                <div class="controls">
+		                    <input type="text" class="dataAtualMenor" name="dt_resolvido" placeholder="Data" data-rule-required="true" data-msg-required="Informe que a data chamado foi resolvido">
+		                </div>
+		            </div>
+					<div class="control-group">
+		                <label class="control-label">Descrição:</label>
+		                <div class="controls">
+		                	<textarea class="span6" name="ds_resolvido" rows="" cols="" style="height: 121px !important; resize:none;" data-rule-required="true" data-msg-required="Informe uma descrição"></textarea>
+		                </div>
+		           </div>
+	                <button type="submit" class="button_blue">Salvar</button>
+	                <button type="button" class="button_blue" id="btn-cancelar-r" onclick="history.go()">Cancelar</button>
+	    	</form>
+	    </div>	
+    -->
+    
+	    <div id="divFechar" title="Fechar Chamado">
+	    	<form method="post" action="/chamado/index/fechar" id="formFechar">
+	    			<input type="hidden" name="co_terefa_fechado" id="coTarefaFechado" value="" >
+	    			<input type="hidden" name="co_usuario_fechado" id="coUsuario" value="<?php print Zend_Auth::getInstance()->getIdentity()->getCoUsuario();?>">
+	    			<div class="control-group">
+		                <label class="control-label">Chamado:</label>
+		                <div class="controls">
+		                    <input class="span5" id="noChamadoFechado" type="text" value="" disabled>
+		                </div>
+		            </div>
+	    	 		<div class="control-group">
+		                <label class="control-label">Status:</label>
+                                    <div class="controls">
+	                   		<select name="co_status_fechamento" disabled > 
+                                            <?php 
+                                                foreach($this->oStatus as $Status){ 
+                                            ?>
+                                                <option value="<?php echo $Status->getCoStatus();  ?>" <?php if($Status->getCoStatus() == CO_STATUS_FECHADO){print' selected="selected"';}?>><?php echo $Status->getNoStatus();  ?></option>
+                                            <?php } ?>            
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="control-group">
+		                <label class="control-label">Data do Fechamento :</label>
+		                <div class="controls"> <!--placeholder="Data do Fechamento"-->
+		                    <!--<input type="text" value="<?php echo date('d/m/Y') ?>" class="dataAtualMenor" name="dt_fechamento" data-rule-required="true" data-msg-required="Informe do Fechamento">-->
+                            <input type="text" value="<?php echo date('d/m/Y') ?>" class="" name="dt_fechamento" data-rule-required="true" data-msg-required="Informe do Fechamento" />
+		                </div>
+		            </div>
+                            <div class="control-group">
+		                <label class="control-label">Nr Sirius :</label>
+		                <div class="controls">
+                                    <input type="text" disabled id="nr_sirius" name="nr_sirius" data-rule-required="true" data-msg-required="Informe o número da demanda do Sirius" >
+		                </div>
+		            </div>
+					<div class="control-group">
+		                <label class="control-label">Descrição:</label>
+		                <div class="controls">
+		                	<textarea class="span6" name="ds_fechamento" rows="" cols="" style="height: 121px !important; resize:none;" data-rule-required="true" data-msg-required="Informe uma descrição para o Fechamento"></textarea>
+		                </div>
+		           </div>
+	                <button type="submit" class="button_blue">Salvar</button>
+	                <button type="button" class="button_blue" id="btn-cancelar-f" onclick="history.go()">Cancelar</button>
+	    	</form>
+	    </div>
+	    <div id="divReabrir" title="Reabrir Chamado">
+	    	<form method="post" action="/chamado/index/reabrir" id="formReabrir">
+	    			<input type="hidden" name="co_terefa_reAbrir" id="coTarefaReAbrir" value="" >
+	    			<input type="hidden" name="co_usuario_reAbrir" id="coUsuario" value="<?php print Zend_Auth::getInstance()->getIdentity()->getCoUsuario();?>">
+	    			<div class="control-group">
+		                <label class="control-label">Chamado:</label>
+		                <div class="controls">
+		                    <input class="span5" id="noChamadoReAbrir" type="text" value="" disabled>
+		                </div>
+		            </div>
+	    	 		<div class="control-group">
+		                <label class="control-label">Status:</label>
+	    				<div class="controls">
+	                   		<select name="co_status_reAbrir" disabled > 
+	                    	<?php 
+	                        	foreach($this->oStatus as $Status){ 
+	                    	?>
+	                    		<option value="<?php echo $Status->getCoStatus();  ?>" <?php if($Status->getCoStatus() == CO_STATUS_REABERTO){print' selected="selected"';}?> disabled="disabled"><?php echo $Status->getNoStatus();  ?></option>
+	                    	<?php } ?>            
+	                    	</select>
+	                	</div>
+	                </div>
+					<div class="control-group">
+		                <label class="control-label">Descrição:</label>
+		                <div class="controls">
+		                	<textarea class="span6" name="ds_reAbrir" rows="" cols="" style="height: 121px !important; resize:none;" data-rule-required="true" data-msg-required="Informe uma descrição para o Fechamento"></textarea>
+		                </div>
+		           </div>
+	                <button type="submit" class="button_blue">Salvar</button>
+	                <button type="button" class="button_blue" id="btn-cancelar-r" onclick="history.go()">Cancelar</button>
+	    	</form>
+	    </div>
+
+
+            
+	    <div id="divAtribuir" title="Atribuir Chamado">
+
+	    	<form method="post" action="/chamado/index/atribuir" id="formAtribuir"  enctype="multipart/form-data" >
+	    	<div class="row">
+	    		<div class="span6">
+	    			<input type="hidden" name="co_terefa_atribuir" id="coTarefaAtribuir" value="" >
+	    			<input type="hidden" name="co_usuario_atribuir" id="coUsuarioAtribuir" value="<?php print Zend_Auth::getInstance()->getIdentity()->getCoUsuario();?>">
+	    			<div class="control-group">
+		                <label class="control-label">Chamado:</label>
+		                <div class="controls">
+		                    <input class="span5" id="noChamadoAtribuir" type="text" value="" disabled>
+		                </div>
+		            </div>
+					<div class="control-group">
+		                <label class="control-label">Status:</label>
+	    				<div class="controls">
+	    					<input class="span3" id="co_status_Atribuir" type="text" value="Atribuir" disabled>
+	                	</div>
+	                </div>
+	                 <div class="row-fluid">
+	                	<div class="span5">
+		             			<label class="control-label">Órgão: </label>
+		               			<div class="controls">
+		                   			<select id="orgao" name="co_orgao_recep" data-rule-required="true" data-msg-required="Informe um Órgão">
+	                    			</select>
+		               			</div>
+		            	</div>
+		            	
+		            </div>
+		            <div class="row-fluid">
+	                	<div class="span5">
+		            			<label class="control-label">Usuários:</label>
+		                		<div class="controls">
+		                    		<select id="usuarios" name="co_usuario_recep" data-rule-required="true" data-msg-required="Informe um usuário">
+		                    		</select>
+		                		</div>
+		                </div>
+                            </div>
+
+
+                    <div class="row-fluid">
+                        <div class="span5">
+	                		<label class="control-label">Categoria:</label>
+	                		<select id="categorias" name="co_categoria_recep" data-rule-required="true" data-msg-required="Informe uma categoria">
+		                    </select>
+	                	</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Nr Sirius:</label>
+                        <div class="controls">
+                            <input class="span2" id="nr_sirius" name="nr_sirius" type="text" /> <!--data-rule-required="true" data-msg-required="Informe o número da demanda no sistema Sirius."-->
+                            <p id="info_nr_sirius" style="color: red; font-size: 10px; display: none; padding-top: -20px">
+                                <em>Informe somente números.</em>
+                            </p>
+                        </div>
+                    </div>
+	                <div class="control-group">
+		                <label class="control-label">Descrição:</label>
+		                <div class="controls">
+		                	<textarea class="span6" name="ds_atribuir" rows="" cols="" style="height: 121px !important; resize:none;" data-rule-required="false" data-msg-required="Informe uma descrição para atribuir"></textarea>
+		                </div>
+		            </div>
+
+                    <!-- Campo de envio de arquivos. -->
+                    <div class="control-group">
+                        <input type="file" name="file" id="file_atribuir" style="border: none" />
+                        <button type="button" id="reset_atribuir" onclick="resetFileAtribuir()" class="btn">
+                            <i class="icon-trash"></i>
+                        </button><br />
+                        <p style="font-size: 10px">Selecione um arquivo com extensão "jpg", "png", "docx", "doc", "xls", "xlsx" ou "pdf".</p>
+                    </div>
+
+                    <!--
+        <div class="control-group">
+            <div class="controls">
+                <table>
+
+                    <tr>
+                        <td>
+                            <input type="button" id="add1" value="+">
+                        </td>
+                        <td>
+                            <div>
+
+                                <input type="file" style="border: none" id="file1" name="arquivo[]" />
+
+
+                                //<input style="border: none" type="file" id="file" name="file" />
+
+                                //<input type="button" class="btn btn-primary" id="reset" />
+                                <button style="float: right;" type="button" id="reset1" class="btn">
+                                    <i class="icon-trash"></i>
+                                </button>
+
+                                <br />
+                            </div>
+                        </td>
+                    </tr>
+                    <!--
+                    <tr id="arquivo2" style="display: none">
+                        <td>
+                            <input type="button" id="add2" value="+">
+                        </td>
+                        <td>
+                            <div id="upload">
+                                <input type="file" style="border: none" id="file2" name="arquivo[]" />
+
+
+                                //<input style="border: none" type="file" id="file" name="file" />
+
+                                //<input type="button" class="btn btn-primary" id="reset" />
+                                <button style="float: right;" type="button" id="reset2" class="btn">
+                                    <i class="icon-trash"></i>
+                                </button>
+
+                                <br />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="arquivo3" style="display: none">
+                        <td>
+                            //<input type="button" id="add2" value="+">
+                        </td>
+                        <td>
+                            <div id="upload">
+                                <input type="file" style="border: none" id="file3" name="arquivo[]" />
+
+
+                                //<input style="border: none" type="file" id="file" name="file" />
+
+                                //<input type="button" class="btn btn-primary" id="reset" />
+                                <button style="float: right;" type="button" id="reset3" class="btn">
+                                    <i class="icon-trash"></i>
+                                </button>
+
+                                <br />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                Selecione um arquivo com extensão .jpg ou .png!
+            </div>
+        </div>                    -->
+                        <input type="submit" class="button_blue" value="Salvar" />
+                        <button type="button" class="button_blue" id="btn-cancelar-a" onclick="history.go()">Cancelar</button>
+	            </div>
+                    </div>    
+	    	</form>
+	    </div>
+	</div>
+</div>
+</div>

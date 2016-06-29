@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+
+    ServerName sinsa
+    DocumentRoot /opt/sinsa/public
+	
+    <Directory "/opt/sinsa/public">
+        Order allow,deny
+        Allow from all
+        AllowOverride all
+    </Directory>
+
+    CustomLog /opt/sinsa/tmp/logs/http.log combined
+    ErrorLog /opt/sinsa/tmp/logs/error_http.log
+
+</VirtualHost>

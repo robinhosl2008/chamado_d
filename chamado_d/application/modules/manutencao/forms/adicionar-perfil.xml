@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<form>
+    <form-perfil>        
+        <fields>
+            <co_perfil tipo="hidden" propel="getCoPerfil" />
+            <no_perfil tipo="text" size="20" propel="getNoPerfil" label="Nome do Perfil" classe="text-input medium-input" >
+                <validacao>
+                    <requerido msg="Informe o nome do Perfil" />                    
+                </validacao>                    
+            </no_perfil>
+            <ds_perfil tipo="textarea" size="20" propel="getDsPerfil" label="Descrição" classe="text-input medium-input" />
+            <st_perfil tipo="checkbox" propel="getStPerfil" label="Ativo" valor="1" checked="true" />
+        </fields>        
+    </form-perfil>
+</form>

@@ -1,0 +1,691 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Definições
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+body{
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+	background: url(/images/sombraGeral.png) top no-repeat ;
+	font-size:12px;
+	color:#333;
+	margin:0px;
+}
+a { color:#333}
+a:hover { color:#21668F}
+a, a:hover, a:active, a:visited {
+	text-decoration: none;
+	
+}
+a {outline: 0;}
+* { outline:none;}
+h1, h2, h3, h4, h5, h6, p{margin:0px 0px 10px 0px;}
+h1{font-size:15px;
+	font-family: "Century Gothic", Arial, Verdana,sans-serif; }
+h2{font-size:17px;}
+h3{font-size:16px;}
+h4{font-size:15px;}
+h5{font-size:14px;}
+h6{font-size:13px;}
+
+img {border:none;}
+/* Estrutura
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#tudo{
+	width:960px;
+	margin:0 auto;
+	}
+#topo{
+	width:100%;
+	position:relative;
+	}
+#barraGoverno{
+	margin:0px;
+	height:35px;
+	width:100%;
+	background-image:url(/images/MinisterioDaSaudeGF.png);
+	}
+#barraGovernoPosicao1{
+	position:absolute;
+	top:7px;
+	left:30px;
+	}
+#barraGovernoPosicao2{
+	position:absolute;
+	top:5px;
+	left:850px;
+	}
+#testeira{
+	height:122px;
+	}
+#SaudeGovBr{
+	width:220px;
+	height:70px;
+	position:relative;
+	top:15px;
+	left:10px;
+	}
+#testeiraPosicao1{
+	width: 100%; 
+	float:left;
+	min-height:122px;
+	}
+#testeiraPosicao2{
+	width:260px;
+	padding:5px 10px 0px 10px;
+	float:left;
+	min-height:72px;
+	}
+#busca {
+	height:35px;
+}
+#busca  input{
+	width:225px;
+	border:none;
+	color:#999;
+	padding:10px 5px 10px 30px;
+	/*background-image:url(/images/bgBusca.jpg);*/
+	background-repeat:no-repeat;
+	margin:0px;
+}
+#busca {
+	width:252px;
+	/*height:30px;*/
+	border:0px;
+	font-size:16px;
+	font-family: "Century Gothic", Tahoma, Verdana, Arial;
+}
+#links{
+	margin:5px 0px 10px 0px;
+	font-size:11px;
+	border-bottom:1px #CCC solid;}
+
+#links a{
+	color:#999;}
+#redes img{
+	/*margin-top:10px;*/
+	margin-right:2px;
+	}
+#menu{
+	width:100%;
+	margin:0px;
+	}
+#conteudo{
+	display:inline;
+	}
+#rodape{
+	width:100%;
+	padding:5px;
+	min-height:50px;
+	background:url(/images/bgRodape.jpg) top repeat-x;
+	margin-top:30px;
+	}
+#rodapePosicao1{
+	width:220px;
+	float:left;
+	padding-right:20px;
+	background: url(/images/sombraverticalnoticias.png) right no-repeat; 
+	}
+#rodapePosicao2{
+	width:720px;
+	background:url(/images/sombraColuna.png) bottom no-repeat;
+	float:left;
+	}
+#rodapePosicao2{
+	width:720px;
+	float:left;
+	}
+
+/* Classes
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.clearboth {
+	clear:both; 
+	min-height:10px;
+	}
+.sublinhado{
+	border-bottom:dotted 1px #CCC;
+	}
+.leiaMais {
+	padding-left:15px;
+	margin-right:5px;
+	font-weight:normal;
+	font-family: "Century Gothic", Tahoma, Verdana, Arial;
+	font-size:14px;
+	color: #999999;
+	background-image:url(/images/leiamais.png);
+	background-repeat:no-repeat;
+	background-position:left;
+}
+.link {
+	padding-right:10px;
+	margin-right:10px;
+	font-weight:normal;
+	font-family: "Century Gothic", Tahoma, Verdana, Arial;
+	font-size:14px;
+	color: #999999;
+	background-image: url(/images/separadorMenu.gif);
+	background-repeat:no-repeat;
+	background-position:right;
+	}
+.linkNoticia {
+	padding-left:8px;
+	margin-left:8px;
+	font-weight:normal;
+	font-family: "Century Gothic", Tahoma, Verdana, Arial;
+	font-size:14px;
+	color: #999999;
+	background-image: url(/images/separadorMenu.gif);
+	background-repeat:no-repeat;
+	background-position:left;
+	}
+.floatLeft{
+	float:left;
+	margin-right:10px;
+	}
+.radioSaude{
+	padding: 5px 60px 5px 0px;
+	background-image: url(/images/radio110711.png);
+	background-position:right;
+	background-repeat:no-repeat;
+	}
+.saudeemDia{
+	padding: 5px 85px 5px 0px;
+	background-image: url(/images/SaudeemDia.png);
+	background-position:right;
+	background-repeat:no-repeat;
+	}
+.tvSaude{
+	padding: 5px 95px 5px 0px;
+	background-image: url(/images/tvSaude.png);
+	background-position:right;
+	background-repeat:no-repeat;
+	}
+.saudenasRedes{
+	padding: 5px 90px 5px 0px;
+	background-image: url(/images/SaudeNasRedes.png);
+	background-position:right;
+	background-repeat:no-repeat;
+	}
+.agenciaSaude{
+	font-size:15px;
+	font-family: "Century Gothic", Tahoma, Verdana, Arial;
+	font-weight:bold;
+	color:#21668F;
+	}
+.assinaNoticia{
+	margin-top:25px;
+	padding: 5px 0px 5px 45px;
+	background-image: url(/images/assinaNoticia.jpg);
+	background-position:left;
+	background-repeat:no-repeat;
+	}
+/* Perfis
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*---------------------* azul *----------------------*/
+.azul{color:#21668F;	}
+.azul a{color:#21668F;}
+.azul a:hover{color:#1E6B9F;}
+.azulbg{background-color:#21668F;}
+/*---------------------* azul fim *----------------------*/
+
+/*---------------------* vermelho *----------------------*/
+.vermelho{color: #E23D05;}
+.vermelho a{color: #E23D05;}
+.vermelho a:hover{color: #7D2102;	}
+.vermelhobg{background-color: #CC0000;}
+/*---------------------* vermelho fim *----------------------*/
+
+/*---------------------* amarelo *----------------------*/
+.amarelo{color: #EFC003;}
+.amarelo a{color: #EFC003;}
+.amarelo a:hover{color: #A48402;}
+.amarelobg{background-color:#FEF7DA;}
+/*---------------------* amarelo fim *----------------------*/
+
+/*---------------------* verde *----------------------*/
+.amarelo{color: #1FD21F;}
+.amarelo a{color: #1FD21F;}
+.amarelo a:hover{color: #179F17;}
+.amarelobg{background-color:#179F17;}
+/*---------------------* verde fim *----------------------*/
+
+/*---------------------* laranja *----------------------*/
+.amarelo{color:#F1921D;}
+.amarelo a{color:#F1921D;}
+.amarelo a:hover{color:#33CC00;}
+.amarelobg{background-color:#33CC00;}
+/*---------------------* laranja fim *----------------------*/
+
+/*---------------------* cinza *----------------------*/
+.cinza{color: #999;}
+.cinza a{color: #999;}
+.cinza a:hover{color: #666666;}
+.cinzabg{	background-color:#999;}
+/*---------------------* cinza  fim*----------------------*/
+
+/* AcessibilidadeGeral
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#acessibilidadeGeral{
+	z-index:1;
+	position:absolute; 
+	top:134px; 
+	left:870px; 
+	width:90px;
+}
+#acessibilidadeGeral ul{
+	margin:0px; padding:0px;
+	}
+#acessibilidadeGeral li{
+	list-style:none;
+	float:left;
+	}
+	
+.contrasteOn{
+	display:none;
+
+	}
+#acessibilidadeGeral li a{
+	color:#999;
+	padding:2px 7px 6px 3px;
+	margin-right:3px;
+	font-weight:bold;
+	background-image:url(/images/bgAceA.png);
+	background-repeat:no-repeat;
+	}
+#acessibilidadeGeral li a:hover{
+	color:#FFF;
+	background-image:url(/images/bgAceH.png);
+	}
+#acessibilidadeGeral img{ margin-right:5px;}
+#acessibilidadeGeral .esconder{ display:none;}
+
+
+/* AcessibilidadeGeral Sem Menu e sem Topo
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#acessibilidadeGeralSTM{
+	z-index:1;
+	position:absolute; 
+	top:6px; 
+	left:870px; 
+	width:90px;
+}
+#acessibilidadeGeralSTM ul{
+	margin:0px; padding:0px;
+	}
+#acessibilidadeGeralSTM li{
+	list-style:none;
+	float:left;
+	}
+	
+.contrasteOn{
+	display:none;
+
+	}
+#acessibilidadeGeralSTM li a{
+	color:#999;
+	padding:2px 7px 6px 3px;
+	margin-right:3px;
+	font-weight:bold;
+	background-image:url(/images/bgAceA.png);
+	background-repeat:no-repeat;
+	}
+#acessibilidadeGeralSTM li a:hover{
+	color:#FFF;
+	background-image:url(/images/bgAceH.png);
+	}
+#acessibilidadeGeralSTM img{ margin-right:5px;}
+#acessibilidadeGeralSTM .esconder{ display:none;}
+
+/* AcessibilidadeGeral Sem Topo
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#acessibilidadeGeralST{
+	z-index:1;
+	position:absolute; 
+	top:86px; 
+	left:870px; 
+	width:90px;
+}
+#acessibilidadeGeralST ul{
+	margin:0px; padding:0px;
+	}
+#acessibilidadeGeralST li{
+	list-style:none;
+	float:left;
+	}
+	
+.contrasteOn{
+	display:none;
+
+	}
+#acessibilidadeGeralST li a{
+	color:#999;
+	padding:2px 7px 6px 3px;
+	margin-right:3px;
+	font-weight:bold;
+	background-image:url(/images/bgAceA.png);
+	background-repeat:no-repeat;
+	}
+#acessibilidadeGeralST li a:hover{
+	color:#FFF;
+	background-image:url(/images/bgAceH.png);
+	}
+#acessibilidadeGeralST img{ margin-right:5px;}
+#acessibilidadeGeralST .esconder{ display:none;}
+
+/* AcessibilidadeGeral Sem Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+#acessibilidadeGeralSM{
+	z-index:1;
+	position:absolute; 
+	top:128px; 
+	left:870px; 
+	width:90px;
+}
+#acessibilidadeGeralSM ul{
+	margin:0px; padding:0px;
+	}
+#acessibilidadeGeralSM li{
+	list-style:none;
+	float:left;
+	}
+	
+.contrasteOn{
+	display:none;
+
+	}
+#acessibilidadeGeralSM li a{
+	color:#999;
+	padding:2px 7px 6px 3px;
+	margin-right:3px;
+	font-weight:bold;
+	background-image:url(/images/bgAceA.png);
+	background-repeat:no-repeat;
+	}
+#acessibilidadeGeralSM li a:hover{
+	color:#FFF;
+	background-image:url(/images/bgAceH.png);
+	}
+#acessibilidadeGeralSM img{ margin-right:5px;}
+#acessibilidadeGeralSM .esconder{ display:none;}
+
+
+/* Accordion
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.accordion {
+	BORDER-BOTTOM: #c4c4c4 1px solid; WIDTH: auto
+}
+.accordion H3 {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: #c4c4c4 1px solid; PADDING-BOTTOM: 7px; MARGIN: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; FONT: bold 120%/100% Arial, Helvetica, sans-serif; BACKGROUND: url(http://portal.saude.gov.br/portal/geral/imagens/arrow-square.gif) #e9e7e7 no-repeat right -51px; COLOR: #0099cc; BORDER-TOP: #c4c4c4 1px solid; CURSOR: pointer; BORDER-RIGHT: #c4c4c4 1px solid; PADDING-TOP: 7px
+}
+.accordion H3:hover {
+	BACKGROUND-COLOR: #e3e2e2
+}
+.accordion H3.active {
+	BACKGROUND-POSITION: right 5px
+}
+.accordion P {
+	BORDER-LEFT: #c4c4c4 1px solid; PADDING-BOTTOM: 20px; MARGIN: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; BACKGROUND: #f7f7f7; BORDER-RIGHT: #c4c4c4 1px solid; PADDING-TOP: 10px
+}
+
+/* CLASSES CRIADAS PELO GESTOR E ADICIONADAS EM 19/08/2011 - TOFINHA - NO DATASUS */
+.tamanhoVideo {
+	display:block;
+	width:250px;
+	height:150px;
+}
+.divSanfona {
+	overflow-x: auto;
+	width:100%;
+	height:107px;
+	/*overflow: hidden;*/
+}
+.divSanfonaT {
+	/*overflow-y: auto;*/
+	width:190px;
+	height:130px;
+}
+.miniTitulo {
+	font-family:'Century Gothic',tahoma;
+	margin-bottom: 0px;
+	font-size:11px;
+	font-weight:normal;
+}
+.tamanhoIframe {
+	width:200px;
+	height:90px;
+}
+.iframeWebRadio {
+	width:180px;
+}
+.videoPrincipal{
+	display:block;
+	width:250px;
+	height:158px;
+}
+.classSusVida{
+	font-family: 'Century Gothic', tahoma; 
+	margin-bottom: 0px; 
+	font-size: 11px; 
+	font-weight: normal;
+}
+.classSaudeBrasil{
+	margin: 0px; 
+	font-family: 'Century Gothic', tahoma; 
+	font-size: 11px; 
+	font-weight: normal;
+}
+.tabela200{
+	width:200px;
+}
+
+.txtOuvidoria {
+	/*font-size: 11px; */
+	font-weight: bold;
+}
+#acessibilidadeBotoes {
+	margin-top:20px;	
+}
+
+.blogSaude {
+	background-position: right; padding: 5px 80px 5px 0px; background-image: url("/images/blogSaude.png"); background-repeat: no-repeat;
+}
+
+
+/*--------------------------MENU ---------------------- */
+
+/* CSS Document */
+
+/****************** configuraÃ§Ãµes gerais *******************/
+#menuGeral{
+	height:70px;
+	position:relative;
+	font-family: "Century Gothic", Tahoma, Verdana, Arial;
+	background: url(/images/bgMenu.jpg) top no-repeat;
+	margin-bottom:1px;
+	padding-top:10px;
+	}
+/****************** configuraÃ§Ãµes gerais fim *******************/
+
+
+/****************** configuraÃ§Ãµes menu *******************/
+#menuGeral li{
+	margin-bottom:5px;
+	list-style:none;
+	float:left;
+	}
+.menuPrincipal{
+	padding-bottom:30px;
+	}
+#menuGeral ul{
+	margin:0px;
+	padding:0px;
+	}
+.menu {
+	background: url(/images/separadorMenu.gif) right no-repeat;
+	padding: 0px 10px 0px 10px;
+	font-size:14px;
+	font-weight:bold;
+	}
+/****************** configuraÃ§Ãµes menu fim*******************/
+
+
+/****************** configuraÃ§Ãµes submenu *******************/
+#menuGeral .submenu {
+	margin-top: 12px;
+	background-image:url(/images/sombraColuna.png);
+	background-position:top;
+	background-repeat:no-repeat;
+	min-height:15px;
+	padding-top:10px;
+	padding-bottom:5px;
+	width:100%;
+	position:absolute;
+	left:0px;
+	font-weight:bold;
+	}
+#menuGeral .submenu  a{ color:#FFF;}
+.submenu li {
+	padding: 0px 10px 0px 10px;
+}
+#menu div.on {
+	display:block;
+}
+#menu div.off {
+	display:none;
+}
+#menu li.on {
+	background-color:#9C0;
+}
+#menu li.off {
+	background-color:#960;
+}
+/****************** configuraÃ§Ãµes submenu fim *******************/
+
+
+/****************** configuraÃ§Ãµes menuinterno *******************/
+#menuInterno {
+	background-color:#eee
+}
+#menuInterno{
+	margin:0px;
+	padding:0px;
+}
+#menuInterno li{
+	border-bottom:1px solid #CCC;
+	padding:10px 5px;
+	margin:0px;
+	background: url(/images/bgMenu.jpg) no-repeat; 
+	list-style: none;
+}
+#menuInterno li:hover{
+	background: url(/images/bgMenuHover.jpg) no-repeat;
+}
+/****************** configuraÃ§Ãµes menuinterno fim *******************/
+
+
+/****************** configuraÃ§Ãµes cores *******************/
+
+/*---------------------* azul *----------------------*/
+.navAzul{
+	color:#21668F;
+	}
+.navAzul a{
+	color:#21668F;
+	cursor:pointer;
+	}
+.navAzul a:hover{
+	color:#1E6B9F;
+	cursor:pointer;
+	}
+.navAzulbg{
+	background-color:#21668F;
+	font-size:12px;
+	border:none;
+	}
+/*---------------------* azul fim *----------------------*/
+
+
+/*---------------------* vermelho *----------------------*/
+.navVermelho{
+	color: #E23D05;
+	}
+.navVermelho a{
+	color: #E23D05;
+	cursor:pointer;
+	}
+.navVermelho a:hover{
+	color: #7D2102;
+	}
+.navVermelhobg{
+	background-color: #CC0000;
+	font-size:12px;
+	}
+/*---------------------* vermelho fim *----------------------*/
+
+
+/*---------------------* amarelo *----------------------*/
+.navAmarelo{
+	color: #EFC003;
+	}
+.navAmarelo a{
+	color: #EFC003;
+	cursor:pointer;
+	}
+.navAmarelo a:hover{
+	color: #A48402;
+	}
+.navAmarelobg{
+	background-color:#FEF7DA;
+	font-size:12px;	}
+/*---------------------* amarelo fim *----------------------*/
+
+
+/*---------------------* cinza *----------------------*/
+.navCinza{
+	color: #999;
+	}
+.navCinza a{
+	color: #999;
+	cursor:pointer;
+	}
+.navCinza a:hover{
+	color: #666666;
+	}
+.navCinzabg{
+	background-color:#999;
+	font-size:12px;	
+	}
+/*---------------------* cinza  fim*----------------------*/
+
+/*Erro de validação*/
+form label.error{  
+ 	text-align: right; 
+ 	width: 100%; 
+ } 
+ form label.error { 
+    color: red; 
+    font-style: italic; 
+    font-size: 0.9em; 
+    margin-top: -10px; 
+ } 
+ input { 
+     border: 1px solid black; 
+ } 
+ input.checkbox { 
+     border: medium none; 
+ } 
+ input:focus { 
+      border: 1px dotted black; 
+ } 
+ input.error { 
+     border: 1px dotted red; 
+ } 
+
+.table tbody tr.gray > td {
+  background-color: #CFCFCF;
+}
+
+.table-hover tbody tr.gray:hover > td {
+  background-color: #B5B5B5;
+}
+
+/****************** configuraÃ§Ãµes cores fim *******************/

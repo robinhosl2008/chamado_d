@@ -1,0 +1,245 @@
+<script type="text/javascript">
+	$(function() {
+		$("#div-modulo").hide();
+
+		$("#projetos").remoteChained("#orgao", "/chamado/index/projeto");
+		$("#modulos").remoteChained("#projetos", "/chamado/index/modulo/");
+		$("#ambientes").remoteChained("#projetos", "/chamado/index/ambiente");
+		$("#versoes").remoteChained("#projetos, #ambientes", "/chamado/index/versao");
+
+		$("#projetos").change(function() {
+			var coProjeto = $(this).val();
+			$.post( "/chamado/index/countmodulo/co_projeto/"+coProjeto, function(data) {
+				if(data){
+					$("#div-modulo").show();
+					$("#modulos").orderComboBox();
+				}else{
+					$("#div-modulo").hide();
+				}
+			});
+		});
+	})
+
+    $(document).ready(function() {
+
+        $('#add1').click(function (){
+            $('#arquivo2').show();
+        });
+
+        $('#add2').click(function (){
+            $('#arquivo3').show();
+        });
+
+        $('#reset1').click(function(){
+            $('#file1').val('');
+        });
+
+        $('#reset2').click(function(){
+            $('#file2').val('');
+        });
+
+        $('#reset3').click(function(){
+            $('#file3').val('');
+        });
+
+		$(".formValidate").validate({
+			onsubmit: true,
+			submitHandler: function(form){
+				if($("#btn_submit").attr('disable') != "disable"){
+					$("#btn_submit").attr("value","Aguarde, enviando dados...");
+					$(form).submit();
+				}
+				$("#btn_submit").attr('disable', 'disable');
+			}
+		});
+	});
+</script>
+
+<div class="row-fluid">
+	<div class="span11">
+    	<div class="widget-box">
+            <h5>Abertura de Chamado</h5>
+        </div>
+          <div class="widget-content nopadding">
+            <form action="cadastrar" method="post" class="form-horizontal formValidate" enctype="multipart/form-data" >
+
+            	<div class="control-group">
+                    <label class="control-label">Selecione um Órgão* :</label>
+                    <div class="controls">
+                        <select id="orgao" name="co_orgao" data-rule-required="true" data-msg-required="Informe um Órgão"> 
+                        <option value="">Selecione...</option>
+                        <?php foreach($this->oOrgao as $orgao){?>
+                                <option value="<?php echo $orgao->getCoOrgao();  ?>"><?php echo $orgao->getNoOrgao();  ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+              	</div>
+            	<div id="dadosChamado">
+	            	<div class="control-group">
+	               	 	<label class="control-label">E-mails adicionais : </label>
+	                	<div class="controls">
+								<input name="emails_adicionais" id="emails_adicionais" class="span5" value="" type="text" />                    	
+	                	</div>
+	              	</div>
+	              	<div class="control-group">
+	                	<label class="control-label">Categoria* :</label>
+	                		<div class="controls">
+	                    		<select id="categoria" name="co_categoria" data-rule-required="true" data-msg-required="Informe um Categoria">
+	                    		<option value="">--------</option>
+	                    		<?php foreach($this->oCategoria as $Categoria){?>
+	                    			<option value="<?php echo $Categoria->getCoCategoria();  ?>"><?php echo $Categoria->getNoCategoria();  ?></option>
+	                    		<?php } ?>            
+	                    		</select>
+	                		</div>
+	              	</div>
+	              	<div class="control-group">
+	               	 	<label class="control-label">Projeto* : </label>
+	                	<div class="controls">
+	                    	<select id="projetos" name="co_projeto" data-rule-required="true" data-msg-required="Informe um Projeto"> 
+		                    	<option value="">--------</option>
+	                    	</select>
+	                	</div>
+	              	</div>
+	              	<div class="control-group" id="div-modulo">
+	               	 	<label class="control-label">Modulo :</label>
+	                	<div class="controls">
+	                    	<select id="modulos" name="co_modulo" data-rule-required="true" data-msg-required="Informe um modulo">
+	                    		<option value="">--------</option>
+	                    	</select>
+	                	</div>
+	              	</div>
+	              	<div class="control-group">
+	               	 	<label class="control-label">Ambiente* :</label>
+	                	<div class="controls">
+	                    	<select id="ambientes" name="co_ambiente" data-rule-required="true" data-msg-required="Informe um Ambiente">
+	                    	<option value="">--------</option> 
+	                    	</select>
+	                	</div>
+	              	</div>
+	              	<div class="control-group">
+	               	 	<label class="control-label">Versão* :</label>
+	                	<div class="controls">
+	                    	<select id="versoes" name="co_versao" data-rule-required="true" data-msg-required="Informe uma Versão"> 
+	                    		<option value="">--------</option>
+	                    	</select>
+	                	</div>
+	              	</div>
+	                
+	                <div class="control-group">
+	                <label class="control-label">Status :</label>
+	                <div class="controls">
+	                    <select name="co_status" readonly> 
+	                    <?php 
+	                        foreach($this->oStatus as $Status){ 
+	                    ?>
+	                    <option value="<?php echo $Status->getCoStatus();  ?>" <?php if($Status->getCoStatus() == 1){print' selected="selected"';}?>><?php echo $Status->getNoStatus();  ?></option>
+	                    <?php } ?>            
+	                    </select>
+	                </div>
+	              </div>
+	                <div class="control-group">
+	                <label class="control-label">Prioridade :</label>
+	                <div class="controls">
+	                    <select name="co_prioridade" > 
+	                    <?php 
+	                        foreach($this->oPrioridade as $Prioridade){ 
+	                    ?>
+	                    <option value="<?php echo $Prioridade->getCoPrioridade();  ?>"><?php echo $Prioridade->getNoPrioridade();  ?></option>
+	                    <?php } ?>            
+	                    </select>
+	                </div>
+	              </div>
+	               
+	              <div class="control-group">
+	                <label class="control-label">Resumo/Nome* :</label>
+	                <div class="controls">
+	                    <input type="text" class="span10" placeholder="Resumo do chamado" id="resumo" name="no_resumo" data-rule-required="true" data-msg-required="Informe um Resumo">
+	                </div>
+	              </div>
+                    <div class="control-group">
+	                <label class="control-label">Descrição :</label>
+	                <div class="controls">
+	                	<textarea class="span10" name="ds_chamado" rows="" cols="" style="height: 121px !important; resize:none;"></textarea>
+	                </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div class="controls">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="button" id="add1" name="add1" value="+">
+                                    </td>
+                                    <td>
+                                        <div>
+                                            
+                                            <input type="file" style="border: none" id="file1" name="arquivo[]" />
+
+                                            <button style="float: right;" type="button" id="reset1" class="btn">
+                                                <i class="icon-trash"></i>
+                                            </button>
+                                            
+                                            <br />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="arquivo2" style="display: none">
+                                    <td>
+                                        <input type="button" id="add2" name="add2" value="+">
+                                    </td>
+                                    <td>
+                                        <div id="upload">
+                                            <input type="file" style="border: none" id="file2" name="arquivo[]" />
+                                             
+                                                
+                                            <!--<input style="border: none" type="file" id="file" name="file" />-->
+                                            
+                                            <!--<input type="button" class="btn btn-primary" id="reset" />-->
+                                            <button style="float: right;" type="button" id="reset2" class="btn">
+                                                <i class="icon-trash"></i>
+                                            </button>
+                                            
+                                            <br />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="arquivo3" style="display: none">
+                                    <td>
+                                        <!--<input type="button" id="add2" value="+">-->
+                                    </td>
+                                    <td>
+                                        <div id="upload">
+                                            <input type="file" style="border: none" id="file3" name="arquivo[]" />
+                                             
+                                                
+                                            <!--<input style="border: none" type="file" id="file" name="file" />-->
+                                            
+                                            <!--<input type="button" class="btn btn-primary" id="reset" />-->
+                                            <button style="float: right;" type="button" id="reset3" class="btn">
+                                                <i class="icon-trash"></i>
+                                            </button>
+                                            
+                                            <br />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="font-size: 12px">Anexe, no máximo, três imagens com extensão "jpg", "png", "docx", "doc", "xls", "xlsx" ou "pdf"!</p>
+                        </div>
+                    </div>
+                    
+                </div>    
+                <br />
+                <p style="font-size: 12px">(*) Estes campos são obrigatórios.</p>
+              	<div class="form-actions">
+                <!-- <button type="submit" class="button_blue">Salvar</button> -->
+                  
+                <!-- <button class="btn btn-primary" id="btn-submit" type="submit" >Salvar</button> -->
+					<input class="btn btn-primary" type="submit" id="btn_submit" value="Enviar"  />
+            
+              </div>
+                  
+            </form>
+          </div>
+        </div>
+  </div>

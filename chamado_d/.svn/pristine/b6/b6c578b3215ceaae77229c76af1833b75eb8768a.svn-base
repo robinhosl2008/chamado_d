@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<form>
+    <form-usuario>        
+        <fields>
+            <co_usuario tipo="hidden" propel="getCoUsuario" />
+            <no_usuario tipo="text" size="20" propel="getNoUsuario" valor="" label="Username" classe="text-input small-input required" >
+                <validacao>
+                    <requerido msg="Informe o Username" />
+                    <tamanho-min regra="4" msg="O tamanho mínimo" />
+                </validacao>                    
+            </no_usuario>
+            <ds_login tipo="text" size="20" propel="getDsLogin" valor="" maxlength="40" label="Login" classe="text-input small-input" unico="1">
+                <validacao>
+                    <requerido msg="Informe o Login" />
+                </validacao>
+            </ds_login>              
+            <ds_email tipo="text" size="20" propel="getDsEmail" valor="" maxlength="39" label="E-mail do Usuário" classe="text-input small-input" >
+                <validacao>                    
+                    <email msg="Informe o e-mail corretamente" />                    
+                </validacao>                    
+            </ds_email>
+         
+            <userpassword tipo="password" propel="getDsPassword"  size="20" valor="" label="Senha" classe="text-input small-input">
+                <validacao>
+                    <requerido msg="Informe a Senha" />
+                    <tamanho-min regra="8" msg="A senha deve ter no mínimo 8 caracteres" />
+                </validacao>
+            </userpassword>  
+           
+            <perfil tipo="select" id="getCoPerfil" label="Perfil">
+                <validacao>
+                    <requerido msg="Escolha um perfil para o usuário" />
+                </validacao>
+            </perfil>
+         
+        </fields>
+        <messages>
+            <requerido>
+                Informe o campo %.
+            </requerido>
+            <min-size>
+                O campo % não permite a quantidade de caractes
+            </min-size>
+        </messages>
+    </form-usuario>
+</form>

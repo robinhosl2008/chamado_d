@@ -1,0 +1,22 @@
+<script>
+   
+    function viewLog(arquivo){
+        
+        $.post("/desenvolvimento/log/visualizar", { "arquivo": arquivo },
+        function(data){
+            $("#viewfile").html(data);
+        });
+        
+    }
+</script>
+    <?php 
+            foreach($this->aListFile as $arquivo){ 
+    ?>
+        <a href="#" onclick="viewLog('<?php echo $arquivo; ?>')"><?php echo $arquivo; ?></a> <br>
+    <?php } ?>   
+        
+        
+        <br>
+        <br>
+        
+        <div id="viewfile"></div>

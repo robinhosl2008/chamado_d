@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2809962651">
+    <data-source source="LOCAL" name="PostgreSQL - tarefa@192.168.22.26" uuid="678eff5f-eaaf-4056-9b7b-5e8c1dd1a1d6">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://192.168.22.26:5432/tarefa</jdbc-url>
+    </data-source>
+  </component>
+</project>

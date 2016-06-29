@@ -1,0 +1,185 @@
+<script>
+    function openPendencia(){
+        var co_status = $("#co_status").val();
+        
+        if(co_status == "<?php echo CO_STATUS_PENDENTE; ?>"){
+            $("#PendenciaTxt").css({'display':'block'});
+        }else{
+            $("#PendenciaTxt").css({'display':'none'});
+        }
+    }
+</script>
+<style>
+    #PendenciaTxt{
+        display: none;
+    }
+</style>
+<div class="row-fluid">
+      <div class="span11">
+        <div class="widget-box">
+            <h5>Cadastro de Tarefa</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <form action="" method="post" class="form-horizontal">
+                <input type="hidden" class="span11" value="<?php echo $this->oTarefa->getCoTarefa(); ?>" name="co_tarefa">
+                
+                <div class="control-group">
+                <label class="control-label">Projeto:</label>
+                <div class="controls">
+                    <select name="co_projeto"> 
+                    <?php 
+                        foreach($this->oProjeto as $Projeto){ 
+                    ?>
+                    <option value="<?php echo $Projeto->getCoProjeto();  ?>"
+                            <?php if($this->oTarefa->getCoProjeto() == $Projeto->getCoProjeto()){ ?>
+                                selected="selected" 
+                            <?php } ?>
+                            ><?php echo $Projeto->getNoProjeto();  ?></option>
+                    <?php } ?>            
+                    </select>
+                </div>
+              </div>
+                <div class="control-group">
+                <label class="control-label">Controller:</label>
+                <div class="controls">
+                    <select name="co_controller" class="span5" > 
+                        
+                         <option value="">--------</option>
+                    <?php 
+                        foreach($this->oController as $Controller){ 
+                    ?>
+                    <option value="<?php echo $Controller->getCoController();  ?>" 
+                            <?php
+                            if($this->oTarefa->getCoController() == $Controller->getCoController()){ echo "selected='selected'"; } ?>
+                            ><?php echo $Controller->getNoControllerModulo();  ?></option>
+                    <?php } ?>            
+                    </select>
+                </div>
+              </div>
+                <div class="control-group">
+                <label class="control-label">Action:</label>
+                <div class="controls">
+                    <input type="text" class="span4" value="<?php echo $this->oTarefa->getNoAction(); ?>" name="no_action">
+                </div>
+              </div>
+                 <div class="control-group">
+                <label class="control-label">Status:</label>
+                <div class="controls">
+                    <select name="co_status" id="co_status" onchange="openPendencia()"> 
+                    <?php 
+                        foreach($this->oStatus as $Status){ 
+                    ?>
+                    <option value="<?php echo $Status->getCoStatus();  ?>"
+                            <?php if($this->oTarefa->getCoStatus() == $Status->getCoStatus()){ ?>
+                                selected="selected" 
+                            <?php } ?>
+                            
+                            ><?php echo $Status->getNoStatus();  ?></option>
+                    <?php } ?>            
+                    </select>
+                    <div id="PendenciaTxt">
+                            <textarea style="height: 151px !important" type="text" class="span11" placeholder="Descrição" name="ds_pendencia"><?php echo $this->oTarefa->getDsPendencia(); ?></textarea>
+                    </div>
+                </div>
+              </div>
+                <div class="control-group">
+                <label class="control-label">Usuario:</label>
+                <div class="controls">
+                    <select name="co_usuario"> 
+                         <option value="">--------</option>
+                    <?php 
+                        foreach($this->oUsuario as $Usuario){ 
+                    ?>
+                    <option value="<?php echo $Usuario->getCoUsuario();  ?>" 
+                            <?php
+                            $aUsers = $this->oTarefa->getUsuarioTarefa();
+                            $keyUsuario = array_search($Usuario->getNoUsuario(),$aUsers);
+                            
+                            if($aUsers[$keyUsuario] == $Usuario->getNoUsuario()){ echo "selected='selected'"; } ?>
+                            ><?php echo $Usuario->getNoUsuario();  ?></option>
+                    <?php } ?>            
+                    </select>
+                </div>
+              </div>
+                <div class="control-group">
+                <label class="control-label">Prioridade:</label>
+                <div class="controls">
+                    <select name="co_prioridade"> 
+                    <?php 
+                        foreach($this->oPrioridade as $Prioridade){ 
+                    ?>
+                    <option value="<?php echo $Prioridade->getCoPrioridade();  ?>"
+                            <?php if($this->oTarefa->getCoPrioridade() == $Prioridade->getCoPrioridade()){ ?>
+                                selected="selected" 
+                            <?php } ?>
+                            ><?php echo $Prioridade->getNoPrioridade();  ?></option>
+                    <?php } ?>            
+                    </select>
+                </div>
+              </div>
+                <div class="control-group">
+                <label class="control-label">Nível:</label>
+                <div class="controls">
+                    <select name="co_nivel"> 
+                    <?php 
+                        foreach($this->oNivel as $Nivel){ 
+                    ?>
+                    <option value="<?php echo $Nivel->getCoNivel();  ?>"
+                              <?php if($this->oTarefa->getCoNivel() == $Nivel->getCoNivel()){ ?>
+                                selected="selected" 
+                            <?php } ?>
+                            ><?php echo $Nivel->getNoNivel();  ?></option>
+                    <?php } ?>            
+                    </select>
+                </div>
+              </div>
+                <div class="control-group">
+                <label class="control-label">Categoria:</label>
+                <div class="controls">
+                    <select name="co_categoria"> 
+                    <?php 
+                        foreach($this->oCategoria as $Categoria){ 
+                    ?>
+                    <option value="<?php echo $Categoria->getCoCategoria();  ?>"
+                            <?php if($this->oTarefa->getCoCategoria() == $Categoria->getCoCategoria()){ ?>
+                                selected="selected" 
+                            <?php } ?>
+                            >
+                        <?php echo $Categoria->getNoCategoria();  ?></option>
+                    <?php } ?>            
+                    </select>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Nome:</label>
+                <div class="controls">
+                    <input type="text" class="span11" value="<?php echo $this->oTarefa->getNoTarefa(); ?>" name="no_tarefa">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Data Previsão:</label>
+                <div class="controls">
+                    <input type="text" class="span4 datepicker" name="dt_previsao" value="<?php echo $this->oTarefa->getDtPrevisao('d/m/Y'); ?>">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Descrição:</label>
+                <div class="controls">
+                    <textarea style="height: 281px !important" type="text" class="span11" placeholder="Descrição" name="ds_tarefa"><?php echo $this->oTarefa->getDsTarefa(); ?></textarea>
+                </div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+
+<?php if($this->oTarefa->getCoStatus()){ ?>
+<script>
+   openPendencia();
+</script>
+<?php } ?>

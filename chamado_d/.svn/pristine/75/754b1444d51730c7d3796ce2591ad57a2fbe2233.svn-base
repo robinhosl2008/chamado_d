@@ -1,0 +1,136 @@
+[2013-07-19 11:01:35] Usuário Logado com sucesso (fabio) 
+[2013-07-19 11:01:35] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:01:35] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:01:35] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:02:00] USUARIO - 11 - 2 - /*/*/* - Export true 
+[2013-07-19 11:02:00] TRUE - >>> USUARIO - 11 - /*/*/* 
+[2013-07-19 11:02:00] USUARIO - 11 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:02:00] USUARIO - 11 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:02:00] USUARIO - 11 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:02:01] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:02:01] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:02:01] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:16:41] Usuário Logado com sucesso (robson) 
+[2013-07-19 11:16:41] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:16:41] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:16:41] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:16:44] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:16:44] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:16:44] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:16:44] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:16:44] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:16:44] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:16:44] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:16:44] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:19:37] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:19:37] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:19:37] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:19:37] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:19:37] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:19:37] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:19:42] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:19:42] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:19:42] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:19:42] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:19:42] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:19:43] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:19:43] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:19:43] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:19:43] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:19:43] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:19:43] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:19:43] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:19:43] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:19:55] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:19:55] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:19:55] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:19:55] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:19:55] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:19:55] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:00] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:00] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:00] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:20:00] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:20:00] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:20:00] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:08] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:08] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:08] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:20:08] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:20:08] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:20:08] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:15] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:15] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:15] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:20:15] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:20:15] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:20:15] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:21] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:21] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:21] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:20:21] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:20:21] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:20:21] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:26] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /tarefa/index/fechar - Export false 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:20:26] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:20:26] USUARIO - 13 - 2 - /tarefa/index/index - Export false 
+[2013-07-19 11:20:26] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:20:26] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:20:26] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 
+[2013-07-19 11:59:25] USUARIO - 13 - 2 - /*/*/* - Export true 
+[2013-07-19 11:59:25] TRUE - >>> USUARIO - 13 - /*/*/* 
+[2013-07-19 11:59:25] USUARIO - 13 - 2 - /tarefa/*/* - Export false 
+[2013-07-19 11:59:25] USUARIO - 13 - 2 - /tarefa/index/* - Export false 
+[2013-07-19 11:59:25] USUARIO - 13 - 2 - /tarefa/index/editar - Export false 
+[2013-07-19 11:59:25] PERFIL:2 - 1 - 1 - MENU DEFAULT - /default/index 
+[2013-07-19 11:59:25] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index 
+[2013-07-19 11:59:25] PERFIL:2 - 1 - 1 - MENU TAREFA - /tarefa/index/cadastrar 

@@ -1,0 +1,445 @@
+<script>
+$(document).ready(function() {
+    $(".formValidate").validate();
+    $('#paginacao').smartpaginator({ totalrecords: $('#totalrecords').val(), recordsperpage: 10, datacontainer: 'mt', dataelement: 'tr', initval: 0, theme: 'blue',controlsalways:false });
+    $('#paginacao2').smartpaginator({ totalrecords: $('#totalrecords2').val(), recordsperpage: 10, datacontainer: 'mt', dataelement: 'tr', initval: 0, theme: 'blue',controlsalways:false }); 
+});
+
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        // Desabilita o botão 'Salvar'.
+        $('#submit').attr('disabled', 'disabled');
+
+        // Função que detecta o click do mouse.
+        $('#salvar').mouseenter(function () {
+
+            var no_projeto = $('#no_projeto').val(); // Nome do Projeto.
+            var co_projeto = $('#co_projeto').val(); // Código do Projeto.
+
+            if(co_projeto < 1) {
+                if (no_projeto === "") {
+                    $('#no_pro_vazio').show();
+                    $('#erro').show();
+                    $('#no_pro_usado').hide();
+                    $('#tp_ver_vazio').hide();
+                    $('#no_ver_vazio').hide();
+                    $('#amb_vazio').hide();
+                    $('#org_vazio').hide();
+
+                    // Desabilita o botão 'Salvar'.
+                    $('#submit').attr('disabled', 'disabled');
+                } else {
+                    $('#no_pro_vazio').hide();
+                    $.post('/manutencao/projeto/validar-no-projeto/', {no_projeto: no_projeto}, function (data) {
+                        if (data !== 'false') {
+                            $('#no_pro_usado').hide();
+
+                            var tipo_versao = $('#tipo_versao').val();
+
+                            if (tipo_versao === "") {
+                                $('#tp_ver_vazio').show();
+                                $('#erro').show();
+                                $('#no_ver_vazio').hide();
+                                $('#amb_vazio').hide();
+                                $('#org_vazio').hide();
+
+                                // Desabilita o botão 'Salvar'.
+                                $('#submit').attr('disabled', 'disabled');
+                            } else {
+                                $('#tp_ver_vazio').hide();
+
+                                var no_versao = $('#no_versao').val();
+
+                                if (no_versao === "") {
+                                    $('#no_ver_vazio').show();
+                                    $('#erro').show();
+                                    $('#amb_vazio').hide();
+                                    $('#org_vazio').hide();
+
+                                    // Desabilita o botão 'Salvar'.
+                                    $('#submit').attr('disabled', 'disabled');
+                                } else {
+                                    $('#no_ver_vazio').hide();
+
+                                    if (!$("input[name='ambientes[]']:checked").val()) {
+                                        $('#amb_vazio').show();
+                                        $('#erro').show();
+                                        $('#org_vazio').hide();
+
+                                        // Desabilita o botão 'Salvar'.
+                                        $('#submit').attr('disabled', 'disabled');
+                                    } else {
+                                        $('#amb_vazio').hide();
+
+                                        if (!$("input[name='orgoes[]']:checked").val()) {
+                                            $('#org_vazio').show();
+                                            $('#erro').show();
+
+                                            // Desabilita o botão 'Salvar'.
+                                            $('#submit').attr('disabled', 'disabled');
+                                        } else {
+                                            $('#org_vazio').hide();
+                                            $('#erro').hide();
+
+                                            // Remove o bloqueio do botão 'Salvar'.
+                                            $('#submit').removeAttr('disabled');
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $('#no_pro_usado').show();
+                            $('#erro').show();
+
+                            // Desabilita o botão 'Salvar'.
+                            $('#submit').attr('disabled', 'disabled');
+                        }
+                    });
+                }
+            }else{
+                if (no_projeto === "") {
+                    $('#no_pro_vazio').show();
+                    $('#erro').show();
+                    $('#org_vazio').hide();
+                    $('#amb_vazio').hide();
+                    $('#no_ver_vazio').hide();
+                    $('#tp_ver_vazio').hide();
+
+                    // Desabilita o botão 'Salvar'.
+                    $('#submit').attr('disabled', 'disabled');
+                } else {
+                    $('#no_pro_vazio').hide();
+
+                    var tipo_versao = $('#tipo_versao').val();
+
+                    if (tipo_versao === "") {
+                        $('#tp_ver_vazio').show();
+                        $('#erro').show();
+                        $('#org_vazio').hide();
+                        $('#amb_vazio').hide();
+                        $('#no_ver_vazio').hide();
+
+                        // Desabilita o botão 'Salvar'.
+                        $('#submit').attr('disabled', 'disabled');
+                    } else {
+                        $('#tp_ver_vazio').hide();
+
+                        var no_versao = $('#no_versao').val();
+
+                        if (no_versao === "") {
+                            $('#no_ver_vazio').show();
+                            $('#erro').show();
+                            $('#org_vazio').hide();
+                            $('#amb_vazio').hide();
+
+                            // Desabilita o botão 'Salvar'.
+                            $('#submit').attr('disabled', 'disabled');
+                        } else {
+                            $('#no_ver_vazio').hide();
+
+                            if (!$("input[name='ambientes[]']:checked").val()) {
+                                $('#amb_vazio').show();
+                                $('#org_vazio').hide();
+
+                                // Desabilita o botão 'Salvar'.
+                                $('#submit').attr('disabled', 'disabled');
+                            } else {
+                                $('#amb_vazio').hide();
+
+                                if (!$("input[name='orgoes[]']:checked").val()) {
+                                    $('#org_vazio').show();
+                                    $('#erro').show();
+
+                                    // Desabilita o botão 'Salvar'.
+                                    $('#submit').attr('disabled', 'disabled');
+                                } else {
+                                    $('#org_vazio').hide();
+                                    $('#erro').hide();
+                                    $('#submit').removeAttr('disabled');
+
+                                    /*
+                                    $.post('/manutencao/projeto/validar-no-projeto/', {no_projeto: no_projeto}, function (data) {
+                                        if (data === 'false') {
+                                            // Remove o bloqueio do botão 'Salvar'.
+                                            $('#submit').removeAttr('disabled');
+                                            //$('#no_pro_usado').show();
+                                            //$('#erro').show();
+                                        } else {
+                                            $('#submit').attr('disabled', 'disabled');
+                                            //$('#no_pro_usado').hide();
+                                            //$('#erro').hide();
+                                        }
+                                    });
+                                    */
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+
+    function marcardesmarcar1(){
+        if($('#todos1').prop('checked')){
+            $('.marcar1').prop('checked',true);
+        }else{
+            $('.marcar1').prop('checked',false);
+        }
+    }
+
+    function marcardesmarcar2(){
+        if($('#todos2').prop('checked')){
+            $('.marcar2').prop('checked',true);
+        }else{
+            $('.marcar2').prop('checked',false);
+        }
+    }
+</script>
+
+<style>
+form label.error{ 
+	text-align: right;
+	width: 100%;
+}
+form label.error {
+    color: red;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: -10px;
+}
+
+
+
+input {
+    border: 1px solid black;
+}
+input.checkbox {
+    border: medium none;
+}
+input:focus {
+    border: 1px dotted black;
+}
+input.error {
+    border: 1px dotted red;
+}
+</style>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i>Principal</a>
+        -> 
+        <a href="/manutencao/projeto/listar" class="tip-bottom" data-original-title="" title="">Projeto</a>
+         -> Cadastro de Projetos
+    </div>
+    <h1>Cadastro de Projetos</h1>
+</div>
+
+<div class="content-box cadProf" id="boxGrid"><!-- Start Content Box GRID -->				
+    <div class="content-box-content">					
+        <div id="cadProf" class="tab-content default-tab"> <!-- INICIO TAB 1-->																												
+            <?php echo  $this->mensagem(); ?>
+            <form action="/manutencao/projeto/adicionar" method="post" class="formValidate" id="form-usuario">
+                <input type="hidden" value="<?php print $this->aObjProjeto->getCoProjeto()?>" name="co_projeto" id="co_projeto" />
+                <input type="hidden" value="<?php print $this->aObjVersao->getCoVersao()?>" name="co_versao" id="co_versao" />
+
+                <div class="dados">
+
+                    <div class="linha">
+                        <div class="campos">
+                            <div class="label">
+                                    Nome do Projeto 
+                            </div> 
+                            
+                            <div>
+                                <input id="no_projeto" name="no_projeto" type="text" class="span4" value="<?php print $this->aObjProjeto->getNoProjeto(); ?>"/>
+                            </div>
+                            
+                            <!-- Mensagem dizendo que o nome do projeto já está em uso. -->
+                            <div id="no_pro_usado" style="width: 300px; display: none; color: red; position: absolute; top: 50px; left: 200px">
+                                <em>Este nome já está em uso.</em>
+                            </div>
+                            
+                            <!-- Mensagem dizendo que o nome do projeto está vazio. -->
+                            <div id="no_pro_vazio" style="width: 300px; display: none; color: red; position: absolute; top: 50px; left: 200px">
+                                <em>Dê um nome para o projeto.</em>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    <div class="linha">
+                        <div class="campos">
+                            <div class="label">
+                                Tipo de Versão 
+                            </div> 
+                            <div>
+                                <select id="tipo_versao" name="tipo_versao" style="width: 370px">
+                                    <option value="">Selecione...</option>
+                                        <?php foreach ($this->aObjTipoVersao as $oTipoVersao){ ?>
+                                    <option value="<?php echo $oTipoVersao->getCoSeqTipoVersao(); ?>"  <?php if($oTipoVersao->getCoSeqTipoVersao() == $this->aObjVersao->getCoSeqTipoVersao()){echo "selected='selected'";}?> > <?php echo $oTipoVersao->getNoTipoVersao(); ?> </option>
+                                        <?php }?>
+                                </select>	                				
+                            </div>
+                            
+                            <!-- Mensagem dizendo que o tipo de versao está vazio. -->
+                            <div id="tp_ver_vazio" style="width: 300px; display: none; color: red; position: absolute; top: 50px; left: 200px">
+                                <em>Selecione um tipo de versao.</em>
+                            </div>
+                        </div>
+                        <div class="campos" style="margin-left: 420px;">
+                            <div class="label">
+                                Descrição da Primeira Versão 
+                            </div> 
+                            <div>
+                                <textarea id="ds_versao" name="ds_versao" rows="4" cols="10" maxlength="255" class="span4" style="resize:none;"><?php print $this->aObjVersao->getDsVersao();?></textarea>
+                            </div>	
+                        </div>
+                    </div>
+                        
+                    <div class="linha">
+                        <div class="campos">
+                            <div class="label">
+                                    Nome da Primeira Versão 
+                            </div> 
+                            <div>
+                                <input id="no_versao" name="no_versao" type="text" class="span4" value="<?php print $this->aObjVersao->getNoVersao(); ?>"/>
+                            </div>
+                            
+                            
+                            <!-- Mensagem dizendo que o nome da versao está vazio. -->
+                            <div id="no_ver_vazio" style="width: 300px; display: none; color: red; position: absolute; top: 50px; left: 200px">
+                                <em>Dê um nome à versao.</em>
+                            </div>
+                        </div>
+                    </div>
+                <div id="box1"><br />
+
+                    Marcar/Desmarcar todos: <input type="checkbox" name="todos1" id="todos1" value="todos1"
+                                                   onclick="marcardesmarcar1()"/>
+
+                    <div class="widget-content nopadding" style="width: 700px; padding-top: 10px;"> 
+                        <div class="label">
+                            Ambientes 
+                        </div>
+                        <!-- Mensagem dizendo que o tipo de versao está vazio. -->
+                        <div id="amb_vazio" style="width: 300px; display: none; color: red;">
+                            <em>Selecione o/os ambientes.</em>
+                        </div>
+                        <input type="hidden" name="totalrecords2" id="totalrecords2" value="<?php print count($this->aObjAmbiente )?>" />
+                        <div id="amb">
+                            <table class="table table-bordered table-striped" id="mt">
+                                <thead>
+                                    <tr>
+                                        <th class="span1">Selecione</th>
+                                        <th class="span7">Ambiente</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 0;
+
+                                    foreach ($this->aObjAmbiente as $objAmbiente) { ?>
+                                        <tr <?php if (($i % 2) == 0) { ?>
+                                            class="alt-row"
+                                            <?php } ?>
+                                        >
+                                            <td style="text-align: center;">
+                                                <input name="ambientes[]" class="marcar1" type="checkbox" value="<?php print $objAmbiente->getCoAmbiente();?>"
+                                                    <?php
+                                                        foreach ($this->aRlProjVersaoAmb as $objRlProjVersaoAmb){
+                                                            if( $objRlProjVersaoAmb->getCoAmbiente() == $objAmbiente->getCoAmbiente() && $objRlProjVersaoAmb->getStProjVerAmb())
+                                                            {
+                                                                print 'checked="checked"';
+                                                            }
+                                                        }
+                                                    ?>
+                                                >
+                                            </td>
+                                            <td><?php print $objAmbiente->getNoAmbiente() ; ?></td>
+                                        </tr>
+                                    <?php $i++; } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="paginacao2" style="margin: auto;">
+                        </div>
+                    </div>
+
+                    <br/>
+                    Marcar/Desmarcar todos: <input type="checkbox" name="todos2" id="todos2" value="todos2"
+                                                   onclick="marcardesmarcar2()"/>
+
+                    <div class="widget-content nopadding" style="width: 700px; padding-top: 10px;"> 
+                        <div class="label">
+                            Órgãos
+                        </div>
+                        <div id="org_vazio" style="width: 300px; display: none; color: red;">
+                            <em>Selecione o/os órgãos.</em>
+                        </div>
+
+                        <input type="hidden" name="totalrecords" id="totalrecords" value="<?php print count($this->aObjOrgao )?>" />
+                        <div id="org">
+                        <table class="table table-bordered table-striped" id="mt">
+                            <thead>
+                                <tr>
+                                    <th class="span1">Selecione</th>
+                                    <th class="span7">Órgão</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 0;
+                                foreach ($this->aObjOrgao as $objOrgao) { ?>
+                                    <tr <?php if (($i % 2) == 0) { ?>
+                                                        class="alt-row"
+                                                <?php } ?>
+                                    >
+                                        <td style="text-align: center;">
+                                            <input name="orgoes[]" class="marcar2" type="checkbox" value="<?php print $objOrgao->getCoOrgao();?>"
+                                            <?php foreach ($this->aObjOrgaoProj as $orgaoProj){
+                                                            if($orgaoProj->getCoOrgao() == $objOrgao->getCoOrgao() &&  $orgaoProj->getStOgaoProjeto()){print 'checked="checked"';}
+                                                    }?>
+                                        >
+                                        </td>
+                                        <td><?php print $objOrgao->getNoOrgao() ; ?></td>
+                                    </tr>
+                                        <?php $i++;
+                                                } ?>
+                            </tbody>
+                        </table>
+                        </div>
+                    <div id="paginacao" style="margin: auto;">
+                </div>
+                </div>
+                </div>
+            </div>		                			
+            <br />
+            <br />
+
+            <!-- Mensagem informando um erro no formulário. -->
+            <div id="erro" style="width: 500px; display: none; color: red">
+                <em>Um erro ocorreu no preenchimento de algum campo do formulário.</em>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12" id="salvar">
+                    <div class="form-actions">
+                        <button id="submit" class="btn btn-primary" type="submit">Salvar</button>
+                        <a href="/manutencao/projeto/listar/num_linhas/<?php echo $this->num_linhas; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porAmbiente/<?php echo $this->porAmbiente; ?>/porOrgao/<?php echo $this->porOrgao; ?>/coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>/pg/<?php echo $this->pg; ?>" class="btn" data-original-title="" title="">Voltar</a>
+                    </div>	
+                </div>
+            </div>
+            
+            </form>
+            <div class="clear"></div><!-- End .clear -->																														
+        </div> 
+        <!-- End #tab1 --> 	
+        <div id="listaProf" class="tab-content">
+            <!-- Inicio tab 2 -->
+            <!-- TAB LISTA DE PROFISSIONAL -->																													
+        </div> 
+        <!-- End #tab2 -->			
+    </div> <!-- End .content-box-content -->				
+</div> <!-- End BOX GERAL GRID--> 
+<!-- END BOX CRUD --> 

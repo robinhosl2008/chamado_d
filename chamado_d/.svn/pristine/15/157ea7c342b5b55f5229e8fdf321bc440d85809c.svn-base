@@ -1,0 +1,175 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".formValidate").validate();
+};
+</script>
+<div class="row-fluid">
+	<div class="span11">
+        <div style="padding-bottom: 10px">
+            <button onclick="javascript:window.print()" class="btn btn-primary">
+                Imprimir
+                <i class="icon-print"></i>
+            </button>
+        </div>
+        <div class="widget-box">
+            <h5><i class="icon-list-alt"></i> Histórico do Chamado</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="" method="post" class="form-horizontal formValidate">
+                <div class="dados">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>
+                                <div class="label">Órgão</div>
+                                <div><?php print_r($this->oTarefa->getOrgao()->getNoOrgao());?></div>
+                            </td>
+                            <td>
+                                <div class="label">Projeto</div>
+                                <div><?php print $this->oTarefa->getRlProjetoVersaoAmb()->getProjeto()->getNoProjeto();?></div>
+                            </td>
+                            <td>
+                                <div class="label">E-Versão</div>
+                                <div><?php print $this->oTarefa->getRlProjetoVersaoAmb()->getVersao()->getNoVersao();?></div>
+                            </td>
+                            <td>
+                                <div class="label">Data de Cadastro</div>
+                                <div><?php print $this->oTarefa->getDtInicio();?></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="label">Ambiente</div>
+                                <div><?php print $this->oTarefa->getRlProjetoVersaoAmb()->getAmbiente()->getNoAmbiente();?></div>
+                            </td>
+                            <td>
+                                <div class="label">Categoria</div>
+                                <div><?php print $this->oTarefa->getCategoria()->getNoCategoria();?></div>
+                            </td>
+                            <td>
+                                <div class="label">Prioridade</div>
+                                <div><?php print $this->oTarefa->getPrioridade()->getNoPrioridade();?></div>
+                            </td>
+                            <td>
+                                <div class="label">Status</div>
+                                <div><?php print $this->oTarefa->getStatus()->getNoStatus();?></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="label">Nr Sirius</div>
+                                <div>
+                                    <?php
+                                    if($this->oTarefa->getNrSirius() != ""){
+                                        print '#'.$this->oTarefa->getNrSirius();
+                                    }else{
+                                        echo '';
+                                    }
+                                    ?>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="label">E-mails adicionais</div>
+                                <div><?php print $this->oTarefa->getEmailAdicionais();?></div>
+                            </td>
+                            <td>
+                                <div class="label">Nr Chamado</div>
+                                <div><?php print $this->oTarefa->getNrTarefa();?></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div class="label">Resumo</div>
+                                <div><?php print $this->oTarefa->getNoResumo();?></div>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <i class="icon-list"></i> <strong>Descrições</strong>
+                    <table class="table table-striped">
+                        <tbody>
+                            <?php foreach ($this->oDescricoes as $descricao){ ?>
+                                <tr>
+                                    <td class="span3">
+                                        <strong>Usuário:</strong> <?php print $descricao->getUsuario()->getNoUsuario();?>
+                                        <br />
+                                        <strong>Data: </strong><?php print $descricao->getDtCadastro('d-m-Y H:i:s'); // date($descricao->getDtCadastro(), 'd-m-Y H:i:s');?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                            print $descricao->getDsChamado();
+                                            $codDesc[] = $descricao->getCoSeqDescChamado();
+                                        ?>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <?php $imagens = $this->imagem_desc;
+                                            if ($imagens) {
+                                                foreach ($imagens as $imagem) {
+                                                    if ($descricao->getCoSeqDescChamado() == $imagem->getCoSeqDescChamado()) {
+                                                        $caminho = $imagem->getDsCaminho().$imagem->getNoImagem().".".$imagem->getDsExtensao(); ?>
+                                                        <a href="<?php echo trim($caminho); ?>"
+                                                            target="_blank">
+                                                        <img style="width: 30px; height: 30px" src="/images/pasta-de-arquivo.jpg">
+                                                        </a>
+                                                    <?php }
+                                                }
+                                            }?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+
+                    <i class="icon-list"></i> <strong>Ações</strong>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Usuário</th>
+                                <th>Status</th>
+                                <th>Prioridade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($this->oHistorico as $htTarefa){ ?>
+                            <tr>
+                                <td class="span3">
+                                    <?php print_r($htTarefa[dt_atualizacao]); ?>
+                                </td>
+                                <td class="span3">
+                                    <?php print_r($htTarefa[no_usuario]); ?>
+                                </td>
+                                <td class="span3">
+                                    <?php print_r($htTarefa[ds_status]); ?>
+                                </td>
+                                <td class="span3">
+                                    <?php print_r($htTarefa[ds_prioridade])?>
+                                </td>
+
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+
+                    <p>
+                        <a class="btn btn-primary" href="/chamado/index/<?php echo $this->pag; ?>/filtro/<?php echo $this->filtro;?>/co_orgao/<?php echo $this->co_orgao; ?>/num_linhas/<?php echo $this->num_linhas; ?>/tipo_tarefa/<?php echo $this->tipo_tarefa; ?>/num_tarefa/<?php echo $this->num_tarefa; ?>/titulo/<?php echo $this->titulo; ?>/data/<?php echo $this->data; ?>/por_usuario/<?php echo $this->por_usuario; ?>/pr_chamado/<?php echo $this->pr_chamado; ?>/buscaStatus/<?php echo $this->busca_status; ?>/por_modulo/<?php echo $this->por_modulo; ?>/oPagination/<?php echo $this->pagination; ?>/pg/<?php echo $this->pg; ?>/coluna/<?php echo $this->coluna; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>">
+                            Voltar
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <div>
+        <?php /* 
+            $caminho_imagem = $this->caminho_imagem;
+
+            foreach ($caminho_imagem as $caminho) : //echo $caminho;?>
+                <!-- O PATH FOI CONFIGURADO NO BOOTSTRAP.PHP (LINHA 87). -->
+                <a href="<?php echo CAMINHO_DAS_IMAGENS . $caminho; ?>" target="_blank">
+                    <img style="width: 300px;" class="img-responsive" src="<?php echo CAMINHO_DAS_IMAGENS . $caminho; ?>" alt="" /><br />
+                </a>                
+        <?php endforeach; */?>
+    </div>

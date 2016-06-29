@@ -1,0 +1,8 @@
+<select name="co_status_leito">
+    <option value="">Todas</option>
+<?php 
+    foreach($this->aResult as $oEspec){ 
+?>
+<option value="<?php echo $oEspec['CO_STATUS']; ?>"><?php echo $oEspec['STATUS'];  ?></option>
+<?php } ?>            
+</select>

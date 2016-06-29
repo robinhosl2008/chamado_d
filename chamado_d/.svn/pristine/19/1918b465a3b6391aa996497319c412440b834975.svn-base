@@ -1,0 +1,19 @@
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i>Principal</a>
+       	-> 
+        <a href="/manutencao/usuario/index" class="tip-bottom" data-original-title="" title=""><i>Usuário</i></a>
+    </div>
+    <h1>Usuários</h1>
+    <div style="margin-top: -10px;">
+        <ul class="content-box-tabs" style="display: block;">
+            <li><a class="default-tab current" href="/manutencao/usuario/adicionar">Cadastrar</a></li>
+            <li><a href="/manutencao/usuario/listar">Listar</a></li>
+        </ul>																												
+        <div class="clear"></div>																												
+ 	</div> <!-- End .content-box-header -->		
+    
+</div>
+<div class="container-fluid">
+    
+</div>

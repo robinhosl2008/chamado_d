@@ -1,0 +1,120 @@
+Link de referencia inicial - http://ubuntuforums.org/showthread.php?t=92528
+
+Unzip these files in a new directory, e.g. /opt/oracle/instantclient.
+
+Fiz download em http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html
+
+Ai achei este client http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html
+
+mkdir -p /opt/oracle/instantclient
+cd /opt/oracle/instantclient
+unzip instantclient-basic-linux.x64-11.2.0.3.0.zip *Ultima versao que baixei MINHA MAQUINA É 64bits BAIXE 32 la tambem tem.
+unzip instantclient-sdk-linux.x64-11.2.0.3.0.zip
+
+** Este passo acho que foi meio desnecessário ate mesmo pq descompactei e criou outro diretorio "instantclient_11_2" 
+mas estou deixando aki conforme o original apenas
+
+echo /opt/oracle/instantclient >> /etc/ld.so.conf
+ldconfig
+
+Criar links dentro de /opt/oracle/instantclient/instantclient_11_2
+
+ln -s libclntsh.so.10.1 libclntsh.so
+ln -s libocci.so.10.1 libocci.so
+
+apt-get install php-pear
+apt-get install libaio1
+
+mkdir -p /usr/local/src
+cd /usr/local/src
+
+pear download oci8 <<<<< DEU ERRO MAS MANTIVE APENAS PARA VER DEPOIS PULE ESTE PASSO PARA O PROXIMO
+
+Ai me deu este erro 
+No releases available for package "pear.php.net/oci8" - package pecl/oci8 can be installed with "oci8-1.4.9"
+download failed
+
+Me enrolei aqui mas ai descobri que dava para baixar e pronto http://pecl.php.net/package/oci8 moleza rs.... 
+
+tar xzf oci8-1.4.9.tar * Versao nova
+cd oci8-1.4.9
+phpize
+./configure --with-oci8=shared,instantclient,/opt/oracle/instantclient/instantclient_11_2
+make
+make install
+
+Ai descobri que o SO estava em /usr/lib/php5/20090626/ no meu computador é claro "Ubuntu 12.04.2 LTS"
+
+The oci8-1.1.1.tgz filename will of course change for newer releases.
+To enable the oci8 module in the php.ini (/etc/php5/apache2/php.ini and /etc/php5/cli/php.ini), add a line
+
+Restart o Servico e veja no phpinfo se subiu <?php phpinfo(); ?>
+
+Prontoooooooo agora veja se funcionou
+
+------------------------------------
+PHP 5.3
+------------------------------------
+Versão do Zend 1.11.3
+------------------------------------
+OCI8 Support	enabled
+Version	1.4.9
+------------------------------------
+Executando php para teste
+
+<?php 
+#phpinfo(); 
+
+$db = "(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+            (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+        )"; 
+
+$conn = oci_connect('pmweb_hfl_bi_cons', 'senha', $db);
+if (!$conn) {
+    $e = oci_error();
+    var_dump($e);
+}
+
+$sql = 'select * from sys001_institution';
+
+$stid = oci_parse($conn, $sql);
+oci_execute($stid);
+
+print "<pre>";
+while ($result = oci_fetch($stid)) {
+       print_r($result);
+}
+
+?>
+
+------------------------------------
+
+Agora instalando a aplicação aponte o apache para o diretorio da aplicação report/public
+
+podendo ser via vhost editando o arquivo e colocando as infromacoes da aplicacação
+
+vim /etc/apache2/sites-enabled/000-default
+
+
+
+
+Restart no apache e pronto
+
+E abra o apache no link do servidor instalado, caso ja esteja em uso a porta 80 pode colocar o Listen em outra porta
+
+Listen 8091
+<VirtualHost *:8091>
+        DocumentRoot /var/www/zf2
+        ServerName report
+        ServerAlias report
+                <Directory /var/www/zf2>
+                        AllowOverride All
+                        Order Allow,Deny
+                        Allow From All
+                </Directory>
+</VirtualHost>
+
+Servidor em desenvolvimento http://10.0.72.95:8090
+
+
+

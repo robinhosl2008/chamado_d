@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<root>
+    <unidades>
+        <unidade>
+            <co_unidade></co_unidade>
+            <nome>Selecione</nome>
+            <selected>selected="selected"</selected>
+            <conexao></conexao>
+        <usuario></usuario>
+        <senha></senha>
+        </unidade>
+        <unidade>
+            <co_unidade>001</co_unidade>
+            <co_uni>4</co_uni>
+            <charset>AL32UTF8</charset>
+            <nome>Hospital Federal da Lagoa</nome>
+            <selected></selected>
+            <conexao>(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+            (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+        )</conexao>
+        <usuario>pmweb_hfl_bi_cons</usuario>
+        <senha>senha</senha>
+        <configuracao>
+            <medico1>50</medico1>
+            <medico2>52</medico2>
+            <medico3>2</medico3>
+        </configuracao>
+        </unidade>        
+        <unidade>
+            <co_unidade>002</co_unidade>
+            <co_uni>0</co_uni>
+            <charset>AL32UTF8</charset>
+            <nome>Hospital Federal Cardoso Fontes</nome>
+            <selected></selected>
+            <conexao>(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+            (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+        )</conexao>
+        <usuario>pmweb_hfcf_bi_cons</usuario>
+        <senha>senha</senha>
+         <configuracao>
+            <medico1>50</medico1>
+            <medico2>52</medico2>
+            <medico3>2</medico3>
+        </configuracao>
+        </unidade>        
+        <unidade>
+            <co_unidade>003</co_unidade>
+            <co_uni>3</co_uni>
+             <charset>AL32UTF8</charset>
+            <nome>Hospital Federal Ipanema</nome>
+            <selected></selected>
+            <conexao>(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+            (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+        )</conexao>
+        <usuario>pmweb_hfi_bi_cons</usuario>
+        <senha>senha</senha>
+         <configuracao>
+            <medico1>50</medico1>
+            <medico2>52</medico2>
+            <medico3>2</medico3>
+        </configuracao>
+        </unidade>        
+        <unidade>
+            <co_unidade>004</co_unidade>
+            <co_uni>0</co_uni>
+             <charset>AL32UTF8</charset>
+            <nome>Hospital Federal Bonsucesso</nome>
+            <selected></selected>
+            <conexao>(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+            (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+        )</conexao>
+        <usuario>pmweb_hfb_bi_cons</usuario>
+        <senha>senha</senha>
+         <configuracao>
+            <medico1>50</medico1>
+            <medico2>52</medico2>
+            <medico3>2</medico3>
+        </configuracao>
+        </unidade>        
+        <unidade>
+            <co_unidade>005</co_unidade>
+            <co_uni>0</co_uni>
+             <charset>AL32UTF8</charset>
+            <nome>Hospital Federal Servidores do Estado</nome>
+            <selected></selected>
+            <conexao>(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+            (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+        )</conexao>
+        <usuario>pmweb_hfse_bi_cons</usuario>
+        <senha>senha</senha>
+         <configuracao>
+            <medico1>50</medico1>
+            <medico2>52</medico2>
+            <medico3>2</medico3>
+        </configuracao>
+        </unidade>        
+        <unidade>
+                <co_unidade>006</co_unidade>
+                <co_uni>0</co_uni>
+                 <charset>AL32UTF8</charset>
+                <nome>Hospital Federal Andaraí</nome>
+                <selected></selected>
+                <conexao>(DESCRIPTION=(ADDRESS=(PROTOCOL = TCP)(HOST =srvorarj1.datasus.gov)(PORT = 1808))
+                (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjpo1.datasus.gov))
+            )</conexao>
+            <usuario>pmweb_hfa_bi_cons</usuario>
+            <senha>senha</senha>
+            <configuracao>
+                <medico1>50</medico1>
+                <medico2>52</medico2>
+                <medico3>2</medico3>
+            </configuracao>
+        </unidade> 
+		<unidade>
+                <co_unidade>007</co_unidade>
+                <co_uni>0</co_uni>
+                 <charset>AL32UTF8</charset>
+                <nome>Hospital Federal Lagoa - Produção</nome>
+                <selected></selected>
+                <conexao>(DESCRIPTION=
+				(ADDRESS=(PROTOCOL = TCP)(HOST = srvorahfl1-vip.hgl.gov)(PORT = 1521))
+				(ADDRESS = (PROTOCOL = TCP)(HOST = srvorahfl2-vip.hgl.gov)(PORT = 1521))
+				(LOAD_BALANCE = yes)
+                (CONNECT_DATA=(SERVER = DEDICATED)(SERVICE_NAME=rjhfl)))
+				</conexao>
+            <usuario>pmweb_hfl_cons</usuario>
+            <senha>senha</senha>
+            <configuracao>
+                <medico1>50</medico1>
+                <medico2>52</medico2>
+                <medico3>2</medico3>
+            </configuracao>
+        </unidade> 
+		<unidade>
+                <co_unidade>008</co_unidade>
+                <co_uni>0</co_uni>
+                 <charset>AL32UTF8</charset>
+                <nome>Hospital Federal Andaraí - Produção</nome>
+                <selected></selected>
+                <conexao>(DESCRIPTION =
+					(ADDRESS = (PROTOCOL = TCP)(HOST = srvorahfa1-vip.hga.gov)(PORT = 1521))
+					(ADDRESS = (PROTOCOL = TCP)(HOST = srvorahfa2-vip.hga.gov)(PORT = 1521))
+					(LOAD_BALANCE = yes)
+					(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = rjhfa)))
+				</conexao>
+            <usuario>pmweb_hfa_cons</usuario>
+            <senha>senha</senha>
+            <configuracao>
+                <medico1>50</medico1>
+                <medico2>52</medico2>
+                <medico3>2</medico3>
+            </configuracao>
+        </unidade> 
+		
+		
+
+
+
+
+    </unidades>
+</root>

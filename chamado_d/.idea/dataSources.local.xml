@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="PostgreSQL - tarefa@192.168.22.26" uuid="678eff5f-eaaf-4056-9b7b-5e8c1dd1a1d6">
+      <secret-storage>master_key</secret-storage>
+      <user-name>user_tarefa</user-name>
+      <schema-pattern>tarefa.pg_catalog tarefa.public</schema-pattern>
+      <default-schemas>tarefa.public</default-schemas>
+    </data-source>
+  </component>
+</project>

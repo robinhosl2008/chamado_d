@@ -1,0 +1,174 @@
+[2016-05-30 14:26:06] Erro de autenticacao 
+[2016-05-30 14:26:18] Erro de autenticacao 
+[2016-05-30 14:26:30] Erro de autenticacao 
+[2016-05-30 14:26:38] Usuário Logado com sucesso (Reginaldo Lima) 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/tipo-versao/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 -  - MENU DEFAULT - /default/index 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/cadastrar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/projeto/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-orgao 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/modulo/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-categoria 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-projeto 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/versao/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/ambiente/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/meus-chamados 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-mes 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/categoria/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/grafico-usuario-fechamento 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/usuario/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-orgao 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/orgao/listar 
+[2016-05-30 14:26:39] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/meus-chamados-adm 
+[2016-05-30 14:26:43] USUARIO - 9 - 1 - /*/*/* - Export true 
+[2016-05-30 14:26:43] TRUE - >>> USUARIO - 9 - /*/*/* 
+[2016-05-30 14:26:43] USUARIO - 9 - 1 - /chamado/*/* - Export false 
+[2016-05-30 14:26:43] USUARIO - 9 - 1 - /chamado/index/* - Export false 
+[2016-05-30 14:26:43] USUARIO - 9 - 1 - /chamado/index/index - Export false 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/tipo-versao/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 -  - MENU DEFAULT - /default/index 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/cadastrar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/projeto/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-orgao 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/modulo/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-categoria 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-projeto 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/versao/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/ambiente/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/meus-chamados 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-mes 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/categoria/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/grafico-usuario-fechamento 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/usuario/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-orgao 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/orgao/listar 
+[2016-05-30 14:26:44] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/meus-chamados-adm 
+[2016-05-30 14:27:13] USUARIO - 9 - 1 - /*/*/* - Export true 
+[2016-05-30 14:27:13] TRUE - >>> USUARIO - 9 - /*/*/* 
+[2016-05-30 14:27:13] USUARIO - 9 - 1 - /chamado/*/* - Export false 
+[2016-05-30 14:27:13] USUARIO - 9 - 1 - /chamado/index/* - Export false 
+[2016-05-30 14:27:13] USUARIO - 9 - 1 - /chamado/index/index - Export false 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/tipo-versao/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 -  - MENU DEFAULT - /default/index 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/cadastrar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/projeto/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-orgao 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/modulo/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-categoria 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-projeto 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/versao/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/ambiente/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/meus-chamados 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-mes 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/categoria/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/grafico-usuario-fechamento 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/usuario/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-orgao 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/orgao/listar 
+[2016-05-30 14:27:13] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/meus-chamados-adm 
+[2016-05-30 14:28:16] USUARIO - 9 - 1 - /*/*/* - Export true 
+[2016-05-30 14:28:16] TRUE - >>> USUARIO - 9 - /*/*/* 
+[2016-05-30 14:28:16] USUARIO - 9 - 1 - /chamado/*/* - Export false 
+[2016-05-30 14:28:16] USUARIO - 9 - 1 - /chamado/index/* - Export false 
+[2016-05-30 14:28:16] USUARIO - 9 - 1 - /chamado/index/index - Export false 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/tipo-versao/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 -  - MENU DEFAULT - /default/index 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/cadastrar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/projeto/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-orgao 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/modulo/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-categoria 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-projeto 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/versao/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/ambiente/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/meus-chamados 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-mes 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/categoria/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/grafico-usuario-fechamento 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/usuario/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-orgao 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/orgao/listar 
+[2016-05-30 14:28:16] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/meus-chamados-adm 
+[2016-05-30 14:28:27] USUARIO - 9 - 1 - /*/*/* - Export true 
+[2016-05-30 14:28:27] TRUE - >>> USUARIO - 9 - /*/*/* 
+[2016-05-30 14:28:27] USUARIO - 9 - 1 - /chamado/*/* - Export false 
+[2016-05-30 14:28:27] USUARIO - 9 - 1 - /chamado/index/* - Export false 
+[2016-05-30 14:28:27] USUARIO - 9 - 1 - /chamado/index/index - Export false 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/tipo-versao/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 -  - MENU DEFAULT - /default/index 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/cadastrar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/projeto/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-orgao 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/modulo/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-categoria 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-projeto 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/versao/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/ambiente/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/meus-chamados 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-mes 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/categoria/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/grafico-usuario-fechamento 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/usuario/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-orgao 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/orgao/listar 
+[2016-05-30 14:28:27] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/meus-chamados-adm 
+[2016-05-30 14:44:14] USUARIO - 9 - 1 - /*/*/* - Export true 
+[2016-05-30 14:44:14] TRUE - >>> USUARIO - 9 - /*/*/* 
+[2016-05-30 14:44:14] USUARIO - 9 - 1 - /chamado/*/* - Export false 
+[2016-05-30 14:44:14] USUARIO - 9 - 1 - /chamado/index/* - Export false 
+[2016-05-30 14:44:14] USUARIO - 9 - 1 - /chamado/index/index - Export false 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/tipo-versao/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 -  - MENU DEFAULT - /default/index 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/cadastrar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/projeto/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-orgao 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/modulo/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-categoria 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-projeto 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/versao/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/ambiente/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/meus-chamados 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-mes 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/categoria/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/grafico-usuario-fechamento 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/usuario/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-orgao 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/orgao/listar 
+[2016-05-30 14:44:15] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/meus-chamados-adm 
+[2016-05-30 14:44:20] USUARIO - 9 - 1 - /*/*/* - Export true 
+[2016-05-30 14:44:20] TRUE - >>> USUARIO - 9 - /*/*/* 
+[2016-05-30 14:44:20] USUARIO - 9 - 1 - /chamado/*/* - Export false 
+[2016-05-30 14:44:20] USUARIO - 9 - 1 - /chamado/index/* - Export false 
+[2016-05-30 14:44:20] USUARIO - 9 - 1 - /chamado/index/index - Export false 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/tipo-versao/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 -  - MENU DEFAULT - /default/index 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/cadastrar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/projeto/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-orgao 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/modulo/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-categoria 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-projeto 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/versao/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/ambiente/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/meus-chamados 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU RELATORIO - /relatorio/index/chamado-mes 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/categoria/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 -  - MENU CHAMADO - /chamado/index/grafico-usuario-fechamento 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/usuario/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/listar-orgao 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU MANUTENCAO - /manutencao/orgao/listar 
+[2016-05-30 14:44:20] PERFIL:1 - 1 - 1 - MENU CHAMADO - /chamado/index/meus-chamados-adm 

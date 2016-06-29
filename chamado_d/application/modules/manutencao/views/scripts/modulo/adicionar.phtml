@@ -1,0 +1,248 @@
+<script>
+$(document).ready(function() {
+        $(".formValidate").validate();
+
+        if($('#totalrecords').val() != 0){
+            $('#paginacao').smartpaginator({ totalrecords: $('#totalrecords').val(), recordsperpage: 10, datacontainer: 'mt', dataelement: 'tr', initval: 0, theme: 'blue',controlsalways:false });
+        }	
+
+        $("#div-tb-ambiente").hide();
+        $("#div-tb-orgao").hide();
+
+        //Ao inicializar a tela;
+        if($("#projeto").val()){
+            //carregarTbAmbinete($("#projeto").val());
+            $("#div-tb-ambiente").show();
+        }
+
+        $("#projeto").change(function(){
+            if($(this).val()){
+                $("#div-tb-ambiente").show();
+                $("#div-tb-orgao").show();
+
+                $('#tb-dinamica-ambiente').empty();
+                //carregarTbAmbinete($(this).val());
+            }else{
+                $("#div-tb-ambiente").hide();
+            }
+
+        });
+	
+});
+
+function carregarTbAmbinete(co_projeto){
+        $.post( "/manutencao/modulo/consultarambiente/co_projeto/"+co_projeto, function( data ) {
+            $( "#tb-dinamica-ambiente" ).html( data );
+        });
+}
+
+</script>
+<script>
+    $(document).ready(function(){
+
+        // Função que desabilita o botão 'Salvar' do formulário.
+        $('#submit').attr('disabled', 'disabled');
+
+
+        $('#salvar').mouseenter(function () {
+
+            var no_modulo = $('#no_modulo').val();
+            var co_modulo = $('#co_modulo').val();
+            var projetos = $('#projetos').val();
+
+
+            if (co_modulo > 0) {
+
+                if (no_modulo === "") {
+                    $('#no_mod_vazio').show();
+                    $('#erro').show();
+                    $('#no_pro_vazio').hide();
+                    $('#submit').attr('disabled', 'disabled');
+                } else {
+                    $('#no_mod_vazio').hide();
+                    $('#erro').hide();
+
+                    if (projetos === "") {
+                        $('#no_pro_vazio').show();
+                        $('#erro').show();
+                        $('#submit').attr('disabled', 'disabled');
+                    } else {
+                        $('#no_pro_vazio').hide();
+                        $('#erro').hide();
+
+                        $.post('/manutencao/modulo/validar-no-modulo', {no_modulo: no_modulo}, function (data) {
+                            if (data !== 'false') {
+                                $('#submit').removeAttr('disabled');
+                                //$('#erro').hide();
+                                //$('#no_mod_existe').hide();
+                            } else {
+                                //$('#no_mod_existe').show();
+                                //$('#erro').show();
+                                $('#submit').removeAttr('disabled');
+                            }
+                        });
+                    }
+                }
+
+            } else {
+
+                if (no_modulo === "") {
+                    $('#no_mod_vazio').show();
+                    $('#erro').show();
+                    $('#no_pro_vazio').hide();
+                    $('#no_mod_usado').hide();
+                    $('#submit').attr('disabled', 'disabled');
+                } else {
+
+                    $('#no_mod_usado').hide();
+                    $.post('/manutencao/modulo/validar-no-modulo', {no_modulo: no_modulo}, function (data) {
+                        if (data !== 'false') {
+                            $('#no_mod_vazio').hide();
+
+                            var projetos = $('#projetos').val();
+                            if (projetos === "") {
+                                $('#no_pro_vazio').show();
+                                $('#erro').show();
+                                $('#submit').attr('disabled', 'disabled');
+                            } else {
+                                $('#no_pro_vazio').hide();
+                                $('#erro').hide();
+                                $('#submit').removeAttr('disabled');
+                            }
+
+                        } else {
+
+                            $('#no_mod_vazio').hide();
+                            $('#no_mod_usado').show();
+                            $('#erro').show();
+                            $('#submit').attr('disabled', 'disabled');
+
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+<style>
+form label.error{ 
+	text-align: right;
+	width: 100%;
+}
+form label.error {
+    color: red;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: -10px;
+}
+
+
+
+input {
+    border: 1px solid black;
+}
+input.checkbox {
+    border: medium none;
+}
+input:focus {
+    border: 1px dotted black;
+}
+input.error {
+    border: 1px dotted red;
+}
+</style>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i>Principal</a>
+        -> 
+        <a href="/manutencao/modulo/listar" class="tip-bottom" data-original-title="" title="">Módulo</a>
+         -> Cadastro de Módulo
+    </div>
+    <h1>Cadastro de Módulo</h1>
+</div>
+
+<div class="row">
+    <div class="span12">
+    <?php echo  $this->mensagem(); ?>
+        
+        <form action="/manutencao/modulo/adicionar" method="post" class="formValidate" id="form-modulo">
+            <input type="hidden" value="<?php print $this->aObjModulo->getCoSeqModuloProj()?>" name="co_modulo" id="co_modulo">
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="row-fluid">
+                        <div class="span11" >
+                            <div class="label">Nome do Módulo
+                            </div> 
+                            <div class="controls">
+                                <input id="no_modulo" name="no_modulo" class="span12" type="text" value="<?php echo $this->no_mod; ?>"/>
+                            </div>
+                            
+                            <!-- Mensagem dizendo que o nome do projeto já está em uso. -->
+                            <div id="no_mod_usado" style="width: 300px; display: none; color: red; position: absolute; top: 210px; left: 200px">
+                                <em>Este nome já está em uso.</em>
+                            </div>
+
+                            <!-- Mensagem dizendo que o nome do projeto já está em uso. -->
+                            <div id="no_mod_existe" style="width: 300px; display: none; color: red; position: absolute; top: 210px; left: 120px">
+                                <em>Existe um módulo usando esse nome.</em>
+                            </div>
+                            
+                            <!-- Mensagem dizendo que o nome do projeto está vazio. -->
+                            <div id="no_mod_vazio" style="width: 300px; display: none; color: red; position: absolute; top: 210px; left: 200px">
+                                <em>Dê um nome para o módulo.</em>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="label">Projeto
+                            </div> 
+                            <div class="controls">
+                                <select id="projetos" name="co_projeto" style="width: 276px">
+                                    <option value="">Selecione...</option>
+                                        <?php 
+                                            foreach($this->aObjProjeto as $Projeto){ 
+                                        ?>
+                                            <option value="<?php echo $Projeto->getCoProjeto();  ?>" <?php if($this->aObjModulo->getProjeto() && $this->aObjModulo->getProjeto()->getCoProjeto() == $Projeto->getCoProjeto() ){print 'selected="selected"';}?>  ><?php echo $Projeto->getNoProjeto();  ?></option>
+                                        <?php } ?>            
+                                </select>	        		
+                            </div>
+                            
+                            <!-- Mensagem dizendo que o nome do projeto está vazio. -->
+                            <div id="no_pro_vazio" style="width: 300px; display: none; color: red; position: absolute; top: 270px; left: 200px">
+                                <em>Selecione um projeto.</em>
+                            </div>
+                        </div>
+                    </div>		
+                </div>
+                <div class="span8">
+                    <div class="label">Descrição do Módulo
+                    </div> 
+                    <div class="controls">
+                        <textarea name="ds_modulo" id="ds_modulo" rows="3" class="span8" style="resize:none;"><?php print  $this->aObjModulo->getDsModulo()?></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Mensagem informando um erro no formulário. -->
+            <div id="erro" style="width: 500px; display: none; color: red">
+                <em>Um erro ocorreu no preenchimento de algum campo do formulário.</em>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12" id="salvar">
+                    <div class="form-actions">
+                        <button id="submit" class="btn btn-primary" type="submit">Salvar</button>
+                        <a href="/manutencao/modulo/listar/num_linhas/<?php echo $this->num_linhas; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porProjeto/<?php echo $this->porProjeto; ?>/coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>/pg/<?php echo $this->pg; ?>" class="btn" data-original-title="" title="">Voltar</a>
+                    </div>	
+                </div>
+            </div>		
+        </form>
+        <div class="clear"></div><!-- End .clear -->																														
+    </div>
+</div>		 
+ 

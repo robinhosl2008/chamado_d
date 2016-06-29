@@ -1,0 +1,198 @@
+<script>
+$(document).ready(function() {
+	$(".formValidate").validate();
+	$('#paginacao').smartpaginator({ totalrecords: $('#totalrecords').val(), recordsperpage: 10, datacontainer: 'mt', dataelement: 'tr', initval: 0, theme: 'blue',controlsalways:false });
+});
+
+function marcardesmarcar(){
+    if($('#todos').prop('checked')){
+        $('.marcar').prop('checked',true);
+    }else{
+        $('.marcar').prop('checked',false);
+    }
+
+
+}
+</script>
+<style>
+form label.error{ 
+	text-align: right;
+	width: 100%;
+}
+form label.error {
+    color: red;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: -10px;
+}
+
+
+
+input {
+    border: 1px solid black;
+}
+input.checkbox {
+    border: medium none;
+}
+input:focus {
+    border: 1px dotted black;
+}
+input.error {
+    border: 1px dotted red;
+}
+</style>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i>Principal</a>
+        -> 
+        <a href="/manutencao/usuario/listar" class="tip-bottom" data-original-title="" title="">Usuário</a>
+         -> Cadastro de Usuário
+    </div>
+    <h1>Cadastro de Usuário</h1>
+</div>
+
+<div class="content-box cadProf" id="boxGrid"><!-- Start Content Box GRID -->				
+    <div class="content-box-content">					
+        <div id="cadProf" class="tab-content default-tab"> <!-- INICIO TAB 1-->																												
+            <?php echo  $this->mensagem(); ?>
+                <form action="/manutencao/usuario/adicionar" method="post" class="formValidate" id="form-usuario">
+                    <input type="hidden" value="<?php  echo $this->aObjUsuario->getCoUsuario(); ?>" id="o_co_usuario" name="co_usuario">
+                	<div class="dados">
+                            <div class="linha">
+                                    <div class="campos">
+                                            <div class="label">
+                                                    CPF 
+                                            </div> 
+                                            <div>
+                                                    <input id="cpf" name="nu_cpf" value="<?php  echo $this->aObjUsuario->getNuCpf(); ?>" type="text" size="15" data-rule-required="true"  data-msg-required="Informe um CPF"/>
+                                            </div>	
+                                    </div>
+                                    <div class="campos" style="margin-left: 350px;">
+                                            <div class="label">
+                                                    Nome
+                                            </div> 
+                                            <div>
+                                                    <input id="no_usuario" name="no_usuario" value="<?php echo $this->aObjUsuario->getNoUsuario(); ?>" type="text" data-rule-required="true" data-msg-required="Informe um Nome"/>
+                                            </div>	
+                                    </div>
+                                    <div class="campos" style="margin-left: 750px;">	
+                                            <div class="label">
+                                                    E-mail 
+                                            </div>
+                                            <div>
+                                                    <input id="ds_email" name="ds_email" value="<?php echo $this->aObjUsuario->getDsEmail(); ?>" type="text" data-rule-required="true" data-rule-email="true" data-msg-required="Informe um e-mail" data-msg-email=" Informe um e-mail válido"/>
+                                            </div>	
+                                    </div>	
+                            </div>
+                            <div class="linha">
+                                    <div class="campos">
+                                            <div class="label">
+                                                    Telefone
+                                            </div>
+                                            <div>
+                                                    <input id="nu_tel" name="nu_tel" type="text" value="<?php echo $this->aObjUsuario->getNuTelefone(); ?>" data-rule-required="true" data-msg-required="Informe um número de Tefefone" />
+                                            </div>	 
+                                    </div>
+                                    <div class="campos" style="margin-left: 350px;">
+                                            <div class="label">
+                                                    Celular
+                                            </div>
+                                            <div>
+                                                    <input id="nu_celular" name="nu_celular" type="text" value="<?php echo $this->aObjUsuario->getNuCelular(); ?>"/>
+                                            </div>	 
+                                    </div>
+
+                                    <div class="campos" style="margin-left: 750px;">
+
+                                    </div>
+                            </div>
+                            <div class="linha">
+                                    <div class="campos">
+                                            <div class="label">Perfil</div>
+                                            <div>
+                                                    <select id="perfil" name="perfil">
+                                                    <?php foreach ($this->oPerfils as $objPerfil){ ?>
+                                                            <option value="<?php echo $objPerfil->getCoPerfil()?>" <?php if( $objPerfil->getCoPerfil() == $this->aObjUsuario->getCoPerfil()){ echo "selected='selected'"; } ?> > <?php echo $objPerfil->getNoPerfil(); ?> </option>
+                                                    <?php }?>
+                                                    </select>
+                                            </div>
+                                    </div>
+                                    <div class="campos" style="margin-left: 350px;">
+                                            <div class="label">Login</div>
+                                            <div><input id="ds_login" name="ds_login" value="<?php echo $this->aObjUsuario->getDsLogin();?>" type="text" data-rule-required="true" data-msg-required="Informe um Login" data-rule-remote="/manutencao/usuario/validar-login/co_usuario/<?php echo $this->aObjUsuario->getCoUsuario();?>" data-msg-remote="Este Login já está em uso." ></div>
+                                    </div>
+                                    <div class="campos" style="margin-left: 750px;">
+                                            <div class="label">Senha</div>
+                                            <div><input id="ds_password" name="ds_password" value="<?php echo $this->aObjUsuario->getDsPassword();?>" type="password" data-rule-required="true" data-msg-required="Informe uma Senha" data-rule-minlength="3"> </div>
+                                    </div>
+                            </div>
+                            <div class="widget-content nopadding" style="width: 700px; padding-top: 10px;">
+
+
+                                Marcar/Desmarcar todos: <input type="checkbox" name="todos" id="todos" value="todos"
+                                                               onclick="marcardesmarcar()"/><br/>
+                                    <div class="label">
+                                    Órgões
+                                    </div>
+                                    <input type="hidden" name="totalrecords" id="totalrecords" value="<?php print count($this->aObjOrgao )?>" />
+                                    <table class="table table-bordered table-striped" id="mt">																													
+                                        <thead>
+                                                <tr>
+                                                        <th class="span1">Selecione</th>
+                                                        <th class="span7">Orgão</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 0;
+
+                                            foreach ($this->aObjOrgao as $objOrgao) { ?>
+                                                <tr <?php if (($i % 2) == 0) { ?>
+                                                        class="alt-row"
+                                                    <?php } ?>
+                                                >
+                                                     <td style="text-align: center;">
+                                                         <input name="orgoes[]" class="marcar" type="checkbox" value="<?php print $objOrgao->getCoOrgao();?>"
+                                                              <?php
+                                                              foreach ($this->aObjUsuarioOrgao as $usuOrgao){
+                                                                 if( $objOrgao->getCoOrgao() == $usuOrgao->getCoOrgao() && $usuOrgao->getStRlUsuarioOrgao())
+                                                                 {
+                                                                     print 'checked="checked"';
+                                                                 }
+                                                             }?>
+                                                         >
+                                                     </td>
+                                                     <td><?php print $objOrgao->getNoOrgao() ; ?></td>
+                                                </tr>
+                                            <?php $i++;
+                                                } ?>
+                                        </tbody>
+                                    </table>
+                            <div id="paginacao" style="margin: auto;">
+                            </div>
+                    </div>
+                    <br />
+                    <br />
+	                       <!-- <input class="button_blue" value="SALVAR" type="submit" /> -->
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span12" id="salvar">
+                            <div class="form-actions">
+                                <button id="submit" class="btn btn-primary" type="submit">Salvar</button>
+                                <a href="/manutencao/usuario/listar/num_linhas/<?php echo $this->num_linhas; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porNome/<?php echo $this->porNome; ?>/porPerfil/<?php echo $this->porPerfil; ?>/porStatus/<?php echo $this->porStatus; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/pagination/<?php echo $this->pagination; ?>/coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>" class="btn" data-original-title="" title="">Voltar</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+               <div class="clear"></div><!-- End .clear -->																														
+        </div> 
+        <!-- End #tab1 --> 	
+        <div id="listaProf" class="tab-content">
+            <!-- Inicio tab 2 -->
+            <!-- TAB LISTA DE PROFISSIONAL -->																													
+        </div> 
+        <!-- End #tab2 -->			
+    </div> <!-- End .content-box-content -->				
+</div> <!-- End BOX GERAL GRID--> 
+<!-- END BOX CRUD --> 

@@ -1,0 +1,305 @@
+<style xmlns="http://www.w3.org/1999/html">
+    .table td{
+        line-height: 11px  !important;
+        font-size:12px  !important;
+        padding: 5px  !important;
+    }
+    body {
+        padding:42px 0 40px 0;
+    }
+
+</style>
+
+
+<script src="/js/Chart.min.js"></script>
+<script src="/js/relatorio.js"></script>
+<script type="text/javascript">
+    var randomnb = function(){ return Math.round(Math.random()*200)};
+</script>
+
+
+<script src="/js/rel.chamado.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#add1').click(function (){
+            $('#arquivo2').show();
+        });
+
+        $('#add2').click(function (){
+            $('#arquivo3').show();
+        });
+
+        $('#reset1').click(function(){
+            $('#file1').val('');
+        });
+
+        $('#reset2').click(function(){
+            $('#file2').val('');
+        });
+
+        $('#reset3').click(function(){
+            $('#file3').val('');
+        });
+
+        $('#reset').click(function(){
+            $('#arquivo').val('');
+        });
+
+    });
+</script>
+
+
+
+<div class="row-fluid">
+    <div class="span12">
+        <div style="padding-bottom: 10px">
+            <button onclick="javascript:window.print()" class="btn btn-primary">
+                Imprimir
+                <i class="icon-print"></i>
+            </button>
+        </div>
+        <?php $this->mensagem(); ?>
+        <h5>
+            <i class="icon-list"></i> Relatório de chamados por projeto.
+        </h5>
+
+        <div class="navbar" style="">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
+                    <form action="/relatorio/index/index" method="post" id="form">
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+
+                            <li class="filtro_relatorio">
+                                <label for="cod_projeto">Projeto:</label>
+                                <select id="cod_projeto" name="cod_projeto" style="width: 200px" >
+                                    <?php if(count($this->projetos) > 0){ ?>
+                                        <?php foreach($this->projetos as $projeto){ ?>
+                                            <option value="<?php echo $projeto->getCoProjeto(); ?>"
+                                                <?php if($projeto->getCoProjeto() == $this->cod_projeto){
+                                                    echo " selected ";
+                                                } ?>>
+                                                <?php echo $projeto->getNoProjeto(); ?>
+                                            </option>
+                                        <?php }
+                                    } ?>
+                                </select>
+                            </li>
+
+                            <li class="filtro_relatorio">
+                                <label for="cod_ambiente">Ambiente:</label>
+                                <select id="cod_ambiente" name="cod_ambiente" style="width: 150px">
+                                    <?php if(count($this->ambientes) > 0){ ?>
+                                        <option value="">Todos</option>
+                                        <?php foreach($this->ambientes as $ambiente){ ?>
+                                            <option value="<?php echo $ambiente['co_ambiente']; ?>"
+                                                <?php if($ambiente['co_ambiente'] == $this->cod_ambiente){
+                                                    echo " selected ";
+                                                } ?>>
+                                                <?php echo $ambiente['no_ambiente'] . " - " . $ambiente['no_versao']; ?>
+                                            </option>
+                                        <?php }
+                                    } ?>
+                                </select>
+                            </li>
+
+                            <li class="filtro_relatorio">
+                                <label for="cod_orgao">Órgão:</label>
+                                <select id="cod_orgao" name="cod_orgao" style="width: 350px">
+                                    <?php if(count($this->orgaos) > 0){ ?>
+                                        <option value="">Todos</option>
+                                        <?php foreach($this->orgaos as $orgao){ ?>
+                                            <option value="<?php echo $orgao->getCoOrgao(); ?>"
+                                                <?php if($orgao->getCoOrgao() == $this->cod_orgao) {
+                                                    echo " selected ";
+                                                } ?>>
+                                                <?php echo $orgao->getNoOrgao(); ?>
+                                            </option>
+                                        <?php }
+                                    } ?>
+                                </select>
+                            </li>
+
+                            <li class="filtro_relatorio">
+                                <label for="ano">Ano:</label>
+                                <select id="ano" name="ano" style="width: 70px">
+                                    <?php foreach($this->oAno as $ano) { ?>
+                                        <option value = "<?php echo $ano['ano'] ?>"
+                                        <?php if($ano['ano'] == $this->anoPost){ echo " selected "; } ?>>
+                                            <?php echo $ano['ano'] ?></option >
+                                    <?php } ?>
+                                </select>
+                            </li>
+
+                            <li class="filtro_relatorio botao_gerar">
+                                <input type="submit" value="Gerar" class="btn btn-primary">
+                            </li>
+                        </ul>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td><b>Projeto</b></td>
+                    <td><b>Ambiente</b></td>
+                    <td><b>Órgão</b></td>
+                    <td><b>Ano</b></td>
+                    <td><b>Total de chamados no ano de <?php echo $this->anoPost; ?></b></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <?php
+                        foreach ($this->projetos as $projeto) {
+                            if ($projeto->getCoProjeto() == $this->cod_projeto){
+                                echo $projeto->getNoProjeto();
+                            }
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        if($this->cod_ambiente > 0) { //echo "<pre>"; print_r($this->orgaos);
+                            foreach ($this->ambientes as $ambiente) {
+                                if ($ambiente->getCoAmbiente() == $this->cod_ambiente){
+                                    echo $ambiente->getNoAmbiente();
+                                }
+                            }
+                        }else{
+                            echo "Todos os ambientes";
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        if($this->cod_orgao > 0) { //echo "<pre>"; print_r($this->orgaos);
+                            foreach ($this->orgaos as $orgao) {
+                                if ($orgao->getCoOrgao() == $this->cod_orgao){
+                                    echo $orgao->getNoOrgao();
+                                }
+                            }
+                        }else{
+                            echo "Todos os órgãos";
+                        }
+                        ?>
+                    </td>
+                    <td><?php echo $this->anoPost; ?></td>
+                    <td><?php echo $this->somaTotais; ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box-chart">
+            <canvas id="GraficoLine" style="width:100%; height: 450px;"></canvas>
+
+            <script type="text/javascript">
+
+                var options = {
+                    responsive:true
+                };
+
+                var data = {
+                    labels: [
+                        <?php echo $this->strJqueryGraficoTotalMes; ?>
+                    ],
+                    datasets: [
+                        /*{
+                            label: "Total de chamados",
+                            fillColor: "rgba(151,187,205,0.0)",
+                            strokeColor: "rgba(255,101,71,1)",
+                            pointColor: "rgba(255,101,71,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: [<?php //echo $this->strJqueryGraficoTotalMes; ?>]
+                        },*/
+                        {
+                            label: "Chamados abertos",
+                            fillColor: "rgba(220,220,220,0.0)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,050,1)",
+                            data: [<?php echo $this->strJqueryGraficoAbertoMes; ?>]
+                        },
+                        {
+                            label: "Chamados atribuidos",
+                            fillColor: "rgba(220,220,220,0.0)",
+                            strokeColor: "rgba(233,209,93,1)",
+                            pointColor: "rgba(233,209,93,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: [<?php echo $this->strJqueryGraficoAtribuidoMes; ?>]
+                            //data: [10, 50, 60, 5, 40, 30, 35, 70, 50, 40, 80, 60]
+                        },
+                        {
+                            label: "Chamados em andamento",
+                            fillColor: "rgba(151,187,205,0.0)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: [<?php echo $this->strJqueryGraficoEmAndamentoMes; ?>]
+                        },
+                        {
+                            label: "Chamados resolvidos",
+                            fillColor: "rgba(151,187,205,0.0)",
+                            strokeColor: "rgba(145,242,143,1)",
+                            pointColor: "rgba(145,242,143,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: [<?php echo $this->strJqueryGraficoResolvidoMes; ?>]
+                        },
+                        {
+                            label: "Chamados fechados",
+                            fillColor: "rgba(151,187,205,0.0)",
+                            strokeColor: "rgba(100,100,100,1)",
+                            pointColor: "rgba(100,100,100,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(151,187,205,1)",
+                            data: [<?php echo $this->strJqueryGraficoFechadoMes; ?>]
+                        }
+                    ]
+                };
+
+                window.onload = function(){
+                    var ctx = document.getElementById("GraficoLine").getContext("2d");
+                    var LineChart = new Chart(ctx).Line(data, options);
+                }
+            </script>
+        </div>
+
+        <br />
+
+        <div style="margin-top: -15px;">
+            <ul class="inline">
+                <li><strong>Legenda:</strong></li>
+                <li class="muted">Aberto</li>
+                <li class="text-warning">Atríbuido</li>
+                <li class="text-info"> Em Andamento </li>
+                <li class="text-success">Resolvido</li>
+                <li style="color: #484848">Fechado</li>
+                <!--<li style="color: #FF6547">Total por Mês</li>-->
+            </ul>
+        </div>
+    </div>
+</div>

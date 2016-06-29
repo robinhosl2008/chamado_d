@@ -1,0 +1,2021 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.2.4
+-- Dumped by pg_dump version 9.2.2
+-- Started on 2013-09-26 11:52:59
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 210 (class 3079 OID 11727)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2209 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 196 (class 1259 OID 16738)
+-- Name: ambiente; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ambiente (
+    co_ambiente integer NOT NULL,
+    no_ambiente character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.ambiente OWNER TO postgres;
+
+--
+-- TOC entry 195 (class 1259 OID 16736)
+-- Name: ambiente_co_ambiente_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE ambiente_co_ambiente_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ambiente_co_ambiente_seq OWNER TO postgres;
+
+--
+-- TOC entry 2210 (class 0 OID 0)
+-- Dependencies: 195
+-- Name: ambiente_co_ambiente_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE ambiente_co_ambiente_seq OWNED BY ambiente.co_ambiente;
+
+
+--
+-- TOC entry 168 (class 1259 OID 16399)
+-- Name: categoria; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE categoria (
+    co_categoria integer NOT NULL,
+    no_categoria character varying(250) NOT NULL,
+    nu_ordem integer
+);
+
+
+ALTER TABLE public.categoria OWNER TO postgres;
+
+--
+-- TOC entry 169 (class 1259 OID 16402)
+-- Name: categoria_co_categoria_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE categoria_co_categoria_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categoria_co_categoria_seq OWNER TO postgres;
+
+--
+-- TOC entry 2211 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: categoria_co_categoria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE categoria_co_categoria_seq OWNED BY categoria.co_categoria;
+
+
+--
+-- TOC entry 209 (class 1259 OID 17153)
+-- Name: ht_tarefa; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ht_tarefa (
+    co_seq_ht_tarefa integer NOT NULL,
+    co_tarefa integer NOT NULL,
+    co_categoria integer NOT NULL,
+    co_status integer NOT NULL,
+    co_prioridade integer NOT NULL,
+    co_usuario_fechamento integer NOT NULL,
+    co_nivel integer NOT NULL,
+    co_seq_proj_ver_amb integer NOT NULL,
+    co_usuario_aberto integer NOT NULL,
+    co_usuario_atualizacao integer,
+    no_tarefa character varying(200) NOT NULL,
+    dt_inicio timestamp without time zone DEFAULT now(),
+    dt_previsao timestamp without time zone,
+    dt_fim timestamp without time zone,
+    dt_atualizacao timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ht_tarefa OWNER TO postgres;
+
+--
+-- TOC entry 208 (class 1259 OID 17141)
+-- Name: ht_tarefa_co_seq_ht_tarefa_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE ht_tarefa_co_seq_ht_tarefa_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ht_tarefa_co_seq_ht_tarefa_seq OWNER TO postgres;
+
+--
+-- TOC entry 2212 (class 0 OID 0)
+-- Dependencies: 208
+-- Name: ht_tarefa_co_seq_ht_tarefa_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE ht_tarefa_co_seq_ht_tarefa_seq OWNED BY ht_tarefa.co_seq_ht_tarefa;
+
+
+--
+-- TOC entry 170 (class 1259 OID 16412)
+-- Name: menu; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE menu (
+    co_menu integer NOT NULL,
+    no_modulo character varying(50) NOT NULL,
+    no_exibicao character varying(100),
+    ds_tooltip character varying(255),
+    ds_url character varying(255) NOT NULL,
+    nu_ordem integer DEFAULT 0 NOT NULL,
+    st_ativo boolean DEFAULT true NOT NULL,
+    dt_cadastro timestamp without time zone DEFAULT now() NOT NULL,
+    co_usuario_cadastro integer,
+    dt_alteracao timestamp without time zone,
+    co_usuario_alteracao integer,
+    st_nao_exibir boolean DEFAULT false,
+    no_icon character varying(100)
+);
+
+
+ALTER TABLE public.menu OWNER TO postgres;
+
+--
+-- TOC entry 171 (class 1259 OID 16422)
+-- Name: menu_co_menu_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE menu_co_menu_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.menu_co_menu_seq OWNER TO postgres;
+
+--
+-- TOC entry 2213 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: menu_co_menu_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE menu_co_menu_seq OWNED BY menu.co_menu;
+
+
+--
+-- TOC entry 172 (class 1259 OID 16424)
+-- Name: modulo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE modulo (
+    no_modulo character varying(50) NOT NULL,
+    no_exibicao character varying(100) NOT NULL,
+    ds_modulo text,
+    nu_ordem integer DEFAULT 0,
+    no_icon character varying(200)
+);
+
+
+ALTER TABLE public.modulo OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 16436)
+-- Name: nivel; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE nivel (
+    co_nivel integer NOT NULL,
+    no_nivel character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.nivel OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 16439)
+-- Name: nivel_co_nivel_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE nivel_co_nivel_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.nivel_co_nivel_seq OWNER TO postgres;
+
+--
+-- TOC entry 2214 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: nivel_co_nivel_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE nivel_co_nivel_seq OWNED BY nivel.co_nivel;
+
+
+--
+-- TOC entry 175 (class 1259 OID 16441)
+-- Name: orgao; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE orgao (
+    co_orgao integer NOT NULL,
+    no_orgao character varying NOT NULL,
+    nu_telefone_orgao character varying(15) NOT NULL,
+    sg_orgao character varying(10)
+);
+
+
+ALTER TABLE public.orgao OWNER TO postgres;
+
+--
+-- TOC entry 2215 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: TABLE orgao; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE orgao IS 'local de origem do usuario';
+
+
+--
+-- TOC entry 2216 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: COLUMN orgao.no_orgao; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN orgao.no_orgao IS 'Nome do local de origem';
+
+
+--
+-- TOC entry 176 (class 1259 OID 16447)
+-- Name: orgao_co_orgao_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE orgao_co_orgao_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orgao_co_orgao_seq OWNER TO postgres;
+
+--
+-- TOC entry 2217 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: orgao_co_orgao_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE orgao_co_orgao_seq OWNED BY orgao.co_orgao;
+
+
+--
+-- TOC entry 177 (class 1259 OID 16449)
+-- Name: perfil; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE perfil (
+    co_perfil integer NOT NULL,
+    no_perfil character varying(150),
+    ds_perfil text,
+    st_perfil boolean DEFAULT true NOT NULL
+);
+
+
+ALTER TABLE public.perfil OWNER TO postgres;
+
+--
+-- TOC entry 178 (class 1259 OID 16456)
+-- Name: perfil_co_perfil_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE perfil_co_perfil_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.perfil_co_perfil_seq OWNER TO postgres;
+
+--
+-- TOC entry 2218 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: perfil_co_perfil_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE perfil_co_perfil_seq OWNED BY perfil.co_perfil;
+
+
+--
+-- TOC entry 179 (class 1259 OID 16458)
+-- Name: permissao; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE permissao (
+    co_perfil integer NOT NULL,
+    dt_alteracao timestamp without time zone,
+    co_usuario_alteracao integer,
+    co_recurso integer NOT NULL,
+    st_permissao boolean DEFAULT true NOT NULL,
+    dt_cadastro timestamp with time zone DEFAULT now() NOT NULL,
+    co_usuario_cadastro integer
+);
+
+
+ALTER TABLE public.permissao OWNER TO postgres;
+
+--
+-- TOC entry 180 (class 1259 OID 16463)
+-- Name: prioridade; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE prioridade (
+    co_prioridade integer NOT NULL,
+    no_prioridade character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.prioridade OWNER TO postgres;
+
+--
+-- TOC entry 181 (class 1259 OID 16466)
+-- Name: prioridade_co_prioridade_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE prioridade_co_prioridade_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.prioridade_co_prioridade_seq OWNER TO postgres;
+
+--
+-- TOC entry 2219 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: prioridade_co_prioridade_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE prioridade_co_prioridade_seq OWNED BY prioridade.co_prioridade;
+
+
+--
+-- TOC entry 182 (class 1259 OID 16468)
+-- Name: projeto; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE projeto (
+    co_projeto integer NOT NULL,
+    no_projeto character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.projeto OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 16471)
+-- Name: projeto_co_projeto_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE projeto_co_projeto_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.projeto_co_projeto_seq OWNER TO postgres;
+
+--
+-- TOC entry 2220 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: projeto_co_projeto_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE projeto_co_projeto_seq OWNED BY projeto.co_projeto;
+
+
+--
+-- TOC entry 184 (class 1259 OID 16473)
+-- Name: recurso; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE recurso (
+    co_recurso integer NOT NULL,
+    no_recurso character varying(150),
+    ds_recurso character varying(255),
+    tp_recurso integer,
+    dt_cadastro timestamp without time zone DEFAULT now() NOT NULL,
+    co_usuario_cadastro integer,
+    dt_alteracao timestamp without time zone,
+    co_usuario_alteracao integer
+);
+
+
+ALTER TABLE public.recurso OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 16477)
+-- Name: recurso_co_recurso_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE recurso_co_recurso_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.recurso_co_recurso_seq OWNER TO postgres;
+
+--
+-- TOC entry 2221 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: recurso_co_recurso_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE recurso_co_recurso_seq OWNED BY recurso.co_recurso;
+
+
+--
+-- TOC entry 205 (class 1259 OID 17089)
+-- Name: rl_orgao_projeto; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE rl_orgao_projeto (
+    co_orgao integer NOT NULL,
+    co_projeto integer NOT NULL,
+    dt_ogao_projeto timestamp without time zone NOT NULL,
+    st_ogao_projeto boolean NOT NULL
+);
+
+
+ALTER TABLE public.rl_orgao_projeto OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 17007)
+-- Name: rl_projeto_versao_amb; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE rl_projeto_versao_amb (
+    co_seq_proj_ver_amb integer NOT NULL,
+    co_ambiente integer NOT NULL,
+    co_versao integer NOT NULL,
+    co_projeto integer DEFAULT nextval('projeto_co_projeto_seq'::regclass) NOT NULL,
+    dt_inicio_rl timestamp without time zone NOT NULL,
+    dt_fim_rl timestamp without time zone,
+    st_proj_ver_amb boolean DEFAULT true NOT NULL
+);
+
+
+ALTER TABLE public.rl_projeto_versao_amb OWNER TO postgres;
+
+--
+-- TOC entry 201 (class 1259 OID 17005)
+-- Name: rl_projeto_versao_amb_co_seq_proj_ver_amb_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE rl_projeto_versao_amb_co_seq_proj_ver_amb_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.rl_projeto_versao_amb_co_seq_proj_ver_amb_seq OWNER TO postgres;
+
+--
+-- TOC entry 2222 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: rl_projeto_versao_amb_co_seq_proj_ver_amb_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE rl_projeto_versao_amb_co_seq_proj_ver_amb_seq OWNED BY rl_projeto_versao_amb.co_seq_proj_ver_amb;
+
+
+--
+-- TOC entry 190 (class 1259 OID 16497)
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE usuario (
+    co_usuario integer NOT NULL,
+    nu_cpf character varying(11),
+    ds_password character varying(10) NOT NULL,
+    no_usuario character varying(70) NOT NULL,
+    ds_login character varying(39),
+    dt_ultimo_login timestamp without time zone,
+    ds_email character varying(120),
+    co_perfil integer NOT NULL,
+    nu_celular character varying(15),
+    nu_telefone character varying(15) NOT NULL
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 191 (class 1259 OID 16503)
+-- Name: usuario_co_usuario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE usuario_co_usuario_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuario_co_usuario_seq OWNER TO postgres;
+
+--
+-- TOC entry 2223 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: usuario_co_usuario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE usuario_co_usuario_seq OWNED BY usuario.co_usuario;
+
+
+--
+-- TOC entry 204 (class 1259 OID 17047)
+-- Name: rl_usuario_orgao; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE rl_usuario_orgao (
+    co_seq_usuario_orgao integer NOT NULL,
+    co_orgao integer NOT NULL,
+    co_usuario integer DEFAULT nextval('usuario_co_usuario_seq'::regclass) NOT NULL,
+    dt_inicio_rl timestamp without time zone NOT NULL,
+    dt_fim_rl timestamp without time zone,
+    st_rl_usuario_orgao boolean DEFAULT true NOT NULL
+);
+
+
+ALTER TABLE public.rl_usuario_orgao OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 17045)
+-- Name: rl_usuario_orgao_co_seq_usuario_orgao_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE rl_usuario_orgao_co_seq_usuario_orgao_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.rl_usuario_orgao_co_seq_usuario_orgao_seq OWNER TO postgres;
+
+--
+-- TOC entry 2224 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: rl_usuario_orgao_co_seq_usuario_orgao_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE rl_usuario_orgao_co_seq_usuario_orgao_seq OWNED BY rl_usuario_orgao.co_seq_usuario_orgao;
+
+
+--
+-- TOC entry 186 (class 1259 OID 16479)
+-- Name: status; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE status (
+    co_status integer NOT NULL,
+    no_status character varying(200)
+);
+
+
+ALTER TABLE public.status OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 16482)
+-- Name: status_co_status_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE status_co_status_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.status_co_status_seq OWNER TO postgres;
+
+--
+-- TOC entry 2225 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: status_co_status_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE status_co_status_seq OWNED BY status.co_status;
+
+
+--
+-- TOC entry 188 (class 1259 OID 16484)
+-- Name: tarefa; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE tarefa (
+    co_tarefa integer NOT NULL,
+    no_tarefa character varying(200) NOT NULL,
+    dt_inicio timestamp without time zone DEFAULT now(),
+    dt_previsao timestamp without time zone,
+    dt_fim timestamp without time zone,
+    co_categoria integer DEFAULT 1 NOT NULL,
+    co_nivel integer DEFAULT 1 NOT NULL,
+    co_prioridade integer DEFAULT 1 NOT NULL,
+    co_status integer DEFAULT 1 NOT NULL,
+    co_usuario_fechamento integer NOT NULL,
+    co_seq_proj_ver_amb integer NOT NULL,
+    co_usuario_aberto integer NOT NULL,
+    co_usuario_atualizacao integer
+);
+
+
+ALTER TABLE public.tarefa OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 16495)
+-- Name: tarefa_co_tarefa_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE tarefa_co_tarefa_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tarefa_co_tarefa_seq OWNER TO postgres;
+
+--
+-- TOC entry 2226 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: tarefa_co_tarefa_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE tarefa_co_tarefa_seq OWNED BY tarefa.co_tarefa;
+
+
+--
+-- TOC entry 207 (class 1259 OID 17106)
+-- Name: tb_descicao_chamado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE tb_descicao_chamado (
+    co_seq_desc_chamado integer NOT NULL,
+    co_tarefa integer NOT NULL,
+    co_usuario integer NOT NULL,
+    ds_chamado character varying(3000) NOT NULL,
+    dt_cadastro timestamp without time zone NOT NULL,
+    dt_atualizacao timestamp without time zone,
+    img_erro bytea
+);
+
+
+ALTER TABLE public.tb_descicao_chamado OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 17104)
+-- Name: tb_descicao_chamado_co_seq_desc_chamado_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE tb_descicao_chamado_co_seq_desc_chamado_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tb_descicao_chamado_co_seq_desc_chamado_seq OWNER TO postgres;
+
+--
+-- TOC entry 2227 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: tb_descicao_chamado_co_seq_desc_chamado_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE tb_descicao_chamado_co_seq_desc_chamado_seq OWNED BY tb_descicao_chamado.co_seq_desc_chamado;
+
+
+--
+-- TOC entry 200 (class 1259 OID 16978)
+-- Name: tb_tipo_versao; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE tb_tipo_versao (
+    co_seq_tipo_versao integer NOT NULL,
+    no_tipo_versao character varying(70) NOT NULL,
+    st_tipo_versao boolean DEFAULT true NOT NULL
+);
+
+
+ALTER TABLE public.tb_tipo_versao OWNER TO postgres;
+
+--
+-- TOC entry 199 (class 1259 OID 16976)
+-- Name: tb_tipo_versao_co_seq_tipo_versao_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE tb_tipo_versao_co_seq_tipo_versao_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tb_tipo_versao_co_seq_tipo_versao_seq OWNER TO postgres;
+
+--
+-- TOC entry 2228 (class 0 OID 0)
+-- Dependencies: 199
+-- Name: tb_tipo_versao_co_seq_tipo_versao_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE tb_tipo_versao_co_seq_tipo_versao_seq OWNED BY tb_tipo_versao.co_seq_tipo_versao;
+
+
+--
+-- TOC entry 194 (class 1259 OID 16721)
+-- Name: usuario_categoria; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE usuario_categoria (
+    co_usuario integer NOT NULL,
+    co_categoria integer NOT NULL
+);
+
+
+ALTER TABLE public.usuario_categoria OWNER TO postgres;
+
+--
+-- TOC entry 192 (class 1259 OID 16509)
+-- Name: usuario_tarefa; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE usuario_tarefa (
+    co_usuario integer NOT NULL,
+    co_tarefa integer NOT NULL
+);
+
+
+ALTER TABLE public.usuario_tarefa OWNER TO postgres;
+
+--
+-- TOC entry 198 (class 1259 OID 16757)
+-- Name: versao; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE versao (
+    co_versao integer NOT NULL,
+    co_projeto integer DEFAULT nextval('projeto_co_projeto_seq'::regclass) NOT NULL,
+    ds_versao character varying,
+    st_versao boolean DEFAULT true NOT NULL,
+    no_versao character varying(70) NOT NULL,
+    co_seq_tipo_versao integer NOT NULL,
+    dt_cadastro_versao timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.versao OWNER TO postgres;
+
+--
+-- TOC entry 197 (class 1259 OID 16755)
+-- Name: versao_co_versao_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE versao_co_versao_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.versao_co_versao_seq OWNER TO postgres;
+
+--
+-- TOC entry 2229 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: versao_co_versao_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE versao_co_versao_seq OWNED BY versao.co_versao;
+
+
+--
+-- TOC entry 2072 (class 2604 OID 16741)
+-- Name: co_ambiente; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ambiente ALTER COLUMN co_ambiente SET DEFAULT nextval('ambiente_co_ambiente_seq'::regclass);
+
+
+--
+-- TOC entry 2047 (class 2604 OID 16513)
+-- Name: co_categoria; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY categoria ALTER COLUMN co_categoria SET DEFAULT nextval('categoria_co_categoria_seq'::regclass);
+
+
+--
+-- TOC entry 2085 (class 2604 OID 17156)
+-- Name: co_seq_ht_tarefa; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ht_tarefa ALTER COLUMN co_seq_ht_tarefa SET DEFAULT nextval('ht_tarefa_co_seq_ht_tarefa_seq'::regclass);
+
+
+--
+-- TOC entry 2052 (class 2604 OID 16515)
+-- Name: co_menu; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY menu ALTER COLUMN co_menu SET DEFAULT nextval('menu_co_menu_seq'::regclass);
+
+
+--
+-- TOC entry 2054 (class 2604 OID 16517)
+-- Name: co_nivel; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY nivel ALTER COLUMN co_nivel SET DEFAULT nextval('nivel_co_nivel_seq'::regclass);
+
+
+--
+-- TOC entry 2055 (class 2604 OID 16518)
+-- Name: co_orgao; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY orgao ALTER COLUMN co_orgao SET DEFAULT nextval('orgao_co_orgao_seq'::regclass);
+
+
+--
+-- TOC entry 2057 (class 2604 OID 16519)
+-- Name: co_perfil; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY perfil ALTER COLUMN co_perfil SET DEFAULT nextval('perfil_co_perfil_seq'::regclass);
+
+
+--
+-- TOC entry 2060 (class 2604 OID 16520)
+-- Name: co_prioridade; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY prioridade ALTER COLUMN co_prioridade SET DEFAULT nextval('prioridade_co_prioridade_seq'::regclass);
+
+
+--
+-- TOC entry 2061 (class 2604 OID 16521)
+-- Name: co_projeto; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY projeto ALTER COLUMN co_projeto SET DEFAULT nextval('projeto_co_projeto_seq'::regclass);
+
+
+--
+-- TOC entry 2063 (class 2604 OID 16522)
+-- Name: co_recurso; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY recurso ALTER COLUMN co_recurso SET DEFAULT nextval('recurso_co_recurso_seq'::regclass);
+
+
+--
+-- TOC entry 2078 (class 2604 OID 17010)
+-- Name: co_seq_proj_ver_amb; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_projeto_versao_amb ALTER COLUMN co_seq_proj_ver_amb SET DEFAULT nextval('rl_projeto_versao_amb_co_seq_proj_ver_amb_seq'::regclass);
+
+
+--
+-- TOC entry 2081 (class 2604 OID 17050)
+-- Name: co_seq_usuario_orgao; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_usuario_orgao ALTER COLUMN co_seq_usuario_orgao SET DEFAULT nextval('rl_usuario_orgao_co_seq_usuario_orgao_seq'::regclass);
+
+
+--
+-- TOC entry 2064 (class 2604 OID 16523)
+-- Name: co_status; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY status ALTER COLUMN co_status SET DEFAULT nextval('status_co_status_seq'::regclass);
+
+
+--
+-- TOC entry 2069 (class 2604 OID 16524)
+-- Name: co_tarefa; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tarefa ALTER COLUMN co_tarefa SET DEFAULT nextval('tarefa_co_tarefa_seq'::regclass);
+
+
+--
+-- TOC entry 2084 (class 2604 OID 17109)
+-- Name: co_seq_desc_chamado; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tb_descicao_chamado ALTER COLUMN co_seq_desc_chamado SET DEFAULT nextval('tb_descicao_chamado_co_seq_desc_chamado_seq'::regclass);
+
+
+--
+-- TOC entry 2076 (class 2604 OID 16981)
+-- Name: co_seq_tipo_versao; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tb_tipo_versao ALTER COLUMN co_seq_tipo_versao SET DEFAULT nextval('tb_tipo_versao_co_seq_tipo_versao_seq'::regclass);
+
+
+--
+-- TOC entry 2071 (class 2604 OID 16525)
+-- Name: co_usuario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario ALTER COLUMN co_usuario SET DEFAULT nextval('usuario_co_usuario_seq'::regclass);
+
+
+--
+-- TOC entry 2073 (class 2604 OID 16760)
+-- Name: co_versao; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY versao ALTER COLUMN co_versao SET DEFAULT nextval('versao_co_versao_seq'::regclass);
+
+
+--
+-- TOC entry 2188 (class 0 OID 16738)
+-- Dependencies: 196
+-- Data for Name: ambiente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ambiente (co_ambiente, no_ambiente) FROM stdin;
+6	Em produção
+7	Em analise de nova versão
+5	Em implantação
+8	Homologação 02
+\.
+
+
+--
+-- TOC entry 2230 (class 0 OID 0)
+-- Dependencies: 195
+-- Name: ambiente_co_ambiente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('ambiente_co_ambiente_seq', 8, true);
+
+
+--
+-- TOC entry 2161 (class 0 OID 16399)
+-- Dependencies: 168
+-- Data for Name: categoria; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY categoria (co_categoria, no_categoria, nu_ordem) FROM stdin;
+32	Dúvidas	\N
+33	Sugestão de Melhoria	\N
+34	Sugestão de Custumização	\N
+35	Consultoria Telefônica	\N
+37	Atendimento	\N
+\.
+
+
+--
+-- TOC entry 2231 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: categoria_co_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('categoria_co_categoria_seq', 38, true);
+
+
+--
+-- TOC entry 2201 (class 0 OID 17153)
+-- Dependencies: 209
+-- Data for Name: ht_tarefa; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ht_tarefa (co_seq_ht_tarefa, co_tarefa, co_categoria, co_status, co_prioridade, co_usuario_fechamento, co_nivel, co_seq_proj_ver_amb, co_usuario_aberto, co_usuario_atualizacao, no_tarefa, dt_inicio, dt_previsao, dt_fim, dt_atualizacao) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2232 (class 0 OID 0)
+-- Dependencies: 208
+-- Name: ht_tarefa_co_seq_ht_tarefa_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('ht_tarefa_co_seq_ht_tarefa_seq', 1, false);
+
+
+--
+-- TOC entry 2163 (class 0 OID 16412)
+-- Dependencies: 170
+-- Data for Name: menu; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY menu (co_menu, no_modulo, no_exibicao, ds_tooltip, ds_url, nu_ordem, st_ativo, dt_cadastro, co_usuario_cadastro, dt_alteracao, co_usuario_alteracao, st_nao_exibir, no_icon) FROM stdin;
+12	MANUTENCAO	Listar Usuario	\N	/manutencao/usuario/listar	2	f	2013-05-08 15:21:07.098594	\N	\N	\N	f	\N
+2	DEFAULT	Principal	\N	/default/index	1	t	2013-04-25 16:28:35.009765	\N	\N	\N	t	\N
+14	MANUTENCAO	Manutencao Dashboard	\N	/manutencao/index	3	f	2013-05-08 15:38:37.533026	\N	\N	\N	t	\N
+11	CHAMADO	Listar de tarefas	\N	/chamado/index	2	t	2013-05-08 14:51:43.53937	\N	\N	\N	f	\N
+16	CHAMADO	Abrir Chamado	\N	/chamado/index/cadastrar	2	t	2013-07-04 12:05:12.902936	\N	\N	\N	f	\N
+17	CHAMADO	Grafico de Fechamento	\N	/chamado/index/grafico-usuario-fechamento	3	t	2013-07-23 18:34:38.950016	\N	\N	\N	f	\N
+24	MANUTENCAO	Ambiente	\N	/manutencao/ambiente/listar	4	t	2013-08-30 11:27:34.304	\N	\N	\N	f	\N
+18	MANUTENCAO	Categoria	\N	/manutencao/categoria/listar	5	t	2013-08-26 15:09:06.318	\N	\N	\N	f	\N
+10	MANUTENCAO	Usuário	\N	/manutencao/usuario/listar	6	t	2013-05-03 15:16:54.235934	\N	\N	\N	f	\N
+27	MANUTENCAO	Tipo de Versão	\N	/manutencao/tipoversao/listar	1	t	2013-09-06 15:07:01.488	\N	\N	\N	f	\N
+26	MANUTENCAO	Projeto	\N	/manutencao/projeto/listar	2	t	2013-09-02 13:06:20.912	\N	\N	\N	f	\N
+28	MANUTENCAO	Versão	\N	/manutencao/versao/listar	3	t	2013-09-11 10:18:46.23	\N	\N	\N	f	\N
+\.
+
+
+--
+-- TOC entry 2233 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: menu_co_menu_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('menu_co_menu_seq', 31, true);
+
+
+--
+-- TOC entry 2165 (class 0 OID 16424)
+-- Dependencies: 172
+-- Data for Name: modulo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY modulo (no_modulo, no_exibicao, ds_modulo, nu_ordem, no_icon) FROM stdin;
+DEFAULT	Principal	Principal	1	icon-home
+MANUTENCAO	Manutenção	Manutencao	2	icon-cog
+CHAMADO	Chamados	Chamado	3	icon-signal
+\.
+
+
+--
+-- TOC entry 2166 (class 0 OID 16436)
+-- Dependencies: 173
+-- Data for Name: nivel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY nivel (co_nivel, no_nivel) FROM stdin;
+1	Normal
+2	Médio
+3	Complexo
+\.
+
+
+--
+-- TOC entry 2234 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: nivel_co_nivel_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('nivel_co_nivel_seq', 3, true);
+
+
+--
+-- TOC entry 2168 (class 0 OID 16441)
+-- Dependencies: 175
+-- Data for Name: orgao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY orgao (co_orgao, no_orgao, nu_telefone_orgao, sg_orgao) FROM stdin;
+1	DATASUS - RJ	552139857223	\N
+2	DATASUS - BSB	552133333332	\N
+3	Hospital Federal da Lagoa	55566666666	HFL
+\.
+
+
+--
+-- TOC entry 2235 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: orgao_co_orgao_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('orgao_co_orgao_seq', 2, true);
+
+
+--
+-- TOC entry 2170 (class 0 OID 16449)
+-- Dependencies: 177
+-- Data for Name: perfil; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY perfil (co_perfil, no_perfil, ds_perfil, st_perfil) FROM stdin;
+1	Administrador	Administrador	t
+0	Visitante	Visitante	t
+2	DGH	DGH	t
+3	Direcao	Direção	t
+\.
+
+
+--
+-- TOC entry 2236 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: perfil_co_perfil_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('perfil_co_perfil_seq', 3, true);
+
+
+--
+-- TOC entry 2172 (class 0 OID 16458)
+-- Dependencies: 179
+-- Data for Name: permissao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY permissao (co_perfil, dt_alteracao, co_usuario_alteracao, co_recurso, st_permissao, dt_cadastro, co_usuario_cadastro) FROM stdin;
+0	\N	\N	3	t	2013-08-13 16:57:47.635433-03	1
+0	\N	\N	4	t	2013-08-13 16:57:47.635433-03	1
+0	\N	\N	5	t	2013-08-13 16:57:47.635433-03	1
+1	\N	\N	6	t	2013-08-13 16:57:47.709821-03	1
+1	\N	\N	7	t	2013-08-13 16:57:47.709821-03	1
+1	\N	\N	15	t	2013-08-14 00:00:00-03	1
+1	\N	\N	18	t	2013-08-14 15:11:38.938471-03	1
+1	\N	\N	19	t	2013-08-15 00:00:00-03	1
+1	\N	\N	20	t	2013-08-15 12:29:48.3616-03	1
+1	\N	\N	16	t	2013-08-26 13:28:25.379-03	1
+1	\N	\N	22	t	2013-08-26 16:14:23.512-03	1
+1	\N	\N	21	t	2013-08-26 15:20:11.61-03	1
+1	\N	\N	23	t	2013-08-29 16:43:27.263-03	1
+1	\N	\N	24	t	2013-08-30 11:32:34.82-03	1
+1	\N	\N	25	t	2013-09-02 13:25:10.103-03	1
+1	\N	\N	26	t	2013-09-02 13:25:24.39-03	1
+1	\N	\N	27	t	2013-09-06 15:12:12.309-03	1
+1	\N	\N	28	t	2013-09-06 15:12:20.934-03	1
+1	\N	\N	29	t	2013-09-11 10:30:14.235-03	1
+1	\N	\N	30	t	2013-09-11 10:30:24.059-03	1
+\.
+
+
+--
+-- TOC entry 2173 (class 0 OID 16463)
+-- Dependencies: 180
+-- Data for Name: prioridade; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY prioridade (co_prioridade, no_prioridade) FROM stdin;
+1	Normal
+2	Médio
+3	Urgente
+\.
+
+
+--
+-- TOC entry 2237 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: prioridade_co_prioridade_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('prioridade_co_prioridade_seq', 3, true);
+
+
+--
+-- TOC entry 2175 (class 0 OID 16468)
+-- Dependencies: 182
+-- Data for Name: projeto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY projeto (co_projeto, no_projeto) FROM stdin;
+11	Projeto x
+10	E-SUS
+12	Report Local
+13	Projeto x 1
+14	Projeto x 2
+16	Projeto x 21
+17	Projeto x 1.10
+\.
+
+
+--
+-- TOC entry 2238 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: projeto_co_projeto_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('projeto_co_projeto_seq', 17, true);
+
+
+--
+-- TOC entry 2177 (class 0 OID 16473)
+-- Dependencies: 184
+-- Data for Name: recurso; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY recurso (co_recurso, no_recurso, ds_recurso, tp_recurso, dt_cadastro, co_usuario_cadastro, dt_alteracao, co_usuario_alteracao) FROM stdin;
+3	Modulo Padrao	/default/index	1	2013-08-13 16:57:47.635433	1	\N	\N
+4	Modulo Error	/default/error	1	2013-08-13 16:57:47.635433	1	\N	\N
+5	Modulo Tipo Profisisonal	/consulta/cadastro/tipo-profissional	1	2013-08-13 16:57:47.635433	1	\N	\N
+6	Acesso Total	/*/*/*	1	2013-08-13 16:57:47.709821	1	\N	\N
+17	\N	/chamado/index/grafico-usuario-fechamento	1	2013-08-14 11:23:20.481104	1	\N	\N
+16	\N	/chamado/index	1	2013-08-14 11:21:59.82421	1	\N	\N
+15	Abrir Chamado 	/chamado/index/cadastrar	1	2013-08-14 11:20:48.969043	1	\N	\N
+18	Adicionar Usuário	/manutencao/usuario/adicionar	1	2013-08-14 00:00:00	1	\N	\N
+7	Usuário	/usuario/index	1	2013-08-13 16:57:47.709821	1	\N	\N
+19	Lista Usuário	/manutencao/usuario/listar	1	2013-08-15 12:04:12.669677	1	\N	\N
+20	Usuário	/manutencao/usuario/index	1	2013-08-15 12:29:05.441317	1	\N	\N
+21	Listar Categorias	/manutencao/categoria/listar	1	2013-08-26 15:19:43.455	1	\N	\N
+23	Listar Ambientes	/manutencao/ambiente/listar	1	2013-08-29 16:43:14.151	1	\N	\N
+24	Adicionar Ambientes	/manutencao/ambiente/cadastrar	1	2013-08-30 11:31:25.913	1	\N	\N
+22	Adicionar Categoria	/manutencao/categoria/cadastrar	1	2013-08-26 16:13:50.751	1	\N	\N
+25	Listar Projetos	/manutencao/projeto/listar	1	2013-09-02 13:08:30.065	1	\N	\N
+26	Adicionar Projetos	/manutencao/projeto/cadastrar	1	2013-09-02 13:09:22.035	1	\N	\N
+27	Listar Tipo Versão	/manutencao/tipoversao/listar	1	2013-09-06 15:10:46.203	1	\N	\N
+28	Adicionar Tipo Versão	/manutencao/tipoversao/cadastrar	1	2013-09-06 15:11:46.309	1	\N	\N
+29	Listar Versão	/manutencao/versao/listar	1	2013-09-11 10:20:33.106	1	\N	\N
+30	Adicionar Versão	manutencao/versao/cadastrar	1	2013-09-11 10:21:20.508	1	\N	\N
+\.
+
+
+--
+-- TOC entry 2239 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: recurso_co_recurso_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('recurso_co_recurso_seq', 24, true);
+
+
+--
+-- TOC entry 2197 (class 0 OID 17089)
+-- Dependencies: 205
+-- Data for Name: rl_orgao_projeto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY rl_orgao_projeto (co_orgao, co_projeto, dt_ogao_projeto, st_ogao_projeto) FROM stdin;
+3	17	2013-09-24 16:19:40	f
+2	10	2013-09-24 16:20:27	t
+1	10	2013-09-24 16:20:27	t
+3	10	2013-09-24 16:20:27	t
+2	17	2013-09-24 15:34:46	f
+1	17	2013-09-24 16:19:47	f
+2	12	2013-09-25 17:09:38	t
+1	12	2013-09-25 17:09:38	t
+\.
+
+
+--
+-- TOC entry 2194 (class 0 OID 17007)
+-- Dependencies: 202
+-- Data for Name: rl_projeto_versao_amb; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY rl_projeto_versao_amb (co_seq_proj_ver_amb, co_ambiente, co_versao, co_projeto, dt_inicio_rl, dt_fim_rl, st_proj_ver_amb) FROM stdin;
+38	7	2	10	2013-09-24 22:13:37	\N	t
+40	6	2	10	2013-09-24 22:13:37	\N	t
+41	5	5	10	2013-09-24 22:14:24	\N	t
+43	8	5	10	2013-09-24 22:14:24	\N	t
+39	5	2	10	2013-09-24 22:13:37	\N	f
+42	6	5	10	2013-09-24 22:14:24	\N	f
+44	6	6	12	2013-09-25 17:09:38	\N	t
+45	8	6	12	2013-09-25 17:09:38	\N	t
+\.
+
+
+--
+-- TOC entry 2240 (class 0 OID 0)
+-- Dependencies: 201
+-- Name: rl_projeto_versao_amb_co_seq_proj_ver_amb_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('rl_projeto_versao_amb_co_seq_proj_ver_amb_seq', 45, true);
+
+
+--
+-- TOC entry 2196 (class 0 OID 17047)
+-- Dependencies: 204
+-- Data for Name: rl_usuario_orgao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY rl_usuario_orgao (co_seq_usuario_orgao, co_orgao, co_usuario, dt_inicio_rl, dt_fim_rl, st_rl_usuario_orgao) FROM stdin;
+2	2	34	2013-09-23 20:55:09	\N	t
+12	2	9	2013-09-23 23:20:45	\N	t
+13	1	9	2013-09-23 23:20:45	\N	t
+14	3	9	2013-09-23 23:20:45	\N	t
+4	1	35	2013-09-23 23:30:33	2013-09-23 23:30:27	t
+3	2	35	2013-09-23 23:30:33	2013-09-23 23:30:27	t
+11	3	35	2013-09-23 23:11:56	2013-09-23 23:30:33	f
+5	2	35	2013-09-23 23:20:07	2013-09-23 23:30:33	f
+\.
+
+
+--
+-- TOC entry 2241 (class 0 OID 0)
+-- Dependencies: 203
+-- Name: rl_usuario_orgao_co_seq_usuario_orgao_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('rl_usuario_orgao_co_seq_usuario_orgao_seq', 14, true);
+
+
+--
+-- TOC entry 2179 (class 0 OID 16479)
+-- Dependencies: 186
+-- Data for Name: status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY status (co_status, no_status) FROM stdin;
+1	Aberta
+2	Em Andamento
+3	Pendente
+5	Fechada
+4	Teste Interno
+\.
+
+
+--
+-- TOC entry 2242 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: status_co_status_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('status_co_status_seq', 5, true);
+
+
+--
+-- TOC entry 2181 (class 0 OID 16484)
+-- Dependencies: 188
+-- Data for Name: tarefa; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY tarefa (co_tarefa, no_tarefa, dt_inicio, dt_previsao, dt_fim, co_categoria, co_nivel, co_prioridade, co_status, co_usuario_fechamento, co_seq_proj_ver_amb, co_usuario_aberto, co_usuario_atualizacao) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2243 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: tarefa_co_tarefa_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('tarefa_co_tarefa_seq', 149, true);
+
+
+--
+-- TOC entry 2199 (class 0 OID 17106)
+-- Dependencies: 207
+-- Data for Name: tb_descicao_chamado; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY tb_descicao_chamado (co_seq_desc_chamado, co_tarefa, co_usuario, ds_chamado, dt_cadastro, dt_atualizacao, img_erro) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2244 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: tb_descicao_chamado_co_seq_desc_chamado_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('tb_descicao_chamado_co_seq_desc_chamado_seq', 1, false);
+
+
+--
+-- TOC entry 2192 (class 0 OID 16978)
+-- Dependencies: 200
+-- Data for Name: tb_tipo_versao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY tb_tipo_versao (co_seq_tipo_versao, no_tipo_versao, st_tipo_versao) FROM stdin;
+1	Bug	t
+2	Melhoria	t
+3	Melhoria + Bug	t
+5	Teste	t
+6	Inicial	t
+\.
+
+
+--
+-- TOC entry 2245 (class 0 OID 0)
+-- Dependencies: 199
+-- Name: tb_tipo_versao_co_seq_tipo_versao_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('tb_tipo_versao_co_seq_tipo_versao_seq', 6, true);
+
+
+--
+-- TOC entry 2183 (class 0 OID 16497)
+-- Dependencies: 190
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY usuario (co_usuario, nu_cpf, ds_password, no_usuario, ds_login, dt_ultimo_login, ds_email, co_perfil, nu_celular, nu_telefone) FROM stdin;
+1	\N	111111	Sistema	Sistema	\N	\N	1	\N	2130302222
+-1	\N	111111	Visitante	Visitante	\N	\N	1	\N	2130307223
+3	12345678911	12345678	FABIO ROCHA	fabio	2013-08-19 18:10:46	\N	1	\N	2130301111
+4	12345678912	12345678	CONSUELO	consuelo	\N	\N	1	\N	2130302223
+5	12345678913	12345678	MARCELO SILVA	marcelo	\N	\N	1	\N	2130302224
+6	12345678914	12345678	RODRIGO VIANA	rodrigo	\N	\N	1	\N	2130302225
+7	12345678901	12345678	DGH USUARIO	dhg	\N	\N	2	\N	2130302226
+8	12345678001	12345678	BERNARDO	bernardo	\N	\N	3	\N	2130302227
+11	1111111111	123456	usuario teste	teste01	\N	teste@teste.com	1	\N	2130302229
+16	11011010110	123456	Teste03	teste03	\N	teste@teste.com	0	\N	2130302230
+17	11011011031	11111	Teste 03	teste03	\N	teste@01.com	3	\N	2130302231
+28	55555555555	123456	AB	ab	\N	ab@datasus.gov.br	2	\N	2130302232
+34	78888888888	123123	Teste 4555	teste04	\N	teste@teste.com	3	(21) 9999-7474	(21) 3030-2228
+35	77888888999	123123	Teste 45	teste04	\N	teste@teste.com	3		(21) 3030-2228
+9	11033388856	123123	REGINALDO LIMA	reginaldo	2013-09-26 15:34:12	reginaldo.lima@datasus.gov.br	1	(21) 9999-7474	(21) 3030-2228
+\.
+
+
+--
+-- TOC entry 2186 (class 0 OID 16721)
+-- Dependencies: 194
+-- Data for Name: usuario_categoria; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY usuario_categoria (co_usuario, co_categoria) FROM stdin;
+9	33
+9	34
+9	35
+\.
+
+
+--
+-- TOC entry 2246 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: usuario_co_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('usuario_co_usuario_seq', 35, true);
+
+
+--
+-- TOC entry 2185 (class 0 OID 16509)
+-- Dependencies: 192
+-- Data for Name: usuario_tarefa; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY usuario_tarefa (co_usuario, co_tarefa) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2190 (class 0 OID 16757)
+-- Dependencies: 198
+-- Data for Name: versao; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY versao (co_versao, co_projeto, ds_versao, st_versao, no_versao, co_seq_tipo_versao, dt_cadastro_versao) FROM stdin;
+2	10	Primeira Versão	t	E001	6	2013-09-23 21:26:47
+9	14		f	Primeira Versão	6	2013-09-23 19:29:24
+3	11	X1	f	X001	6	2013-09-11 14:52:07
+7	12	Melhoria um dois três....	t	RL002	2	2013-09-11 21:45:20
+6	12	Versão Inicial do sistema.	f	RL001	6	2013-09-11 21:28:20
+8	13	Descrição AABBBAA	t	Versão Incial	6	2013-09-23 19:17:59
+10	17	sadasdasd	f	Primeira Versão	6	2013-09-24 16:20:04
+11	13	Teste 00021	t	Versão 1.1	6	2013-09-24 19:03:48
+12	13	Teste 00021-2	t	Versão 1.1	6	2013-09-24 21:05:04
+5	10	Correção de Bug	t	B002	1	2013-09-24 21:26:22
+\.
+
+
+--
+-- TOC entry 2247 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: versao_co_versao_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('versao_co_versao_seq', 12, true);
+
+
+--
+-- TOC entry 2088 (class 2606 OID 16529)
+-- Name: categoria_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY categoria
+    ADD CONSTRAINT categoria_pkey PRIMARY KEY (co_categoria);
+
+
+--
+-- TOC entry 2120 (class 2606 OID 16743)
+-- Name: co_ambiente; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ambiente
+    ADD CONSTRAINT co_ambiente PRIMARY KEY (co_ambiente);
+
+
+--
+-- TOC entry 2128 (class 2606 OID 17054)
+-- Name: co_seq_usuario_orgao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY rl_usuario_orgao
+    ADD CONSTRAINT co_seq_usuario_orgao_pkey PRIMARY KEY (co_seq_usuario_orgao);
+
+
+--
+-- TOC entry 2122 (class 2606 OID 16764)
+-- Name: co_versao; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY versao
+    ADD CONSTRAINT co_versao PRIMARY KEY (co_versao);
+
+
+--
+-- TOC entry 2090 (class 2606 OID 16533)
+-- Name: menu_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY menu
+    ADD CONSTRAINT menu_pkey PRIMARY KEY (co_menu);
+
+
+--
+-- TOC entry 2092 (class 2606 OID 16537)
+-- Name: modulo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY modulo
+    ADD CONSTRAINT modulo_pkey PRIMARY KEY (no_modulo);
+
+
+--
+-- TOC entry 2094 (class 2606 OID 16539)
+-- Name: nivel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY nivel
+    ADD CONSTRAINT nivel_pkey PRIMARY KEY (co_nivel);
+
+
+--
+-- TOC entry 2096 (class 2606 OID 16541)
+-- Name: orgao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY orgao
+    ADD CONSTRAINT orgao_pkey PRIMARY KEY (co_orgao);
+
+
+--
+-- TOC entry 2098 (class 2606 OID 16543)
+-- Name: perfil_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY perfil
+    ADD CONSTRAINT perfil_pkey PRIMARY KEY (co_perfil);
+
+
+--
+-- TOC entry 2100 (class 2606 OID 16545)
+-- Name: permissao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY permissao
+    ADD CONSTRAINT permissao_pkey PRIMARY KEY (co_perfil, co_recurso);
+
+
+--
+-- TOC entry 2132 (class 2606 OID 17114)
+-- Name: pk_descricaochamado; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_descicao_chamado
+    ADD CONSTRAINT pk_descricaochamado PRIMARY KEY (co_seq_desc_chamado);
+
+
+--
+-- TOC entry 2134 (class 2606 OID 17159)
+-- Name: pk_httarefatarefa; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ht_tarefa
+    ADD CONSTRAINT pk_httarefatarefa PRIMARY KEY (co_seq_ht_tarefa);
+
+
+--
+-- TOC entry 2130 (class 2606 OID 17093)
+-- Name: pk_orgaoprojeto; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY rl_orgao_projeto
+    ADD CONSTRAINT pk_orgaoprojeto PRIMARY KEY (co_orgao, co_projeto);
+
+
+--
+-- TOC entry 2126 (class 2606 OID 17014)
+-- Name: pk_projetoversaoamb; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY rl_projeto_versao_amb
+    ADD CONSTRAINT pk_projetoversaoamb PRIMARY KEY (co_seq_proj_ver_amb);
+
+
+--
+-- TOC entry 2124 (class 2606 OID 16984)
+-- Name: pk_tipoversao; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_tipo_versao
+    ADD CONSTRAINT pk_tipoversao PRIMARY KEY (co_seq_tipo_versao);
+
+
+--
+-- TOC entry 2102 (class 2606 OID 16547)
+-- Name: prioridade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY prioridade
+    ADD CONSTRAINT prioridade_pkey PRIMARY KEY (co_prioridade);
+
+
+--
+-- TOC entry 2104 (class 2606 OID 16549)
+-- Name: projeto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY projeto
+    ADD CONSTRAINT projeto_pkey PRIMARY KEY (co_projeto);
+
+
+--
+-- TOC entry 2106 (class 2606 OID 16551)
+-- Name: recurso_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY recurso
+    ADD CONSTRAINT recurso_pkey PRIMARY KEY (co_recurso);
+
+
+--
+-- TOC entry 2108 (class 2606 OID 16553)
+-- Name: status_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY status
+    ADD CONSTRAINT status_pkey PRIMARY KEY (co_status);
+
+
+--
+-- TOC entry 2110 (class 2606 OID 16555)
+-- Name: tarefa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY tarefa
+    ADD CONSTRAINT tarefa_pkey PRIMARY KEY (co_tarefa);
+
+
+--
+-- TOC entry 2112 (class 2606 OID 16557)
+-- Name: un_usercpf; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT un_usercpf UNIQUE (nu_cpf);
+
+
+--
+-- TOC entry 2118 (class 2606 OID 16725)
+-- Name: usuario_categoria_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario_categoria
+    ADD CONSTRAINT usuario_categoria_pkey PRIMARY KEY (co_usuario, co_categoria);
+
+
+--
+-- TOC entry 2114 (class 2606 OID 16561)
+-- Name: usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (co_usuario);
+
+
+--
+-- TOC entry 2116 (class 2606 OID 16563)
+-- Name: usuario_tarefa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario_tarefa
+    ADD CONSTRAINT usuario_tarefa_pkey PRIMARY KEY (co_usuario, co_tarefa);
+
+
+--
+-- TOC entry 2152 (class 2606 OID 17015)
+-- Name: ambiente_rl_orgao_projeto_versao_amb_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_projeto_versao_amb
+    ADD CONSTRAINT ambiente_rl_orgao_projeto_versao_amb_fk FOREIGN KEY (co_ambiente) REFERENCES ambiente(co_ambiente);
+
+
+--
+-- TOC entry 2149 (class 2606 OID 16731)
+-- Name: categoria_usuario_categoria_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario_categoria
+    ADD CONSTRAINT categoria_usuario_categoria_fk FOREIGN KEY (co_categoria) REFERENCES categoria(co_categoria);
+
+
+--
+-- TOC entry 2135 (class 2606 OID 16942)
+-- Name: fk_menu_modulo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY menu
+    ADD CONSTRAINT fk_menu_modulo FOREIGN KEY (no_modulo) REFERENCES modulo(no_modulo) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2136 (class 2606 OID 16579)
+-- Name: fk_permissao_perfil; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY permissao
+    ADD CONSTRAINT fk_permissao_perfil FOREIGN KEY (co_perfil) REFERENCES perfil(co_perfil) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2137 (class 2606 OID 16584)
+-- Name: fk_permissao_recurso; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY permissao
+    ADD CONSTRAINT fk_permissao_recurso FOREIGN KEY (co_recurso) REFERENCES recurso(co_recurso) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2157 (class 2606 OID 17094)
+-- Name: orgao_rl_orgao_projeto_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_orgao_projeto
+    ADD CONSTRAINT orgao_rl_orgao_projeto_fk FOREIGN KEY (co_orgao) REFERENCES orgao(co_orgao);
+
+
+--
+-- TOC entry 2155 (class 2606 OID 17076)
+-- Name: orgao_rl_usuario_orgao_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_usuario_orgao
+    ADD CONSTRAINT orgao_rl_usuario_orgao_fk FOREIGN KEY (co_orgao) REFERENCES orgao(co_orgao);
+
+
+--
+-- TOC entry 2138 (class 2606 OID 16594)
+-- Name: permissao_co_usuario_alteracao_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY permissao
+    ADD CONSTRAINT permissao_co_usuario_alteracao_fkey FOREIGN KEY (co_usuario_alteracao) REFERENCES usuario(co_usuario) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2139 (class 2606 OID 16599)
+-- Name: permissao_co_usuario_cadastro_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY permissao
+    ADD CONSTRAINT permissao_co_usuario_cadastro_fkey FOREIGN KEY (co_usuario_cadastro) REFERENCES usuario(co_usuario) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2158 (class 2606 OID 17099)
+-- Name: projeto_rl_orgao_projeto_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_orgao_projeto
+    ADD CONSTRAINT projeto_rl_orgao_projeto_fk FOREIGN KEY (co_projeto) REFERENCES projeto(co_projeto);
+
+
+--
+-- TOC entry 2153 (class 2606 OID 17030)
+-- Name: projeto_rl_orgao_projeto_versao_amb_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_projeto_versao_amb
+    ADD CONSTRAINT projeto_rl_orgao_projeto_versao_amb_fk FOREIGN KEY (co_projeto) REFERENCES projeto(co_projeto);
+
+
+--
+-- TOC entry 2150 (class 2606 OID 16775)
+-- Name: projeto_versao_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY versao
+    ADD CONSTRAINT projeto_versao_fk FOREIGN KEY (co_projeto) REFERENCES projeto(co_projeto);
+
+
+--
+-- TOC entry 2144 (class 2606 OID 17035)
+-- Name: rl_orgao_projeto_versao_amb_tarefa_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tarefa
+    ADD CONSTRAINT rl_orgao_projeto_versao_amb_tarefa_fk FOREIGN KEY (co_seq_proj_ver_amb) REFERENCES rl_projeto_versao_amb(co_seq_proj_ver_amb);
+
+
+--
+-- TOC entry 2140 (class 2606 OID 16604)
+-- Name: tarefa_co_categoria_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tarefa
+    ADD CONSTRAINT tarefa_co_categoria_fkey FOREIGN KEY (co_categoria) REFERENCES categoria(co_categoria) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2141 (class 2606 OID 16614)
+-- Name: tarefa_co_nivel_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tarefa
+    ADD CONSTRAINT tarefa_co_nivel_fkey FOREIGN KEY (co_nivel) REFERENCES nivel(co_nivel);
+
+
+--
+-- TOC entry 2142 (class 2606 OID 16619)
+-- Name: tarefa_co_prioridade_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tarefa
+    ADD CONSTRAINT tarefa_co_prioridade_fkey FOREIGN KEY (co_prioridade) REFERENCES prioridade(co_prioridade) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2143 (class 2606 OID 16833)
+-- Name: tarefa_co_status_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tarefa
+    ADD CONSTRAINT tarefa_co_status_fkey FOREIGN KEY (co_status) REFERENCES status(co_status) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2159 (class 2606 OID 17115)
+-- Name: tarefa_tb_descicao_chamado_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tb_descicao_chamado
+    ADD CONSTRAINT tarefa_tb_descicao_chamado_fk FOREIGN KEY (co_tarefa) REFERENCES tarefa(co_tarefa);
+
+
+--
+-- TOC entry 2151 (class 2606 OID 16985)
+-- Name: tb_tipo_versao_versao_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY versao
+    ADD CONSTRAINT tb_tipo_versao_versao_fk FOREIGN KEY (co_seq_tipo_versao) REFERENCES tb_tipo_versao(co_seq_tipo_versao);
+
+
+--
+-- TOC entry 2145 (class 2606 OID 16870)
+-- Name: user_co_perfil_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT user_co_perfil_fkey FOREIGN KEY (co_perfil) REFERENCES perfil(co_perfil) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2156 (class 2606 OID 17081)
+-- Name: usuario_rl_usuario_orgao_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_usuario_orgao
+    ADD CONSTRAINT usuario_rl_usuario_orgao_fk FOREIGN KEY (co_usuario) REFERENCES usuario(co_usuario);
+
+
+--
+-- TOC entry 2146 (class 2606 OID 16644)
+-- Name: usuario_tarefa_co_tarefa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario_tarefa
+    ADD CONSTRAINT usuario_tarefa_co_tarefa_fkey FOREIGN KEY (co_tarefa) REFERENCES tarefa(co_tarefa);
+
+
+--
+-- TOC entry 2147 (class 2606 OID 16649)
+-- Name: usuario_tarefa_co_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario_tarefa
+    ADD CONSTRAINT usuario_tarefa_co_usuario_fkey FOREIGN KEY (co_usuario) REFERENCES usuario(co_usuario);
+
+
+--
+-- TOC entry 2160 (class 2606 OID 17120)
+-- Name: usuario_tb_descicao_chamado_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tb_descicao_chamado
+    ADD CONSTRAINT usuario_tb_descicao_chamado_fk FOREIGN KEY (co_usuario) REFERENCES usuario(co_usuario);
+
+
+--
+-- TOC entry 2148 (class 2606 OID 16726)
+-- Name: usuario_usuario_categoria_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario_categoria
+    ADD CONSTRAINT usuario_usuario_categoria_fk FOREIGN KEY (co_usuario) REFERENCES usuario(co_usuario);
+
+
+--
+-- TOC entry 2154 (class 2606 OID 17040)
+-- Name: versao_rl_orgao_projeto_versao_amb_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY rl_projeto_versao_amb
+    ADD CONSTRAINT versao_rl_orgao_projeto_versao_amb_fk FOREIGN KEY (co_versao) REFERENCES versao(co_versao);
+
+
+--
+-- TOC entry 2208 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2013-09-26 11:53:00
+
+--
+-- PostgreSQL database dump complete
+--
+

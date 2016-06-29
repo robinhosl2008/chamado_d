@@ -1,0 +1,38 @@
+[production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+includePaths.library = LIBRARY_PATH 
+
+includePaths.models =  APPLICATION_PATH "/models"
+
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+
+;Name space padrao do sistema e Models
+appnamespace = "Default"
+resources.modules[] = ""
+resources.frontController.env = APPLICATION_ENV
+resources.frontController.params.prefixDefaultModule = 1
+resources.frontController.moduleDirectory = APPLICATION_PATH "/modules/"
+resources.frontController.defaultModule = "default"
+resources.frontController.baseUrl = "/"
+resources.frontController.baseUrlAdmin = "/"
+
+
+; Layout
+resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts/"
+resources.layout.layout = "bootstrap"
+
+; Views
+resources.view.encoding = "UTF-8"
+resources.view.basePath = APPLICATION_PATH "/modules/default/views/"
+
+
+[testing : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+[development : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+

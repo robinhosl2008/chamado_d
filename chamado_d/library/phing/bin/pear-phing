@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+
+# -------------------------------------------------------------------------
+# Do not change anything below this line unless you know what you're doing.
+# -------------------------------------------------------------------------
+
+if (test -z "$PHP_COMMAND") ; then
+	echo "ATENCAO: NÃO FOI POSSÍVEL RECUPERAR VARIAVEL DE AMBIENTE \$PHP_COMMAND"
+	exit;
+fi
+
+if (test -z "$BASE_PATH") ; then
+	echo "ATENCAO: NÃO FOI POSSÍVEL RECUPERAR VARIAVEL DE AMBIENTE \$BASE_PATH"
+	exit;
+fi
+
+$PHP_COMMAND -d html_errors=off -qC $BASE_PATH/library/phing/bin/phing.php -logger phing.listener.AnsiColorLogger "$@"

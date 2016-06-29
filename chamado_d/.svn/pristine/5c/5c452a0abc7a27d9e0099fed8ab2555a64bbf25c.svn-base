@@ -1,0 +1,22 @@
+
+
+<div>
+    <div>
+        <label><b><h3>Melhorias:</h3></b></label>
+        <i class="icon-chevron-sign-right"></i> Na tela "Listar chamados por categoria" os usuário podem ordenar as colunas da lista de chamados de modo crescente ou decrescente apenas clicando em seu cabeçalho.<br />
+        <i class="icon-chevron-sign-right"></i> Logout é executado se o usuário ficar inativo durante vinte minutos.<br />
+        <i class="icon-chevron-sign-right"></i> Agora, os usuário podem selecionar a quantidade (15, 50 ou 100) máxima de linhas na listagem de chamados por categoria.
+    </div>
+    <div>
+        <label><b><h3>Correções:</h3></b></label>
+        <i class="icon-chevron-sign-right"></i> Em 'Listar chamados por status', o botão para apagar o arquivo anexado ao atendimento por um usuário com perfil de administrador está funcionando. Antes, não executava a ação de apagar o anexo selecionado.<br />
+        <i class="icon-chevron-sign-right"></i> Agora, em 'Listar chamados por status', o botão para apagar o arquivo anexado por um usuário com perfil de adiministrador à resolução do chamado está funcionando. Antes, não executava a ação de apagar o anexo selecionado.<br />
+        <i class="icon-chevron-sign-right"></i> Corrigida a paginação na tela 'Listar chamados por órgão'.<br />
+        <i class="icon-chevron-sign-right"></i> Corrigida a tela de cadastro de versões. Antes, ao editar ou cadastrar uma nova versão, era exibia a página de erro 404.<br />
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+

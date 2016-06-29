@@ -1,0 +1,8 @@
+<div class="paginas-erro">
+    <h1>Ops!</h1>
+    <h2> <?php
+        if (isset($this->msgErro))
+            echo $this->msgErro;
+        ?></h2>
+  
+</div>

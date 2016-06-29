@@ -1,0 +1,262 @@
+<script src="/js/rel.chamado.js"></script>
+<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //$("table").tablesorter();
+
+        $('#mensagem').show();
+        $('#submit_pesquisa').prop('disabled', true);
+        $('#tipoBusca').change(function(){
+            var valor = $("#tipoBusca").val();
+
+            if(valor == 0) {
+                $('#mensagem').show();
+                $('#porOrgao').hide();
+                $('#porSigla').hide();
+            } else if(valor == 1) {
+                $('#mensagem').hide();
+                $('#porOrgao').show();
+                $('#porSigla').hide();
+                $('#porOrgao').keyup(function(){
+                    if($('#porOrgao').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            } else if(valor == 2) {
+                $('#mensagem').hide();
+                $('#porOrgao').hide();
+                $('#porSigla').show();
+                $('#porSigla').keyup(function(){
+                    if($('#porSigla').val()=='') {
+                        $('#submit_pesquisa').prop('disabled', true);
+                    }else{
+                        $('#submit_pesquisa').prop('disabled', false);
+                    }
+                });
+            }
+        });
+
+        $('#num_pagina_select').change(function(){
+            $('#form_num_pagina_select').submit();
+        });
+    });
+</script>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i>Principal</a>
+        -> 
+        <a href="/manutencao/orgao/listar" class="tip-bottom" data-original-title="" title="">Orgão</a>
+         -> Lista de Orgãos
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <!-- Tudo que você queira escondido em 940px ou menos, coloque aqui -->
+            <div class="nav-collapse collapse">
+
+                <ul class="nav pull-right">
+                    <!-- <li><a href="#">Nr Chamado</a></li> -->
+                    <li class="divider-vertical"></li>
+                    <li>
+                        <form class="navbar-form " id="form_load" action="" method="post">
+                            <div class="input-append" style="margin-bottom: 0px;">
+                                <input type="hidden" value="" id="num_linhas_select" name="num_linhas_select" />
+                                <input type="hidden" name="num_linhas_select" id="o_num_linhas_select" value="<?php echo $this->numLinhasSelect; ?>" />
+                                <input type="hidden" name="pag_ordem" id="pag_ordem" value="<?php echo $this->pag_ordem; ?>" />
+                                <input type="hidden" name="ordem" id="o_ordem" value="<?php echo $this->ordem; ?>" />
+                                <input type="hidden" name="coluna" id="o_coluna" value="<?php echo $this->coluna; ?>" />
+
+                                <select name="oTipoBusca" id="tipoBusca" style="width: 165px; top: -5px">
+                                    <option value="" selected="selected">Buscar por...</option>
+                                    <option value="1">Nome</option>
+                                    <option value="2">Sigla</option>
+                                </select>
+
+                                <input type="text" class="span8" name="mensagem" id="mensagem"
+                                       style="width: 150px; display: none" readonly
+                                       title="Selecione um tipo de busca"
+                                       alt="Selecione um tipo de busca"
+                                       placeholder="Selecione um tipo de busca"/>
+
+                                <input type="text" class="span8" name="oPorOrgao" id="porOrgao"
+                                       style="width: 150px; display: none"/>
+
+                                <input type="text" class="span8" name="oPorSigla" id="porSigla"
+                                       style="width: 150px; display: none"/>
+
+                                <button id="submit_pesquisa" type="submit" class="btn"><i class="icon-search"></i></button>
+                                <a class="btn btn-default" href="/manutencao/orgao/listar"> <i class="icon-undo"></i></a>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loading" style="display: none">
+    <img src="/images/waiting.gif" width="100" height="100">
+    <br />
+</div>
+
+<div>
+    <form action="" method="post" id="form_num_pagina_select">
+        <h5 style="float: left; padding-right: 15px"><b>Quantidade de resultados por página:</b></h5>
+        <input type="hidden" name="filtro" id="filtro" value="<?php echo $this->filtro; ?>" />
+
+        <input type="hidden" name="pag_ordem" id="pag_ordem" value="<?php echo $this->pag_ordem; ?>" />
+        <input type="hidden" name="ordem" id="o_ordem" value="<?php echo $this->ordem; ?>" />
+        <input type="hidden" name="coluna" id="o_coluna" value="<?php echo $this->coluna; ?>" />
+        <input type="hidden" name="tipo_tarefa" id="tipo_busca" value="<?php echo $this->tipoBusca; ?>" />
+        <input type="hidden" name="porOrgao" id="porOrgao" value="<?php echo $this->porOrgao; ?>" />
+        <input type="hidden" name="porSigla" id="porSigla" value="<?php echo $this->porSigla; ?>" />
+        <input type="hidden" name="num_linhas_select" id="o_num_linhas_select" value="<?php echo $this->numLinhasSelect; ?>" />
+
+        <!--<input type="hidden" name="num_linhas_url" id="num_linhas_url" value="<?php //echo $this->numLinhasSelect; ?>" />-->
+        <select class="pagesize" style="width: 70px" id="num_pagina_select" name="num_linhas_select">
+            <option value="15" <?php if($this->numLinhasSelect == 15){ echo " selected"; } ?>>15</option>
+            <option value="50" <?php if($this->numLinhasSelect == 50){ echo " selected"; } ?>>50</option>
+            <option value="100" <?php if($this->numLinhasSelect == 100){ echo " selected"; } ?>>100</option>
+        </select>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#1").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/orgao/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porOrgao/<?php echo $this->porOrgao; ?>/porSigla/<?php echo $this->porSigla; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/1/ordem/'+asc_desc);
+        })
+
+        $("#2").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/orgao/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porOrgao/<?php echo $this->porOrgao; ?>/porSigla/<?php echo $this->porSigla; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/2/ordem/'+asc_desc);
+        })
+
+        $("#3").click(function(){
+            var asc_desc = $("#nr_chamado_asc_desc").val();
+            $(location).attr('href', '/manutencao/orgao/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porOrgao/<?php echo $this->porOrgao; ?>/porSigla/<?php echo $this->porSigla; ?>/pg/<?php echo $this->pg; ?>/pag_ordem//pagination/1/coluna/3/ordem/'+asc_desc);
+        })
+    });
+</script>
+
+<input type="hidden" id="nr_chamado_asc_desc" name="nr_chamado_asc_desc" value="<?php echo $this->nr_chamado_asc_desc; ?>">
+
+<div class="">
+    <?php $this->mensagem(); ?>
+    <div class="widget-box">
+        <div class="widget-title">
+            <h5> <i class="icon-list-alt"></i> Lista de Orgãos</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <input type="hidden" name="totalrecords" id="totalrecords" value="<?php print count($this->aObjOrgao);?>" />
+            <table class="table table-bordered table-striped table-condensed" id="mt">
+                <thead>
+                    <tr>
+                       <!-- <th>input type="checkbox" class="check-all"></th> -->
+                        <th id="1" style="cursor: pointer">Nome
+                            <?php
+                            if ($this->coluna == 1) {
+                                if ($this->ordem == "asc") {
+                                    echo "<img src='/images/sort_desc.png'>";
+                                } else {
+                                    echo "<img src='/images/sort_asc.png'>";
+                                }
+                            } else {
+                                echo "<img src='/images/sort_both.png'>";
+                            }
+                            ?>
+                        </th>
+                        <th id="2" style="cursor: pointer">Telefone
+                            <?php
+                            if ($this->coluna == 2) {
+                                if ($this->ordem == "asc") {
+                                    echo "<img src='/images/sort_desc.png'>";
+                                } else {
+                                    echo "<img src='/images/sort_asc.png'>";
+                                }
+                            } else {
+                                echo "<img src='/images/sort_both.png'>";
+                            }
+                            ?>
+                        </th>
+                        <th id="3" style="cursor: pointer">Sigla
+                            <?php
+                            if ($this->coluna == 3) {
+                                if ($this->ordem == "asc") {
+                                    echo "<img src='/images/sort_desc.png'>";
+                                } else {
+                                    echo "<img src='/images/sort_asc.png'>";
+                                }
+                            } else {
+                                echo "<img src='/images/sort_both.png'>";
+                            }
+                            ?>
+                        </th>
+                        <?php if(CO_PERFIL == 1) { ?>
+                            <th class="span2">Ação</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  $i = 0; foreach ($this->aObjOrgao as $objOrgao) { ?>
+                        <tr <?php if (($i % 2) == 0) { ?> class="alt-row" <?php } ?> >
+                            <td><?php print $objOrgao->getNoOrgao(); ?></td>
+                            <td><?php print $objOrgao->getNuTelefoneOrgao(); ?></td>
+                            <td><?php print $objOrgao->getSgOrgao(); ?></td>
+                            <?php if(CO_PERFIL == 1) { ?>
+                                <td>
+                                    <!-- Icons -->
+                                    <div class="btn-group">
+                                        <a title="Editar" href="/manutencao/orgao/adicionar/co_orgao/<?php print $objOrgao->getCoOrgao(); ?>/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porOrgao/<?php echo $this->porOrgao; ?>/porSigla/<?php echo $this->porSigla; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/pagination//coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>" class="btn btn-small"><i class="icon-edit"></i></a>
+                                        <a title="Excluir" href="javascript:if (confirm('Deseja realmente excluir este Ambiente?')) window.location = '/manutencao/orgao/excluir/co_orgao/<?php print $objOrgao->getCoOrgao(); ?>'; " class="btn btn-small"><i class="icon-remove"></i></a>
+                                    </div>
+                                </td>
+                            <?php } ?>
+                        </tr>
+                    <?php $i++; } ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="18" style="font-weight: bold">
+                            <div class="pull-right">Total de Chamados: <?php echo $this->oTotal == '' ? count($this->oTarefa) : $this->oTotal;?></div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="pagination pagination-centered">
+            <ul>
+                <?php echo $this->pagination; ?>
+            </ul>
+        </div>
+
+        <?php if(CO_PERFIL == 1) { ?>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="form-actions">
+                       <a class="btn btn-primary" href="/manutencao/orgao/adicionar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porOrgao/<?php echo $this->porOrgao; ?>/porSigla/<?php echo $this->porSigla; ?>/pg/<?php echo $this->pg; ?>/pag_ordem/<?php echo $this->pag_ordem; ?>/pagination//coluna/<?php echo $this->coluna; ?>/ordem/<?php echo $this->ordem; ?>">Cadastrar</a>
+                   </div>
+               </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+

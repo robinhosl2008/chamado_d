@@ -1,0 +1,24 @@
+<a href="/manutencao/relatorio/adicionar">Adicionar</a>
+
+<table border="1" width="300px">
+    <tr>        
+        <td>Nome</td>
+        <td>Menu</td>
+        <td>Unidade</td>        
+    </tr>
+<?php
+    if($this->relatorio){
+    foreach($this->relatorio as $oRelatorio):
+?>
+<tr>        
+        <td><?php echo $oRelatorio->getNoRelatorio(); ?></td>
+        <td><?php echo $oRelatorio->getNoMenu(); ?></td>
+        <td><?php echo $oRelatorio->getNoUnidade(); ?></td>        
+    </tr>
+
+
+<?php 
+    endforeach;
+    }
+?>
+</table>

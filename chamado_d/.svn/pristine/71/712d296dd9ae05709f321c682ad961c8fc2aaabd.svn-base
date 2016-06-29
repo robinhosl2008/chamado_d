@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteRule !\.(js|ico|gif|jpg|png|css|tar|csv|docx|doc|xls|xlsx|pdf)$ index.php
+setenv APPLICATION_ENV development
+
+
+php_value upload_max_filesize 20M
+php_value post_max_size 20M
+php_value max_execution_time 240
+php_value max_input_time 240

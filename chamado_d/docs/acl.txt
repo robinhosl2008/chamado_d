@@ -1,0 +1,5 @@
+--Limpa Permissao
+delete from permissao where co_perfil = 1;
+
+--Inserindo todos privilegios
+insert into permissao (co_perfil,co_recurso) select 1,co_recurso from recurso;

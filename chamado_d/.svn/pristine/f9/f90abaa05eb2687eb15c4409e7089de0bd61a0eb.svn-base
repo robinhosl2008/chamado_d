@@ -1,0 +1,238 @@
+<script>
+$(document).ready(function() {
+        $(".formValidate").validate(); 
+
+       if($('#totalrecords').val() != 0){
+               $('#paginacao').smartpaginator({ totalrecords: $('#totalrecords').val(), recordsperpage: 10, datacontainer: 'mt', dataelement: 'tr', initval: 0, theme: 'blue',controlsalways:false });
+       }	
+
+});
+</script>
+<script>
+    $(document).ready(function(){
+
+        $('#submit').attr('disabled', 'disabled');
+
+        $('#salvar').mouseenter(function () {
+
+            var no_categoria = $('#no_categoria').val();
+            var co_categoria = $('#co_categoria').val();
+
+            if(co_categoria < 1){
+                if(no_categoria === ""){
+                    $('#no_cat_vazio').show();
+                    $('#erro').show();
+                    $('#usuario_vazio').hide();
+                    $('#submit').attr('disabled', 'disabled');
+                }else{
+                    $('#no_cat_vazio').hide();
+
+                    $.post('/manutencao/categoria/validar', {no_categoria: no_categoria}, function (data) {
+                        if(data !== 'false'){
+                            $('#no_cat_usado').hide();
+
+                            if(!$("input[name='usuarios[]']:checked").val()){
+                                $('#usuario_vazio').show();
+                                $('#erro').show();
+                                $('#submit').attr('disabled', 'disabled');
+                            }else{
+                                $('#usuario_vazio').hide();
+                                $('#submit').removeAttr('disabled');
+                                $('#erro').hide();
+                            }
+                        }else{
+                            $('#no_cat_usado').show();
+                            $('#erro').show();
+                        }
+                    });
+                }
+            }else{
+                if(no_categoria === ""){
+                    $('#no_cat_vazio').show();
+                    $('#no_cat_usado').hide();
+                    $('#erro').show();
+                    $('#usuario_vazio').hide();
+                    $('#submit').attr('disabled', 'disabled');
+                }else{
+                    $('#no_cat_vazio').hide();
+
+                    /*
+                    $.post('/manutencao/categoria/validar', {no_categoria: no_categoria}, function (data) {
+                        if(data !== 'false'){
+                            $('#no_cat_usado').hide();
+                        }else{
+                            $('#no_cat_usado').show();
+                        }
+                    });
+                    */
+
+                    if(!$("input[name='usuarios[]']:checked").val()){
+                        $('#usuario_vazio').show();
+                        $('#erro').show();
+                        $('#submit').attr('disabled', 'disabled');
+                    }else{
+                        $('#usuario_vazio').hide();
+                        $('#submit').removeAttr('disabled');
+                        $('#erro').hide();
+                    }
+                }
+            }
+        });
+    });
+
+    function marcardesmarcar(){
+        if($('#todos').prop('checked')){
+            $('.marcar').prop('checked',true);
+        }else{
+            $('.marcar').prop('checked',false);
+        }
+    }
+    
+    
+</script>
+<style>
+form label.error{ 
+    text-align: right;
+    width: 100%;
+}
+form label.error {
+    color: red;
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: -10px;
+}
+
+
+
+input {
+    border: 1px solid black;
+}
+input.checkbox {
+    border: medium none;
+}
+input:focus {
+    border: 1px dotted black;
+}
+input.error {
+    border: 1px dotted red;
+}
+</style>
+
+<div id="content-header">
+    <div id="breadcrumb"> 
+        <a href="/" title="" class="tip-bottom" data-original-title="Principal"><i class="icon-home"></i>Principal</a>
+        -> 
+        <a href="/manutencao/categoria/listar" class="tip-bottom" data-original-title="" title="">Categoria</a>
+         -> Cadastro de Categoria
+    </div>
+    <h1>Cadastro de Categoria</h1>
+</div>
+
+<div class="content-box cadProf" id="boxGrid"><!-- Start Content Box GRID -->				
+    <div class="content-box-content">					
+        <div id="cadProf" class="tab-content default-tab"> <!-- INICIO TAB 1-->																												
+            <?php echo  $this->mensagem(); ?>
+            <form action="/manutencao/categoria/adicionar" method="post" class="formValidate" id="form-usuario">
+                    <input type="hidden" value="<?php print $this->aObjCategoria->getCoCategoria()?>" name="co_categoria" id="co_categoria">
+                    <div class="dados">
+                            <div class="linha">
+                                    <div class="campos">
+                                            <div class="label">
+                                                    Nome da Categoria 
+                                            </div> 
+                                            <div>
+                                                  <input id="no_categoria" name="no_categoria" maxlength="30" type="text" class="span5" value="<?php echo $this->no_cat; ?>" />
+                                            </div>	
+                                        
+                                            <!-- Mensagem dizendo que o nome do projeto já está em uso. -->
+                                            <div id="no_cat_usado" style="width: 300px; display: none; color: red; position: absolute; top: 50px; left: 200px">
+                                                <em>Este nome já está em uso.</em>
+                                            </div>
+
+                                            <!-- Mensagem dizendo que o nome do projeto está vazio. -->
+                                            <div id="no_cat_vazio" style="width: 300px; display: none; color: red; position: absolute; top: 50px; left: 200px">
+                                                <em>Esse campo deve ser preenchido.</em>
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="widget-content nopadding" style="width: 700px; padding-top: 10px;"> 
+                                
+                                Marcar/Desmarcar todos: <input type="checkbox" name="todos" id="todos" value="todos" 
+                                    onclick="marcardesmarcar()"/>
+                                <br />
+                                
+                                    <div class="label">
+                                    Usuários 
+                                    </div>
+
+                                <!-- Mensagem dizendo que o nome do projeto está vazio. -->
+                                <div id="usuario_vazio" style="width: 300px; display: none; color: red">
+                                    <em>Selecione os usuários agregados à categoria.</em>
+                                </div>
+                                    <input type="hidden" name="totalrecords" id="totalrecords" value="<?php print count($this->aObjUsuario )?>" />
+                                    <table class="table table-bordered table-striped" id="mt">																													
+                                            <thead>
+                                                    <tr>
+                                                            <th style="width: 40px;">Selecione</th> 
+                                                            <th>Nome</th>																				   
+                                                            <th>E-mail</th>
+                                                    </tr>
+                                            </thead>																													 
+                                            <tbody>
+                                                    <?php $i = 0;
+                                                    foreach ($this->aObjUsuario as $objUsuario) { ?>
+                                                    <tr <?php if (($i % 2) == 0) { ?> 
+                                                            class="alt-row"
+                                                            <?php } ?>
+                                                    >
+                                                            <td style="text-align: center;">
+                                                                <input name="usuarios[]" class="marcar" type="checkbox" value="<?php print $objUsuario->getCoUsuario();?>" 
+                                                                    <?php 
+                                                                    foreach ($this->aObjUsuarios as $usur){
+                                                                            if($objUsuario->getCoUsuario() == $usur->getCoUsuario() ){print 'checked="checked"'; }
+                                                                    }  
+                                                                    ?>
+                                                            >
+                                                            </td> 
+                                                            <td><?php print $objUsuario->getNoUsuario() ; ?></td>
+                                                            <td><?php print $objUsuario->getDsEmail() ; ?></td>
+                                                    </tr>	                        
+                                                            <?php $i++; 
+                                                                    } ?>
+                                            </tbody>
+                                    </table>
+                                            <div id="paginacao" style="margin: auto;">
+                                            </div>
+                                    </div>
+                        <br />
+                        <br />
+                                <!-- <a href="/manutencao/categoria/listar" class="tip-bottom" data-original-title="" title=""> <input class="button_blue" value="Voltar" type="button" /></a>
+                                <input class="button_blue" value="Salvar" type="submit" /> -->
+                    </div>
+
+                <!-- Mensagem informando um erro no formulário. -->
+                <div id="erro" style="width: 500px; display: none; color: red">
+                    <em>Um erro ocorreu no preenchimento de algum campo do formulário.</em>
+                </div>
+
+                    <div class="row-fluid">
+                        <div class="span12" id="salvar">
+                            <div class="form-actions">
+                                <button id="submit" class="btn btn-primary" type="submit">Salvar</button>
+                                <a href="/manutencao/categoria/listar/num_linhas/<?php echo $this->numLinhasSelect; ?>/tipoBusca/<?php echo $this->tipoBusca; ?>/porCategoria/<?php echo $this->porCategoria; ?>/coluna/<?php echo $this->coluna; ?>/paginacao/false/pag_ordem/<?php echo $this->pag_ordem; ?>/ordem/<?php echo $this->ordem; ?>/pg/<?php echo $this->pg; ?>" class="btn" data-original-title="" title="">Voltar</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+               <div class="clear"></div><!-- End .clear -->																														
+        </div> 
+        <!-- End #tab1 --> 	
+        <div id="listaProf" class="tab-content">
+            <!-- Inicio tab 2 -->
+            <!-- TAB LISTA DE PROFISSIONAL -->																													
+        </div> 
+        <!-- End #tab2 -->			
+    </div> <!-- End .content-box-content -->				
+</div> <!-- End BOX GERAL GRID--> 
+<!-- END BOX CRUD --> 
