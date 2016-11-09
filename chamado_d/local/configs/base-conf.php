@@ -9,14 +9,8 @@ $conf = array (
       'adapter' => 'pgsql',
       'connection' => 
       array (
-        // Desenvolvimento (BICUDA)
-        //'dsn' => 'pgsql:host=192.168.22.5 port=5432 dbname=tarefa user=user_tarefa password=senha123'
-
         // Desenvolvimento novo (ABRAMITES)
-        'dsn' => 'pgsql:host=192.168.22.26 port=5432 dbname=tarefa user=user_tarefa password=senha123'
-
-        // Produ��o (JAU)
-//        'dsn' => 'pgsql:host=192.168.22.14 port=11999 dbname=tarefa user=user_tarefa password=senha123'
+        'dsn' => 'pgsql:host=ip do servidor port=5432 dbname=tarefa user=user_tarefa password=senha123'
       ),
     ),
     'default' => 'tarefa',
